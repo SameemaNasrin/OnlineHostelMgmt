@@ -8,6 +8,7 @@ public class OnlineHostelMgmtApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(OnlineHostelMgmtApplication.class, args);
+		//test push
 	}
 
 }
