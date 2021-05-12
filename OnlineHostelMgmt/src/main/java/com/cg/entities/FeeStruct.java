@@ -7,34 +7,34 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="feestructures")
+@Table(name = "fee_structures")
 public class FeeStruct {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer Id;
+	private Integer id;
 	private Student student;
-	private Double TotalFees;
-	private Integer Allotment;
-	
+	private Double totalFees;
+	private Allotment allotment;
+
 	public FeeStruct() {
 		super();
 	}
 
-	public FeeStruct(Integer id, Student student, Double totalFees, Integer allotment) {
+	public FeeStruct(Integer id, Student student, Double totalFees, Allotment allotment) {
 		super();
-		Id = id;
+		this.id = id;
 		this.student = student;
-		TotalFees = totalFees;
-		Allotment = allotment;
+		this.totalFees = totalFees;
+		this.allotment = allotment;
 	}
 
 	public Integer getId() {
-		return Id;
+		return this.id;
 	}
 
 	public void setId(Integer id) {
-		Id = id;
+		this.id = id;
 	}
 
 	public Student getStudent() {
@@ -46,25 +46,25 @@ public class FeeStruct {
 	}
 
 	public Double getTotalFees() {
-		return TotalFees;
+		return totalFees;
 	}
 
 	public void setTotalFees(Double totalFees) {
-		TotalFees = totalFees;
+		this.totalFees = totalFees;
 	}
 
-	public Integer getAllotment() {
-		return Allotment;
+	public Allotment getAllotment() {
+		return allotment;
 	}
 
-	public void setAllotment(Integer allotment) {
-		Allotment = allotment;
+	public void setAllotment(Allotment allotment) {
+		this.allotment = allotment;
 	}
 
 	@Override
 	public String toString() {
-		return  Id + " " + student + " " + TotalFees + " " + Allotment;
+		return "FeeStruct [Id=" + id + ", student=" + student + ", TotalFees=" + totalFees + ", allotment=" + allotment
+				+ "]";
 	}
 
-	
 }

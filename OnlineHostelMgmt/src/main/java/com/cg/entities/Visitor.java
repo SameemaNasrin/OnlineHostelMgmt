@@ -5,161 +5,110 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="visitors")
+@Table(name = "visitors")
 public class Visitor {
-	
-	
-	
-
 
 	@Id
-	@Column(name="Id")
 	@GeneratedValue(strategy = GenerationType.AUTO)
 
-	private Integer Id;
-	
-	@Column(name="visitor_name", length=25)
-	private String visitorname;
-	
-	@Column(name="contact_number", length=25)
-	private String contactnumber;
-	
-	@Column(name="student_id", length=25)
-	private int studentid;
-	
-	@Column(name="student_relation", length=25)
-	private String studentrelation;
-	
-	@Column(name="student_address", length=25)
-	private String studentaddress;
-	
-	@Column(name="reason", length=25)
+	private Integer id;
+
+	@Column(name = "visitor_name", length = 25)
+	private String visitorName;
+
+	@Column(name = "contact_number", length = 25)
+	private String contactNumber;
+
+	private Student student;
+
+	@Column(name = "student_relation", length = 25)
+	private String studentRelation;
+
+	@Column(name = "student_address", length = 25)
+	private String visitorAddress;
+
 	private String reason;
-	
+
 	public Visitor() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
-	public Visitor(Integer id, String visitorname, String contactnumber, int studentid, String studentrelation,
-			String studentaddress, String reason) {
+	public Visitor(Integer id, String visitorName, String contactNumber, Student student, String studentRelation,
+			String visitorAddress, String reason) {
 		super();
-		Id = id;
-		this.visitorname = visitorname;
-		this.contactnumber = contactnumber;
-		this.studentid = studentid;
-		this.studentrelation = studentrelation;
-		this.studentaddress = studentaddress;
+		this.id = id;
+		this.visitorName = visitorName;
+		this.contactNumber = contactNumber;
+		this.student = student;
+		this.studentRelation = studentRelation;
+		this.visitorAddress = visitorAddress;
 		this.reason = reason;
 	}
 
-	/**
-	 * @return the id
-	 */
 	public Integer getId() {
-		return Id;
+		return id;
 	}
 
-	/**
-	 * @param id the id to set
-	 */
 	public void setId(Integer id) {
-		Id = id;
+		this.id = id;
 	}
 
-	/**
-	 * @return the visitorname
-	 */
-	public String getVisitorname() {
-		return visitorname;
+	public String getVisitorName() {
+		return visitorName;
 	}
 
-	/**
-	 * @param visitorname the visitorname to set
-	 */
-	public void setVisitorname(String visitorname) {
-		this.visitorname = visitorname;
+	public void setVisitorName(String visitorName) {
+		this.visitorName = visitorName;
 	}
 
-	/**
-	 * @return the contactnumber
-	 */
-	public String getContactnumber() {
-		return contactnumber;
+	public String getContactNumber() {
+		return contactNumber;
 	}
 
-	/**
-	 * @param contactnumber the contactnumber to set
-	 */
-	public void setContactnumber(String contactnumber) {
-		this.contactnumber = contactnumber;
+	public void setContactNumber(String contactNumber) {
+		this.contactNumber = contactNumber;
 	}
 
-	/**
-	 * @return the studentid
-	 */
-	public int getStudentid() {
-		return studentid;
+	public Student getStudent() {
+		return student;
 	}
 
-	/**
-	 * @param studentid the studentid to set
-	 */
-	public void setStudentid(int studentid) {
-		this.studentid = studentid;
+	public void setStudent(Student student) {
+		this.student = student;
 	}
 
-	/**
-	 * @return the studentrelation
-	 */
-	public String getStudentrelation() {
-		return studentrelation;
+	public String getStudentRelation() {
+		return studentRelation;
 	}
 
-	/**
-	 * @param studentrelation the studentrelation to set
-	 */
-	public void setStudentrelation(String studentrelation) {
-		this.studentrelation = studentrelation;
+	public void setStudentRelation(String studentRelation) {
+		this.studentRelation = studentRelation;
 	}
 
-	/**
-	 * @return the studentaddress
-	 */
-	public String getStudentaddress() {
-		return studentaddress;
+	public String getVisitorAddress() {
+		return visitorAddress;
 	}
 
-	/**
-	 * @param studentaddress the studentaddress to set
-	 */
-	public void setStudentaddress(String studentaddress) {
-		this.studentaddress = studentaddress;
+	public void setVisitorAddress(String visitorAddress) {
+		this.visitorAddress = visitorAddress;
 	}
 
-	/**
-	 * @return the reason
-	 */
 	public String getReason() {
 		return reason;
 	}
 
-	/**
-	 * @param reason the reason to set
-	 */
 	public void setReason(String reason) {
 		this.reason = reason;
 	}
-	
 
 	@Override
 	public String toString() {
-		return "Visitors [Id=" + Id + ", visitorname=" + visitorname + ", contactnumber=" + contactnumber
-				+ ", studentid=" + studentid + ", studentrelation=" + studentrelation + ", studentaddress="
-				+ studentaddress + ", reason=" + reason + "]";
+		return "Visitor [id=" + id + ", visitorName=" + visitorName + ", contactNumber=" + contactNumber + ", student="
+				+ student + ", studentRelation=" + studentRelation + ", visitorAddress=" + visitorAddress + ", reason="
+				+ reason + "]";
 	}
+
 }

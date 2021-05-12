@@ -11,35 +11,49 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class Hostel {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO, generator = "seq")
-	@SequenceGenerator(name = "seq", sequenceName = "hostel_seq", allocationSize = 1)
-	private Long id;
-	
+	@GeneratedValue(strategy = GenerationType.AUTO)
+
+	private Integer id;
+
 	private String name;
 	private String contact;
 	private String type;
 	private String address;
 	private Double fee;
-	
-	private Warden warden;
-	
-	@OneToMany(mappedBy = "")
-	@JsonIgnore
-	private Set<Room> rooms;
-	
-	
-	//Getters and Setters
 
-	public Long getId() {
-		return id;
+	private Warden warden;
+
+	private Set<Room> rooms;
+
+	public Hostel() {
+		super();
+
 	}
 
-	public void setId(Long id) {
+	public Hostel(Integer id, String name, String contact, String type, String address, Double fee, Warden warden,
+			Set<Room> rooms) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.contact = contact;
+		this.type = type;
+		this.address = address;
+		this.fee = fee;
+		this.warden = warden;
+		this.rooms = rooms;
+	}
+	// Getters and Setters
+
+	public Integer getId() {
+		return this.id;
+	}
+
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
 	public String getName() {
-		return name;
+		return this.name;
 	}
 
 	public void setName(String name) {
@@ -47,7 +61,7 @@ public class Hostel {
 	}
 
 	public String getContact() {
-		return contact;
+		return this.contact;
 	}
 
 	public void setContact(String contact) {
@@ -55,7 +69,7 @@ public class Hostel {
 	}
 
 	public String getType() {
-		return type;
+		return this.type;
 	}
 
 	public void setType(String type) {
@@ -63,7 +77,7 @@ public class Hostel {
 	}
 
 	public String getAddress() {
-		return address;
+		return this.address;
 	}
 
 	public void setAddress(String address) {
@@ -71,7 +85,7 @@ public class Hostel {
 	}
 
 	public Double getFee() {
-		return fee;
+		return this.fee;
 	}
 
 	public void setFee(Double fee) {
@@ -79,7 +93,7 @@ public class Hostel {
 	}
 
 	public Warden getWarden() {
-		return warden;
+		return this.warden;
 	}
 
 	public void setWarden(Warden warden) {
@@ -87,36 +101,16 @@ public class Hostel {
 	}
 
 	public Set<Room> getRooms() {
-		return rooms;
+		return this.rooms;
 	}
 
 	public void setRooms(Set<Room> rooms) {
 		this.rooms = rooms;
 	}
 
-	
-	//Constructors
-	public Hostel() {
-		super();
-	
-	}
-
-	public Hostel(Long id, String name, String contact, String type, String address, Double fee, Warden warden, Set<Room> rooms) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.contact = contact;
-		this.type = type;
-		this.address = address;
-		this.fee = fee;
-		this.warden = warden;
-		this.rooms = rooms;
-	}
-	
-	
 	@Override
 	public String toString() {
 		return id + " " + name + " " + contact + " " + type + " " + address + " " + fee;
 	}
-	
+
 }
