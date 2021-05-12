@@ -13,7 +13,7 @@ public class FeeStruct {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer Id;
-	private Integer studentId;
+	private Student student;
 	private Double TotalFees;
 	private Integer Allotment;
 	
@@ -21,10 +21,10 @@ public class FeeStruct {
 		super();
 	}
 
-	public FeeStruct(Integer id, Integer studentId, Double totalFees, Integer allotment) {
+	public FeeStruct(Integer id, Student student, Double totalFees, Integer allotment) {
 		super();
 		Id = id;
-		this.studentId = studentId;
+		this.student = student;
 		TotalFees = totalFees;
 		Allotment = allotment;
 	}
@@ -37,15 +37,15 @@ public class FeeStruct {
 		Id = id;
 	}
 
-	public Integer getStudentId() {
-		return studentId;
+	public Student getStudent() {
+		return student;
 	}
 
-	public void setStudentId(Integer studentId) {
-		this.studentId = studentId;
+	public void setStudent(Student student) {
+		this.student = student;
 	}
 
-	public double getTotalFees() {
+	public Double getTotalFees() {
 		return TotalFees;
 	}
 
@@ -63,7 +63,8 @@ public class FeeStruct {
 
 	@Override
 	public String toString() {
-		return Id + " " + studentId + " " + TotalFees + " "+ Allotment;
+		return  Id + " " + student + " " + TotalFees + " " + Allotment;
 	}
 
+	
 }

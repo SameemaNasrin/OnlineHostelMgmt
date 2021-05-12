@@ -15,18 +15,18 @@ public class Allotment {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer Id;
 	
-	private Integer hostelId;
-	private Integer roomId;
-	private Integer studentId;
+	private Hostel hostel;
+	private Room room;
+	private Student student;
 	public Allotment() {
 		super();
 	}
-	public Allotment(Integer id, Integer hostelId, Integer roomId, Integer studentId) {
+	public Allotment(Integer id, Hostel hostel, Room room, Student student) {
 		super();
 		Id = id;
-		this.hostelId = hostelId;
-		this.roomId = roomId;
-		this.studentId = studentId;
+		this.hostel = hostel;
+		this.room = room;
+		this.student = student;
 	}
 	public Integer getId() {
 		return Id;
@@ -34,27 +34,27 @@ public class Allotment {
 	public void setId(Integer id) {
 		Id = id;
 	}
-	public Integer getHostelId() {
-		return hostelId;
+	public Hostel getHostel() {
+		return hostel;
 	}
-	public void setHostelId(Integer hostelId) {
-		this.hostelId = hostelId;
+	public void setHostel(Hostel hostel) {
+		this.hostel = hostel;
 	}
-	public Integer getRoomId() {
-		return roomId;
+	public Room getRoom() {
+		return room;
 	}
-	public void setRoomId(Integer roomId) {
-		this.roomId = roomId;
+	public void setRoom(Room room) {
+		this.room = room;
 	}
-	public Integer getStudentId() {
-		return studentId;
+	public Student getStudent() {
+		return student;
 	}
-	public void setStudentId(Integer studentId) {
-		this.studentId = studentId;
+	public void setStudent(Student student) {
+		this.student = student;
 	}
 	@Override
 	public String toString() {
-		return  Id + " " + hostelId + " " + roomId + " " + studentId;
+		return Id + " " + hostel + " " + room + " " + student;
 	}
 	
 }
