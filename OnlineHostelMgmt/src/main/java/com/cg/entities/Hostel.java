@@ -18,7 +18,6 @@ public class Hostel {
 	private String address;
 	private Double fee;
 	
-	
 	private Warden warden;
 	
 	@OneToMany(mappedBy = "hostel")

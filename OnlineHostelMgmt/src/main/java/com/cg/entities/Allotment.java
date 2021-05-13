@@ -15,17 +15,18 @@ public class Allotment {
 	private Integer id;
 	private Room room;
 	private Student student;
+	private Hostel hostel;
 
 	public Allotment() {
 		super();
 	}
-
-	public Allotment(Integer id, Room room, Student student) {
+	
+	public Allotment(Integer id, Room room, Student student, Hostel hostel) {
 		super();
 		this.id = id;
-
 		this.room = room;
 		this.student = student;
+		this.hostel = hostel;
 	}
 
 	public Integer getId() {
@@ -50,6 +51,15 @@ public class Allotment {
 
 	public void setStudent(Student student) {
 		this.student = student;
+	}
+	
+
+	public Hostel getHostel() {
+		return hostel;
+	}
+
+	public void setHostel(Hostel hostel) {
+		this.hostel = hostel;
 	}
 
 	@Override
