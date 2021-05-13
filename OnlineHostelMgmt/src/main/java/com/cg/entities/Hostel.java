@@ -1,9 +1,7 @@
 package com.cg.entities;
 
 import java.util.Set;
-
 import javax.persistence.*;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -12,48 +10,34 @@ public class Hostel {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-
-	private Integer id;
-
+	private Long id;
+	
 	private String name;
 	private String contact;
 	private String type;
 	private String address;
 	private Double fee;
-
+	
+	
 	private Warden warden;
-
+	
+	@OneToMany(mappedBy = "hostel")
+	@JsonIgnore
 	private Set<Room> rooms;
+	
+	
+	//Getters and Setters
 
-	public Hostel() {
-		super();
-
+	public Long getId() {
+		return id;
 	}
 
-	public Hostel(Integer id, String name, String contact, String type, String address, Double fee, Warden warden,
-			Set<Room> rooms) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.contact = contact;
-		this.type = type;
-		this.address = address;
-		this.fee = fee;
-		this.warden = warden;
-		this.rooms = rooms;
-	}
-	// Getters and Setters
-
-	public Integer getId() {
-		return this.id;
-	}
-
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
 	public String getName() {
-		return this.name;
+		return name;
 	}
 
 	public void setName(String name) {
@@ -61,7 +45,7 @@ public class Hostel {
 	}
 
 	public String getContact() {
-		return this.contact;
+		return contact;
 	}
 
 	public void setContact(String contact) {
@@ -69,7 +53,7 @@ public class Hostel {
 	}
 
 	public String getType() {
-		return this.type;
+		return type;
 	}
 
 	public void setType(String type) {
@@ -77,7 +61,7 @@ public class Hostel {
 	}
 
 	public String getAddress() {
-		return this.address;
+		return address;
 	}
 
 	public void setAddress(String address) {
@@ -85,7 +69,7 @@ public class Hostel {
 	}
 
 	public Double getFee() {
-		return this.fee;
+		return fee;
 	}
 
 	public void setFee(Double fee) {
@@ -93,7 +77,7 @@ public class Hostel {
 	}
 
 	public Warden getWarden() {
-		return this.warden;
+		return warden;
 	}
 
 	public void setWarden(Warden warden) {
@@ -101,16 +85,36 @@ public class Hostel {
 	}
 
 	public Set<Room> getRooms() {
-		return this.rooms;
+		return rooms;
 	}
 
 	public void setRooms(Set<Room> rooms) {
 		this.rooms = rooms;
 	}
 
+	
+	//Constructors
+	public Hostel() {
+		super();
+	
+	}
+
+	public Hostel(Long id, String name, String contact, String type, String address, Double fee, Warden warden, Set<Room> rooms) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.contact = contact;
+		this.type = type;
+		this.address = address;
+		this.fee = fee;
+		this.warden = warden;
+		this.rooms = rooms;
+	}
+	
+	
 	@Override
 	public String toString() {
 		return id + " " + name + " " + contact + " " + type + " " + address + " " + fee;
 	}
-
+	
 }
