@@ -15,21 +15,20 @@ public class Hostel {
 	@Column(length = 25)
 	private String name;
 
-	@Column(length = 25)
+	@Column(length = 10)
 	private String contact;
 
-	@Column(length = 25)
+	@Column(length = 10)
 	private String type;
 	
-	@Column(length = 25)
+	@Column(length = 40)
 	private String address;
 	
 	private Double fee;
 	
 	private Warden warden;
 	
-	@OneToMany(mappedBy = "hostel")
-	@JsonIgnore
+
 	private Set<Room> rooms;
 	
 	

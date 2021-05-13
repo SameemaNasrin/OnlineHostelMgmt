@@ -15,22 +15,23 @@ public class Warden {
 	private Integer id;
 	private String email;
 	private String name;
-	private Integer hostelId;
 	private Hostel hostel;
 
+	//constructors
 	public Warden() {
 		super();
 	}
 
-	public Warden(Integer id, String email, String name, Integer hostelId, Hostel hostel) {
+
+	public Warden(Integer id, String email, String name, Hostel hostel) {
 		super();
 		this.id = id;
 		this.email = email;
 		this.name = name;
-		this.hostelId = hostelId;
 		this.hostel = hostel;
 	}
 
+	//getters and setters
 	public Integer getId() {
 		return id;
 	}
@@ -55,13 +56,7 @@ public class Warden {
 		this.name = name;
 	}
 
-	public Integer getHostelId() {
-		return hostelId;
-	}
-
-	public void setHostelId(Integer hostelId) {
-		this.hostelId = hostelId;
-	}
+	
 
 	public Hostel getHostel() {
 		return hostel;
@@ -73,8 +68,7 @@ public class Warden {
 
 	@Override
 	public String toString() {
-		return "Warden [id=" + id + ", email=" + email + ", name=" + name + ", hostelId=" + hostelId + ", hostel="
-				+ hostel + "]";
+		return id + " " + email + " " + name;
 	}
 
 }
