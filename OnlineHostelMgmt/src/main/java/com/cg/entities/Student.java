@@ -2,6 +2,7 @@ package com.cg.entities;
 
 import java.time.LocalDate;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,6 +14,7 @@ import javax.persistence.Table;
 public class Student {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name="student_id")
 	private Integer id;
 	private String name;
 	private String email;
@@ -20,26 +22,14 @@ public class Student {
 	private LocalDate dob;
 	private String mobile;
 	private String address;
-	private Room room;
+
 	private String guardianName;
 
 	public Student() {
 		super();
 	}
 
-	public Student(Integer id, String name, String email, String gender, LocalDate dob, String mobile, String address,
-			Room room, String guardianName) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.email = email;
-		this.gender = gender;
-		this.dob = dob;
-		this.mobile = mobile;
-		this.address = address;
-		this.room = room;
-		this.guardianName = guardianName;
-	}
+	
 
 	public Integer getId() {
 		return id;
@@ -97,13 +87,8 @@ public class Student {
 		this.address = address;
 	}
 
-	public Room getRoom() {
-		return room;
-	}
-
-	public void setRoom(Room room) {
-		this.room = room;
-	}
+	
+	
 
 	public String getGuardianName() {
 		return guardianName;

@@ -10,6 +10,7 @@ public class Hostel {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name="hostel_id")
 	private Long id;
 	
 	@Column(length = 25)
