@@ -12,10 +12,18 @@ public class Hostel {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
+	@Column(length = 25)
 	private String name;
+
+	@Column(length = 25)
 	private String contact;
+
+	@Column(length = 25)
 	private String type;
+	
+	@Column(length = 25)
 	private String address;
+	
 	private Double fee;
 	
 	private Warden warden;
