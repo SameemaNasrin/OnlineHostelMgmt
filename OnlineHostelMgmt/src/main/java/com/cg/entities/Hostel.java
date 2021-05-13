@@ -2,7 +2,6 @@ package com.cg.entities;
 
 import java.util.Set;
 import javax.persistence.*;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "hostel")
@@ -13,23 +12,22 @@ public class Hostel {
 	@Column(name="hostel_id")
 	private Long id;
 	
-	@Column(length = 25)
+	@Column(name="hostel_name",length = 25)
 	private String name;
 
-	@Column(length = 10)
+	@Column(name="hostel_contact",length = 10)
 	private String contact;
 
-	@Column(length = 10)
+	@Column(name="hostel_type",length = 10)
 	private String type;
 	
-	@Column(length = 40)
+	@Column(name="hostel_address",length = 40)
 	private String address;
 	
+	@Column(name="hostel_fee")
 	private Double fee;
-	
-	private Warden warden;
-	
 
+	@OneToMany(mappedBy = "hostel")
 	private Set<Room> rooms;
 	
 	
@@ -83,14 +81,6 @@ public class Hostel {
 		this.fee = fee;
 	}
 
-	public Warden getWarden() {
-		return warden;
-	}
-
-	public void setWarden(Warden warden) {
-		this.warden = warden;
-	}
-
 	public Set<Room> getRooms() {
 		return rooms;
 	}
@@ -106,7 +96,7 @@ public class Hostel {
 	
 	}
 
-	public Hostel(Long id, String name, String contact, String type, String address, Double fee, Warden warden, Set<Room> rooms) {
+	public Hostel(Long id, String name, String contact, String type, String address, Double fee, Set<Room> rooms) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -114,7 +104,6 @@ public class Hostel {
 		this.type = type;
 		this.address = address;
 		this.fee = fee;
-		this.warden = warden;
 		this.rooms = rooms;
 	}
 	

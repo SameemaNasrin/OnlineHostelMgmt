@@ -16,13 +16,26 @@ public class Student {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="student_id")
 	private Integer id;
+	
+	@Column(name="student_name")
 	private String name;
+	
+	@Column(name="student_email")
 	private String email;
+	
+	@Column(name="student_gender")
 	private String gender;
+	
+	@Column(name="student_dob")
 	private LocalDate dob;
+	
+	@Column(name="student_mobile_no")
 	private String mobile;
+	
+	@Column(name="student_address")
 	private String address;
-
+	
+	@Column(name="guardian_name")
 	private String guardianName;
 
 	public Student() {
@@ -100,8 +113,8 @@ public class Student {
 
 	@Override
 	public String toString() {
-		return "Student [id=" + id + ", name=" + name + ", email=" + email + ", gender=" + gender + ", dob=" + dob
-				+ ", mobile=" + mobile + ", address=" + address + ", guardianName=" + guardianName + "]";
+		return id + " " + name + " " + email + " " + gender + " " + dob
+				+ " " + mobile + " " + address + " " + guardianName;
 	}
 
 }

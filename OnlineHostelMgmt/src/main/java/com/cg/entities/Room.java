@@ -13,12 +13,13 @@ public class Room {
 	
 	@Column(name="room_no", length=25)
 	private String roomNo;
-	
+	@ManyToOne
+	@JoinColumn(name="hostel_id", referencedColumnName="hostel_id")
 	private Hostel hostel;
 	
 	@Column(name="room_desc", length=40)
 	private String roomDesc;
-	
+	@Column(name="floor")
 	private Integer floor;
 
 	//constructors

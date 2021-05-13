@@ -1,9 +1,12 @@
 package com.cg.entities;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -12,21 +15,19 @@ public class Allotment {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name="allotment_id")
 	private Integer id;
+	
+	@ManyToOne
+	@JoinColumn(name="room_id",referencedColumnName="room_id")
 	private Room room;
+	
+	@ManyToOne
+	@JoinColumn(name="student_id",referencedColumnName="student_id")
 	private Student student;
-	private Hostel hostel;
 
 	public Allotment() {
 		super();
-	}
-	
-	public Allotment(Integer id, Room room, Student student, Hostel hostel) {
-		super();
-		this.id = id;
-		this.room = room;
-		this.student = student;
-		this.hostel = hostel;
 	}
 
 	public Integer getId() {
@@ -53,18 +54,4 @@ public class Allotment {
 		this.student = student;
 	}
 	
-
-	public Hostel getHostel() {
-		return hostel;
-	}
-
-	public void setHostel(Hostel hostel) {
-		this.hostel = hostel;
-	}
-
-	@Override
-	public String toString() {
-		return "Allotment [Id=" + id + ", room=" + room + ", student=" + student + "]";
-	}
-
 }

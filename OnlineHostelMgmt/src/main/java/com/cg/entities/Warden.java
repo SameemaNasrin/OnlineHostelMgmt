@@ -17,12 +17,17 @@ public class Warden {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="Warden_id")
 	private Integer id;
+	
+	@Column(name="warden_email")
 	private String email;
+	
+	@Column(name="warden_name")
 	private String name;
+	
 	@ManyToOne
-	@JoinColumn(name="hostel_id",referencedColumnName =)
+	@JoinColumn(name="hostel_id",referencedColumnName = "hostel_id")
 	private Hostel hostel;
-
+	
 	//constructors
 	public Warden() {
 		super();

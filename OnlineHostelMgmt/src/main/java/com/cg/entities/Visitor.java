@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -21,7 +23,8 @@ public class Visitor {
 
 	@Column(name = "contact_number", length = 25)
 	private String contactNumber;
-
+	@ManyToOne
+	@JoinColumn(name="student_id",referencedColumnName="student_id")
 	private Student student;
 
 	@Column(name = "student_relation", length = 25)
@@ -29,7 +32,7 @@ public class Visitor {
 
 	@Column(name = "student_address", length = 25)
 	private String visitorAddress;
-
+	@Column(name="reason")
 	private String reason;
 
 	public Visitor() {
@@ -106,9 +109,9 @@ public class Visitor {
 
 	@Override
 	public String toString() {
-		return "Visitor [id=" + id + ", visitorName=" + visitorName + ", contactNumber=" + contactNumber + ", student="
-				+ student + ", studentRelation=" + studentRelation + ", visitorAddress=" + visitorAddress + ", reason="
-				+ reason + "]";
+		return " " + id + " " + visitorName + " " + contactNumber + 
+				" "+ studentRelation + "" + visitorAddress + " "
+				+ reason;
 	}
 
 }
