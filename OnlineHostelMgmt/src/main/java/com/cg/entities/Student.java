@@ -14,35 +14,33 @@ import javax.persistence.Table;
 public class Student {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name="student_id")
+	@Column(name = "student_id")
 	private Integer id;
-	
-	@Column(name="student_name")
+
+	@Column(name = "student_name")
 	private String name;
-	
-	@Column(name="student_email")
+
+	@Column(name = "student_email")
 	private String email;
-	
-	@Column(name="student_gender")
+
+	@Column(name = "student_gender")
 	private String gender;
-	
-	@Column(name="student_dob")
+
+	@Column(name = "student_dob")
 	private LocalDate dob;
-	
-	@Column(name="student_mobile_no")
+
+	@Column(name = "student_mobile_no")
 	private String mobile;
-	
-	@Column(name="student_address")
+
+	@Column(name = "student_address")
 	private String address;
-	
-	@Column(name="guardian_name")
+
+	@Column(name = "guardian_name")
 	private String guardianName;
 
 	public Student() {
 		super();
 	}
-
-	
 
 	public Integer getId() {
 		return id;
@@ -100,9 +98,6 @@ public class Student {
 		this.address = address;
 	}
 
-	
-	
-
 	public String getGuardianName() {
 		return guardianName;
 	}
@@ -113,8 +108,8 @@ public class Student {
 
 	@Override
 	public String toString() {
-		return id + " " + name + " " + email + " " + gender + " " + dob
-				+ " " + mobile + " " + address + " " + guardianName;
+		return id + " " + name + " " + email + " " + gender + " " + dob + " " + mobile + " " + address + " "
+				+ guardianName;
 	}
 
 }

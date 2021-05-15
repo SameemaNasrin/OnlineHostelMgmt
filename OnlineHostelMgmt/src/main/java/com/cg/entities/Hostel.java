@@ -9,29 +9,42 @@ public class Hostel {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name="hostel_id")
+	@Column(name = "hostel_id")
 	private Long id;
-	
-	@Column(name="hostel_name",length = 25)
+
+	@Column(name = "hostel_name", length = 25)
 	private String name;
 
-	@Column(name="hostel_contact",length = 10)
+	@Column(name = "hostel_contact", length = 10)
 	private String contact;
 
-	@Column(name="hostel_type",length = 10)
+	@Column(name = "hostel_type", length = 10)
 	private String type;
-	
-	@Column(name="hostel_address",length = 40)
+
+	@Column(name = "hostel_address", length = 40)
 	private String address;
-	
-	@Column(name="hostel_fee")
+
+	@Column(name = "hostel_fee")
 	private Double fee;
 
 	@OneToMany(mappedBy = "hostel")
 	private Set<Room> rooms;
-	
-	
-	//Getters and Setters
+
+	public Hostel() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public Hostel(Long id, String name, String contact, String type, String address, Double fee, Set<Room> rooms) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.contact = contact;
+		this.type = type;
+		this.address = address;
+		this.fee = fee;
+		this.rooms = rooms;
+	}
 
 	public Long getId() {
 		return id;
@@ -89,28 +102,10 @@ public class Hostel {
 		this.rooms = rooms;
 	}
 
-	
-	//Constructors
-	public Hostel() {
-		super();
-	
-	}
-
-	public Hostel(Long id, String name, String contact, String type, String address, Double fee, Set<Room> rooms) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.contact = contact;
-		this.type = type;
-		this.address = address;
-		this.fee = fee;
-		this.rooms = rooms;
-	}
-	
-	
 	@Override
 	public String toString() {
-		return id + " " + name + " " + contact + " " + type + " " + address + " " + fee;
+		return "Hostel [id=" + id + ", name=" + name + ", contact=" + contact + ", type=" + type + ", address="
+				+ address + ", fee=" + fee + "]";
 	}
-	
+
 }
