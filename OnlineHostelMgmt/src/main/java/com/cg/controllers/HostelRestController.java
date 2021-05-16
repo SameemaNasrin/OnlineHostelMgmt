@@ -2,6 +2,8 @@ package com.cg.controllers;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +16,7 @@ import com.cg.dto.HostelDto;
 import com.cg.dto.SuccessMessage;
 import com.cg.entities.Hostel;
 import com.cg.exceptions.HostelNotFoundException;
+import com.cg.exceptions.ValidateHostelException;
 import com.cg.services.IHostelService;
 
 @RestController
@@ -34,7 +37,11 @@ public class HostelRestController {
 
 	//http://localhost:8082/addhostel 
 	@PostMapping("addhostel")
-	public SuccessMessage addHostel(@RequestBody HostelDto hostelDto, BindingResult br){		
+	public SuccessMessage addHostel(@Valid @RequestBody HostelDto hostelDto, BindingResult br){	
+		
+//		if (br.hasErrors())
+//			throw new ValidateHostelException(br.getFieldErrors());
+//		
 		Long hostelId = hostelService.addHostel(hostelDto);
 		return new SuccessMessage("Your generated ID is " + hostelId);
 		

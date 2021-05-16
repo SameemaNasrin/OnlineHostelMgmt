@@ -41,7 +41,7 @@ public class HostelServiceImpl implements IHostelService{
 	public Hostel viewHostelById(Long hid) throws HostelNotFoundException {
 		Optional<Hostel> optHostel = hostelDao.findById(hid);
 		if (!optHostel.isPresent()) {
-			throw new HostelNotFoundException("No hostel found for id" + hid);
+			throw new HostelNotFoundException("No hostel found for id " + hid);
 		}
 		return optHostel.get();
 		

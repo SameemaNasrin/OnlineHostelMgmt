@@ -1,13 +1,28 @@
 package com.cg.dto;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
+
 public class HostelDto {
 
 	
 	private Long id;
+	
+	@NotBlank(message = "Hostel name must not be blank")
 	private String name;
+	
+	@NotBlank(message = "Contact number must not be blank")
 	private String contact;
+	
+	@NotBlank(message = "type cannot be blank")
+	@Pattern(regexp = "(boys|girls)", message = "Type must be boys or girls")
 	private String type;
+	
+	@NotBlank(message = "Address must not be blank")
 	private String address;
+	
+	@Min(value = 0, message = "Fee cannot be negative")
 	private Double fee;
 	
 	
