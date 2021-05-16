@@ -37,11 +37,11 @@ public class HostelRestController {
 
 	//http://localhost:8082/addhostel 
 	@PostMapping("addhostel")
-	public SuccessMessage addHostel(@Valid @RequestBody HostelDto hostelDto, BindingResult br){	
+	public SuccessMessage addHostel(@Valid @RequestBody HostelDto hostelDto, BindingResult br) throws ValidateHostelException{	
 		
-//		if (br.hasErrors())
-//			throw new ValidateHostelException(br.getFieldErrors());
-//		
+		if (br.hasErrors())
+			throw new ValidateHostelException(br.getFieldErrors());
+		
 		Long hostelId = hostelService.addHostel(hostelDto);
 		return new SuccessMessage("Your generated ID is " + hostelId);
 		

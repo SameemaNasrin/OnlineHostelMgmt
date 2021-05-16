@@ -3,6 +3,7 @@ package com.cg.dto;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 public class HostelDto {
 
@@ -13,6 +14,7 @@ public class HostelDto {
 	private String name;
 	
 	@NotBlank(message = "Contact number must not be blank")
+	@Size(min=10, max=10, message="Contact no should be of 10 digits")
 	private String contact;
 	
 	@NotBlank(message = "type cannot be blank")

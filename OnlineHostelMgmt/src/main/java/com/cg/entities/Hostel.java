@@ -32,7 +32,6 @@ public class Hostel {
 
 	public Hostel() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public Hostel(Long id, String name, String contact, String type, String address, Double fee, Set<Room> rooms) {
