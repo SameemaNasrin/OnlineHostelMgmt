@@ -29,6 +29,9 @@ public class Hostel {
 
 	@OneToMany(mappedBy = "hostel")
 	private Set<Room> rooms;
+	
+	@Column(name="total_floors")
+	private final Integer totalFloors=5;
 
 	public Hostel() {
 		super();
@@ -101,10 +104,9 @@ public class Hostel {
 		this.rooms = rooms;
 	}
 
-	@Override
-	public String toString() {
-		return "Hostel [id=" + id + ", name=" + name + ", contact=" + contact + ", type=" + type + ", address="
-				+ address + ", fee=" + fee + "]";
+	public Integer getTotalFloors() {
+		return totalFloors;
 	}
+	
 
-}
+	}
