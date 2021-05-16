@@ -1,5 +1,6 @@
 package com.cg.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -16,27 +17,29 @@ import com.cg.exceptions.ValidateHostelException;
 @RestControllerAdvice
 public class ControllerAdvice {
 
-	//HostelNotFoundException
+	// HostelNotFoundException
 	@ExceptionHandler(HostelNotFoundException.class)
 	@ResponseStatus(code = HttpStatus.NOT_FOUND)
 	public ErrorMessage handleExceptionHostelNotFound(HostelNotFoundException ex) {
-		return new ErrorMessage(HttpStatus.NOT_FOUND.toString(), ex.getMessage());
+		List<String> list = new ArrayList<>();
+		list.add(ex.getMessage());
+		return new ErrorMessage(HttpStatus.NOT_FOUND.toString(), list);
 	}
-	
-	
-	//HttpMessageNotReadableException
+
+	// HttpMessageNotReadableException
 	@ExceptionHandler(HttpMessageNotReadableException.class)
-    @ResponseStatus(code = HttpStatus.BAD_REQUEST)
-    public ErrorMessage handleException(HttpMessageNotReadableException ex) {
-		 return new ErrorMessage(HttpStatus.BAD_REQUEST.toString(), "expected a value");
-    }
-	
-	//gives validation messages
+	@ResponseStatus(code = HttpStatus.BAD_REQUEST)
+	public ErrorMessage handleException(HttpMessageNotReadableException ex) {
+		List<String> list = new ArrayList<>();
+		list.add("expected a value");
+		return new ErrorMessage(HttpStatus.BAD_REQUEST.toString(), list);
+	}
+
+	// gives validation messages
 	@ExceptionHandler(ValidateHostelException.class)
 	@ResponseStatus(code = HttpStatus.BAD_REQUEST)
 	public ErrorMessage handleException(ValidateHostelException ex) {
-		List<String> errors = ex.getErrors().stream()
-                .map(err->err.getDefaultMessage()).collect(Collectors.toList());
+		List<String> errors = ex.getErrors().stream().map(err -> err.getDefaultMessage()).collect(Collectors.toList());
 		return new ErrorMessage(HttpStatus.BAD_REQUEST.toString(), errors);
 	}
 }

@@ -24,7 +24,7 @@ public class HostelRestController {
 	
 	@Autowired
 	IHostelService hostelService;
-	
+
 	@GetMapping("viewallhostel")
 	public List<Hostel> viewAllHostel() throws HostelNotFoundException {
 		return hostelService.viewAllHostel();
@@ -39,9 +39,9 @@ public class HostelRestController {
 	@PostMapping("addhostel")
 	public SuccessMessage addHostel(@Valid @RequestBody HostelDto hostelDto, BindingResult br) throws ValidateHostelException{	
 		
-		if (br.hasErrors())
+		if (br.hasErrors()) {
 			throw new ValidateHostelException(br.getFieldErrors());
-		
+		}
 		Long hostelId = hostelService.addHostel(hostelDto);
 		return new SuccessMessage("Your generated ID is " + hostelId);
 		

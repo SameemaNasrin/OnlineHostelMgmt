@@ -7,6 +7,7 @@ public class StudentDTO {
 	private String email;
 	private String gender;
 	private LocalDate dob;
+	
 	private String mobile;
 	private String address;
 	private String guardianName;
