@@ -15,7 +15,7 @@ public class Warden {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name="Warden_id")
+	@Column(name="warden_id")
 	private Integer id;
 	
 	@Column(name="warden_email")
