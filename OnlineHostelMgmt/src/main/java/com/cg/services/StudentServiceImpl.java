@@ -1,5 +1,6 @@
 package com.cg.services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.cg.dao.IStudentDao;
 import com.cg.dto.StudentDTO;
 import com.cg.entities.Student;
+import com.cg.exceptions.StudentNotFoundException;
 
 @Service
 public class StudentServiceImpl implements IStudentService {
@@ -28,32 +30,42 @@ public class StudentServiceImpl implements IStudentService {
 	}
 
 	@Override
-	public Boolean removeStudentById(Integer studentId) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Student> getStudents() throws StudentNotFoundException {
+		List<Student> studentList = new ArrayList<>();
+		studentList = studentDao.findAll();
+		if(studentList.isEmpty())
+			throw new StudentNotFoundException("No student found");
+		return studentList;
 	}
 
 	@Override
-	public Student getStudentById(Integer studentId) {
-		// TODO Auto-generated method stub
-		return null;
+	public Integer removeStudentById(Integer studentId) throws StudentNotFoundException {
+		Student student = studentDao.findById(studentId).orElseThrow(()->new StudentNotFoundException("No student found with id " + studentId));
+		studentDao.delete(student);
+		return student.getId();
 	}
 
 	@Override
-	public List<Student> getStudentByName(String name) {
-		// TODO Auto-generated method stub
-		return null;
+	public Student getStudentById(Integer studentId) throws StudentNotFoundException {
+		return studentDao.findById(studentId).orElseThrow(()->new StudentNotFoundException("No student found with id " + studentId));
 	}
 
 	@Override
-	public Student getStudentByMobileNumber(String mobileNumber) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Student> getStudentByName(String name) throws StudentNotFoundException {
+		List<Student> students = studentDao.findByName(name);
+		if(students.isEmpty())
+			throw new StudentNotFoundException("Student not found with name " + name);
+		return students;
 	}
 
 	@Override
-	public List<Student> getStudents() {
-		return studentDao.findAll();
+	public Student getStudentByMobileNumber(String mobileNumber) throws StudentNotFoundException {
+		Student student = studentDao.findByMobile(mobileNumber);
+		if(student == null)
+			throw new StudentNotFoundException("Student not found with mobile number " + mobileNumber);
+		return student;
 	}
+
+	
 
 }
