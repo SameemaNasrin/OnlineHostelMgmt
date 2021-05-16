@@ -48,7 +48,7 @@ public class WardenServiceImpl implements IWardenService {
 	}
 
 	@Override
-	public Warden viewWardenByHId(Integer hid) {
+	public Warden viewWardenByHId(Long hid) {
 		// TODO Auto-generated method stub
 		return null;
 	}
