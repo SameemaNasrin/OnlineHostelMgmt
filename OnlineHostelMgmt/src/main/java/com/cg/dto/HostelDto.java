@@ -7,32 +7,29 @@ import javax.validation.constraints.Size;
 
 public class HostelDto {
 
-	
 	private Long id;
-	
+
 	@NotBlank(message = "Hostel name must not be blank")
 	private String name;
-	
+
 	@NotBlank(message = "Contact number must not be blank")
-	@Size(min=10, max=10, message="Contact no should be of 10 digits")
+	@Size(min = 10, max = 10, message = "Contact no should be of 10 digits")
 	private String contact;
-	
+
 	@NotBlank(message = "type cannot be blank")
 	@Pattern(regexp = "(boys|girls)", message = "Type must be boys or girls")
 	private String type;
-	
+
 	@NotBlank(message = "Address must not be blank")
 	private String address;
-	
+
 	@Min(value = 0, message = "Fee cannot be negative")
 	private Double fee;
-	
-	
-	
+
 	public HostelDto() {
-		
+
 	}
-	
+
 	public HostelDto(Long id, String name, String contact, String type, String address, Double fee) {
 		super();
 		this.id = id;
@@ -90,8 +87,5 @@ public class HostelDto {
 	public void setFee(Double fee) {
 		this.fee = fee;
 	}
-	
-	
-	
 
 }
