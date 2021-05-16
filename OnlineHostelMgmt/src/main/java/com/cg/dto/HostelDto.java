@@ -1,5 +1,6 @@
 package com.cg.dto;
 
+import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
@@ -25,6 +26,9 @@ public class HostelDto {
 
 	@Min(value = 0, message = "Fee cannot be negative")
 	private Double fee;
+	
+	@Max(value=5,message="Total floors cannot be more than 5")
+	private final Integer totalFloors=5;
 
 	public HostelDto() {
 
@@ -87,5 +91,10 @@ public class HostelDto {
 	public void setFee(Double fee) {
 		this.fee = fee;
 	}
+
+	public Integer getTotalFloors() {
+		return totalFloors;
+	}
+	
 
 }

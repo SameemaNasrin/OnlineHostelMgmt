@@ -2,12 +2,22 @@ package com.cg.dto;
 
 import java.time.LocalDate;
 
+import javax.validation.constraints.*;
+
+import org.hibernate.validator.constraints.UniqueElements;
+
 public class StudentDTO {
+	@NotBlank(message = "Student name cannot be empty")
 	private String name;
+	@NotBlank(message = "Student email cannot be empty")
+	@Email
 	private String email;
+	@NotBlank(message = "Student gender cannot be empty")
+	@Pattern(regexp = "(male|female|other)", message = "Gender should be male/female/other")
 	private String gender;
+	@Past(message = "Student date of birth must be a previous date")
 	private LocalDate dob;
-	
+	@Pattern(regexp = "^[0-9]{10}",message = "Mobile number should be 10 digits")
 	private String mobile;
 	private String address;
 	private String guardianName;
