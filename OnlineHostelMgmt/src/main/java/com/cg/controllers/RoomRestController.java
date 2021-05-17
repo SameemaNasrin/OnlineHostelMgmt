@@ -17,6 +17,7 @@ import com.cg.dto.RoomDTO;
 import com.cg.dto.StudentDTO;
 import com.cg.entities.Room;
 import com.cg.entities.Student;
+import com.cg.exceptions.FloorNotFoundException;
 import com.cg.exceptions.HostelNotFoundException;
 import com.cg.exceptions.RoomNotFoundException;
 import com.cg.services.IRoomService;
@@ -39,6 +40,20 @@ public class RoomRestController {
 		return new ResponseEntity<List<Room>>(roomService.getRoomsByHostelId(hostel_id), HttpStatus.OK);
 	}
 	
+	@GetMapping("/get/{hid}/{flr}")
+	public ResponseEntity<List<Room>> viewRoomsByFloorAndHostelId(@PathVariable("hid")Long hostel_id,@PathVariable("flr")Integer floor) throws HostelNotFoundException, RoomNotFoundException,FloorNotFoundException {
+		return new ResponseEntity<List<Room>>(roomService.getRoomsByFloorAndHostelId(floor,hostel_id), HttpStatus.OK);
+	}
+	
+	@GetMapping("/get/available/{hid}")
+	public ResponseEntity<List<Room>> viewRoomsAvailableByHostelId(@PathVariable("hid")Long hostel_id) throws HostelNotFoundException, RoomNotFoundException {
+		return new ResponseEntity<List<Room>>(roomService.getRoomsAvailableByHostelId(hostel_id), HttpStatus.OK);
+	}
+	
+	@GetMapping("/get")
+	public ResponseEntity<List<Room>> viewRoomsAvailable() throws HostelNotFoundException, RoomNotFoundException {
+		return new ResponseEntity<List<Room>>(roomService.getRoomsAvailable(), HttpStatus.OK);
+	}
 	
 	
 	
