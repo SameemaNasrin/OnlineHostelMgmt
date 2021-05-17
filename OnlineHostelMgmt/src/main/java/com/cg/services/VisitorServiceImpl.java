@@ -3,6 +3,7 @@ package com.cg.services;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -44,22 +45,28 @@ public class VisitorServiceImpl implements IVisitorService {
 	
 
 	@Override
-	public List<Visitor> getVisitor(LocalDate visitDate) throws VisitorNotFoundException {
+	public List<Visitor> getVisitorByVisitDate(LocalDate visitDate) throws VisitorNotFoundException {
 		// TODO Auto-generated method stub
+		List<Visitor> visitorList = new ArrayList<>();
+		visitorList = visitorDao.findByDateOfVisiting(visitDate);
+		if(visitorList.isEmpty())
+			throw new VisitorNotFoundException("visit date not found");
+		return visitorList;
+	}
+
+	@Override
+	public List<Visitor> getVisitorByDateAndHostel(LocalDate visitDate, Long hostel_Id)
+			throws VisitorNotFoundException, HostelNotFoundException {
+		// TODO Auto-generated method stub
+		
 		
 		return null;
 	}
 
 	@Override
-	public List<Visitor> getVisitor(LocalDate visitDate, Long hostel_Id)
-			throws VisitorNotFoundException, HostelNotFoundException {
+	public List<Visitor> getVisitorByStudent(Integer student_Id) throws VisitorNotFoundException, StudentNotFoundException {
 		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<Visitor> getVisitor(Integer student_Id) throws VisitorNotFoundException, StudentNotFoundException {
-		// TODO Auto-generated method stub
+		Student student = studentDao.findById(student_Id).orElseThrow(()->new StudentNotFoundException("Student not found with Id: "+student_Id));
 		return null;
 	}
 

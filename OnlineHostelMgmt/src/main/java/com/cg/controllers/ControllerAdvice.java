@@ -19,6 +19,7 @@ import com.cg.exceptions.ValidateHostelException;
 import com.cg.exceptions.ValidateRoomException;
 import com.cg.exceptions.ValidateStudentException;
 import com.cg.exceptions.ValidateWardenException;
+import com.cg.exceptions.VisitorNotFoundException;
 import com.cg.exceptions.WardenNotFoundException;
 
 @RestControllerAdvice
@@ -106,4 +107,12 @@ public class ControllerAdvice {
 		list.add(ex.getMessage());
 		return new ErrorMessage(HttpStatus.NOT_FOUND.toString(), list);
 	}
+	//VisitorNotFoundException
+		@ExceptionHandler(VisitorNotFoundException.class)
+		@ResponseStatus(code = HttpStatus.NOT_FOUND)
+		public ErrorMessage handleExceptionVisitorNotFound(VisitorNotFoundException ex) {
+			List<String> list = new ArrayList<>();
+			list.add(ex.getMessage());
+			return new ErrorMessage(HttpStatus.NOT_FOUND.toString(), list);
+		}
 }
