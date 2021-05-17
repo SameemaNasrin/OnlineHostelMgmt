@@ -36,7 +36,7 @@ public class StudentRestController {
 		return new ResponseEntity<Student>(studentService.addStudent(studentDto), HttpStatus.CREATED);
 
 	}
-
+	
 	@GetMapping("/get")
 	public ResponseEntity<List<Student>> viewStudents() throws StudentNotFoundException {
 		return new ResponseEntity<List<Student>>(studentService.getStudents(), HttpStatus.OK);
