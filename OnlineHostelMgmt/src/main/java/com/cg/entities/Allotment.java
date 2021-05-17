@@ -20,11 +20,11 @@ public class Allotment {
 	
 	@ManyToOne
 	@JoinColumn(name="room_id",referencedColumnName="room_id")
-	private Room room;
+	private Integer roomId;
 	
 	@ManyToOne
 	@JoinColumn(name="student_id",referencedColumnName="student_id")
-	private Student student;
+	private Integer studentId;
 
 	public Allotment() {
 		super();
@@ -34,24 +34,26 @@ public class Allotment {
 		return this.id;
 	}
 
+	public Integer getRoomId() {
+		return roomId;
+	}
+
+	public void setRoomId(Integer roomId) {
+		this.roomId = roomId;
+	}
+
+	public Integer getStudentId() {
+		return studentId;
+	}
+
+	public void setStudentId(Integer studentId) {
+		this.studentId = studentId;
+	}
+
 	public void setId(Integer id) {
 		this.id = id;
 	}
 
-	public Room getRoom() {
-		return room;
-	}
 
-	public void setRoom(Room room) {
-		this.room = room;
-	}
-
-	public Student getStudent() {
-		return student;
-	}
-
-	public void setStudent(Student student) {
-		this.student = student;
-	}
 	
 }

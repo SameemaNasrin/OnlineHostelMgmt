@@ -3,6 +3,7 @@ package com.cg.dto;
 import java.time.LocalDate;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import com.cg.entities.Allotment;
 import com.cg.entities.Student;
@@ -21,7 +22,7 @@ public class FeeStructDto {
 	public FeeStructDto() {
 		super();
 	}
-	public FeeStructDto(Integer id, @NotBlank(message = "Student ID must not be blank") Student student,
+	public FeeStructDto(Integer id, @NotNull(message = "Student ID must not be blank") Student student,
 			@NotBlank(message = "Fees cannot be null") Double totalFees,
 			@NotBlank(message = "Allotment ID must not be blank") Allotment allotment, String paymentStatus,
 			LocalDate paymentDate) {

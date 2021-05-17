@@ -22,14 +22,14 @@ public class FeeStruct {
 
 	@ManyToOne
 	@JoinColumn(name = "student_id", referencedColumnName = "student_id")
-	private Student student;
+	private Integer studentId;
 
 	@Column(name = "total_fees")
 	private Double totalFees;
 
 	@ManyToOne
 	@JoinColumn(name = "allotment_id", referencedColumnName = "allotment_id")
-	private Allotment allotment;
+	private Integer allotmentId;
 
 	@Column(name = "payment_status")
 	private String paymentStatus = "In Progress";
@@ -41,13 +41,13 @@ public class FeeStruct {
 		super();
 	}
 
-	public FeeStruct(Integer id, Student student, Double totalFees, Allotment allotment, String paymentStatus,
+	public FeeStruct(Integer id, Integer studentId, Double totalFees, Integer allotmentId, String paymentStatus,
 			LocalDate paymentDate) {
 		super();
 		this.id = id;
-		this.student = student;
+		this.studentId = studentId;
 		this.totalFees = totalFees;
-		this.allotment = allotment;
+		this.allotmentId = allotmentId;
 		this.paymentStatus = paymentStatus;
 		this.paymentDate = paymentDate;
 	}
@@ -60,12 +60,12 @@ public class FeeStruct {
 		this.id = id;
 	}
 
-	public Student getStudent() {
-		return student;
+	public Integer getStudentId() {
+		return studentId;
 	}
 
-	public void setStudent(Student student) {
-		this.student = student;
+	public void setStudentId(Integer studentId) {
+		this.studentId = studentId;
 	}
 
 	public Double getTotalFees() {
@@ -76,12 +76,12 @@ public class FeeStruct {
 		this.totalFees = totalFees;
 	}
 
-	public Allotment getAllotment() {
-		return allotment;
+	public Integer getAllotmentId() {
+		return allotmentId;
 	}
 
-	public void setAllotment(Allotment allotment) {
-		this.allotment = allotment;
+	public void setAllotmentId(Integer allotmentId) {
+		this.allotmentId = allotmentId;
 	}
 
 	public String getPaymentStatus() {
@@ -102,10 +102,11 @@ public class FeeStruct {
 
 	@Override
 	public String toString() {
-		return "FeeStruct [id=" + id + ", totalFees=" + totalFees + ", paymentStatus=" + paymentStatus
-				+ ", paymentDate=" + paymentDate + "]";
+		return id + " " + studentId + " " + totalFees + " "
+				+ allotmentId + " " + paymentStatus + " " + paymentDate;
 	}
 
+	
 	
 
 }

@@ -1,21 +1,21 @@
 package com.cg.dto;
 
-import javax.validation.constraints.NotBlank;
-
-import com.cg.entities.Room;
-import com.cg.entities.Student;
+import javax.validation.constraints.NotNull;
 
 public class AllotmentDto {
 	
-	@NotBlank(message = "Allotment ID must not be blank")
+	@NotNull(message = "Allotment ID must not be blank")
 	private Integer id;
-	private Room room;
-	private Student student;
-	public AllotmentDto(@NotBlank(message = "Allotment ID must not be blank") Integer id, Room room, Student student) {
+	private Integer roomId;
+	private Integer studentId;
+
+	
+	public AllotmentDto(@NotNull(message = "Allotment ID must not be blank") Integer id, Integer roomId,
+			Integer studentId) {
 		super();
 		this.id = id;
-		this.room = room;
-		this.student = student;
+		this.roomId = roomId;
+		this.studentId = studentId;
 	}
 	public AllotmentDto() {
 		super();
@@ -26,17 +26,18 @@ public class AllotmentDto {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	public Room getRoom() {
-		return room;
+	public Integer getRoomId() {
+		return roomId;
 	}
-	public void setRoom(Room room) {
-		this.room = room;
+	public void setRoomId(Integer roomId) {
+		this.roomId = roomId;
 	}
-	public Student getStudent() {
-		return student;
+	public Integer getStudentId() {
+		return studentId;
 	}
-	public void setStudent(Student student) {
-		this.student = student;
+	public void setStudentId(Integer studentId) {
+		this.studentId = studentId;
 	}
+	
 	
 }
