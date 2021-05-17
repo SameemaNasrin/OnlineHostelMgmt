@@ -6,9 +6,12 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cg.dao.IHostelDao;
 import com.cg.dao.IWardenDao;
 import com.cg.dto.WardenDto;
+import com.cg.entities.Hostel;
 import com.cg.entities.Warden;
+import com.cg.exceptions.HostelNotFoundException;
 import com.cg.exceptions.WardenNotFoundException;
 
 @Service
@@ -16,41 +19,48 @@ public class WardenServiceImpl implements IWardenService {
 	
 	@Autowired
 	IWardenDao wardenDao;
+	
+	@Autowired
+	IHostelDao hostelDao;
 
 	@Override
-	public Integer addWarden(WardenDto wardenDto) {
+	public Integer addWarden(WardenDto wardenDto) throws HostelNotFoundException {
 		Warden warden = new Warden();
 		warden.setName(wardenDto.getName());
 		warden.setEmail(wardenDto.getEmail());
 		warden.setId(wardenDto.getId());
-		warden.setHostel(wardenDto.getHostel());
+		
+		
+		Hostel hostel = hostelDao.findById(wardenDto.getHostelId()).orElseThrow(
+				() -> new HostelNotFoundException("Hostel not found with id " + wardenDto.getHostelId()));
+		
+		warden.setHostel(hostel);
 		return wardenDao.save(warden).getId();
 		
 	}
 
 	@Override
-	public List<Warden> viewAllWarden() throws WardenNotFoundException {
-		List<Warden> list=wardenDao.findAll();
+	public List<Warden> viewAllWarden() throws WardenNotFoundException{
+		List<Warden> list = wardenDao.findAll();
 		if(list.isEmpty()) {
-			throw new WardenNotFoundException("Sorry No Warden Found");
+			throw new WardenNotFoundException("No Warden Found");
 		}
-		list.sort((h1,h2) -> h1.getName().compareTo(h2.getName()));
+		list.sort((w1,w2) -> w1.getName().compareTo(w2.getName()));
 		return list;
 	}
 
 	@Override
-	public Warden viewWardenByWId(Integer wid) throws WardenNotFoundException  {
-		Optional<Warden> optWarden = wardenDao.findById(wid);
-		if(!optWarden.isPresent()) {
-			throw new WardenNotFoundException("No Warden found for id:"+ wid);
-		}
-		return optWarden.get();
+	public Warden viewWardenByWardenId(Integer wardenId) throws WardenNotFoundException  {
+		return wardenDao.findById(wardenId).orElseThrow(() -> new WardenNotFoundException("No Warden found for id: "+ wardenId));
 	}
 
 	@Override
-	public Warden viewWardenByHId(Long hid) {
-		// TODO A
-		return null;
+	public List<Warden> viewWardenByHostelId(Long hostelId) throws WardenNotFoundException {
+		List<Warden> wardens = wardenDao.findByHostelId(hostelId);
+		
+		if(wardens.isEmpty())
+			throw new WardenNotFoundException("No warden found for Hostel Id: " + hostelId);
+		return wardens;
 	}
 	
 

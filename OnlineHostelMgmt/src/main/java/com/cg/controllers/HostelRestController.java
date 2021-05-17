@@ -37,7 +37,6 @@ public class HostelRestController {
 		return hostelService.viewHostelById(hostelId);
 	}
 
-	//http://localhost:8082/addhostel 
 	@PostMapping("/add")
 	public SuccessMessage addHostel(@Valid @RequestBody HostelDto hostelDto, BindingResult br) throws ValidateHostelException{	
 		

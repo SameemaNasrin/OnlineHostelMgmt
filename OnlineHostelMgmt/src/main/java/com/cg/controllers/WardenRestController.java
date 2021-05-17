@@ -10,16 +10,19 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cg.dto.SuccessMessage;
 import com.cg.dto.WardenDto;
 import com.cg.entities.Warden;
+import com.cg.exceptions.HostelNotFoundException;
 import com.cg.exceptions.ValidateWardenException;
 import com.cg.exceptions.WardenNotFoundException;
 import com.cg.services.IWardenService;
 
 @RestController
+@RequestMapping("/warden")
 public class WardenRestController {
 	
 	@Autowired
@@ -31,12 +34,17 @@ public class WardenRestController {
 	}
 
 	@GetMapping("/get/{wid}")
-	public Warden viewWardenByWId(@PathVariable("wid") Integer wid) throws WardenNotFoundException {
-		return wardenService.viewWardenByWId(wid);
+	public Warden viewWardenByWId(@PathVariable("wid") Integer wardenId) throws WardenNotFoundException {
+		return wardenService.viewWardenByWardenId(wardenId);
+	}
+	
+	@GetMapping("/getbyhostelid/{hid}")
+	public List<Warden> viewWardenByHostelId(@PathVariable("hid") Long hostelId) throws WardenNotFoundException{
+		return wardenService.viewWardenByHostelId(hostelId);
 	}
 	
 	@PostMapping("/add")
-	public SuccessMessage addWarden(@Valid @RequestBody WardenDto wardenDto, BindingResult br) throws ValidateWardenException{	
+	public SuccessMessage addWarden(@Valid @RequestBody WardenDto wardenDto, BindingResult br) throws ValidateWardenException, HostelNotFoundException{	
 		
 		if (br.hasErrors()) {
 			throw new ValidateWardenException(br.getFieldErrors());

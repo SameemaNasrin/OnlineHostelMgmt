@@ -10,7 +10,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "wardens")
+@Table(name = "warden")
 public class Warden {
 
 	@Id
@@ -18,10 +18,10 @@ public class Warden {
 	@Column(name="warden_id")
 	private Integer id;
 	
-	@Column(name="warden_email")
+	@Column(name="warden_email", length = 30)
 	private String email;
 	
-	@Column(name="warden_name")
+	@Column(name="warden_name", length = 25)
 	private String name;
 	
 	@ManyToOne

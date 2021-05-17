@@ -1,29 +1,33 @@
 package com.cg.dto;
 
-import javax.validation.constraints.NotBlank;
-
-import com.cg.entities.Hostel;
+import javax.validation.constraints.*;
 
 public class WardenDto {
 	
-	@NotBlank(message = "Warden Id must not be blank")
+	
 	private Integer id;
+	
 	@NotBlank(message = "Email must not be blank")
+	@Pattern(regexp = "[a-zA-Z0-9_]+@[a-zA-Z]+.[a-zA-Z]+")
 	private String email;
+	
 	@NotBlank(message = "Name must not be blank")
 	private String name;
-	private Hostel hostel;
+	
+	@NotNull(message = "Hostel Id must not be blank")
+	private Long hostelId;
+	
 	
 	public WardenDto() {
 		super();
 	}
 
-	public WardenDto(Integer id, String email, String name, Hostel hostel) {
+	public WardenDto(Integer id, String email, String name, Long hostelId) {
 		super();
 		this.id = id;
 		this.email = email;
 		this.name = name;
-		this.hostel = hostel;
+		this.hostelId = hostelId;
 	}
 
 	public Integer getId() {
@@ -50,12 +54,12 @@ public class WardenDto {
 		this.name = name;
 	}
 
-	public Hostel getHostel() {
-		return hostel;
+	public Long getHostelId() {
+		return hostelId;
 	}
 
-	public void setHostel(Hostel hostel) {
-		this.hostel = hostel;
+	public void setHostel(Long hostelId) {
+		this.hostelId = hostelId;
 	}
 
 }
