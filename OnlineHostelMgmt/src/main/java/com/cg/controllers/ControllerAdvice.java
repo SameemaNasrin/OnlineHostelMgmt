@@ -18,6 +18,8 @@ import com.cg.exceptions.StudentNotFoundException;
 import com.cg.exceptions.ValidateHostelException;
 import com.cg.exceptions.ValidateRoomException;
 import com.cg.exceptions.ValidateStudentException;
+import com.cg.exceptions.ValidateWardenException;
+import com.cg.exceptions.WardenNotFoundException;
 
 @RestControllerAdvice
 public class ControllerAdvice {
@@ -26,6 +28,15 @@ public class ControllerAdvice {
 	@ExceptionHandler(HostelNotFoundException.class)
 	@ResponseStatus(code = HttpStatus.NOT_FOUND)
 	public ErrorMessage handleExceptionHostelNotFound(HostelNotFoundException ex) {
+		List<String> list = new ArrayList<>();
+		list.add(ex.getMessage());
+		return new ErrorMessage(HttpStatus.NOT_FOUND.toString(), list);
+	}
+	
+	//WardenNotFoundException
+	@ExceptionHandler(WardenNotFoundException.class)
+	@ResponseStatus(code = HttpStatus.NOT_FOUND)
+	public ErrorMessage handleExceptionWardenNotFound(WardenNotFoundException ex) {
 		List<String> list = new ArrayList<>();
 		list.add(ex.getMessage());
 		return new ErrorMessage(HttpStatus.NOT_FOUND.toString(), list);
@@ -58,6 +69,14 @@ public class ControllerAdvice {
 	@ExceptionHandler(ValidateStudentException.class)
 	@ResponseStatus(code = HttpStatus.BAD_REQUEST)
 	public ErrorMessage handleException(ValidateStudentException ex) {
+		List<String> errors = ex.getErrors().stream().map(err -> err.getDefaultMessage()).collect(Collectors.toList());
+		return new ErrorMessage(HttpStatus.BAD_REQUEST.toString(), errors);
+	}
+	
+	//for warden
+	@ExceptionHandler(ValidateWardenException.class)
+	@ResponseStatus(code = HttpStatus.BAD_REQUEST)
+	public ErrorMessage handleException(ValidateWardenException ex) {
 		List<String> errors = ex.getErrors().stream().map(err -> err.getDefaultMessage()).collect(Collectors.toList());
 		return new ErrorMessage(HttpStatus.BAD_REQUEST.toString(), errors);
 	}

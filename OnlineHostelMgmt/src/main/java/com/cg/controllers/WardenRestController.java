@@ -25,17 +25,17 @@ public class WardenRestController {
 	@Autowired
 	IWardenService wardenService;
 	
-	@GetMapping("viewallwarden")
+	@GetMapping("/get")
 	public List<Warden> viewAllWarden() throws WardenNotFoundException {
 		return wardenService.viewAllWarden();
 	}
 
-	@GetMapping("viewwardenbyid/{wid}")
+	@GetMapping("/get/{wid}")
 	public Warden viewWardenByWId(@PathVariable("wid") Integer wid) throws WardenNotFoundException {
 		return wardenService.viewWardenByWId(wid);
 	}
 	
-	@PostMapping("addwarden")
+	@PostMapping("/add")
 	public SuccessMessage addWarden(@Valid @RequestBody WardenDto wardenDto, BindingResult br) throws ValidateWardenException{	
 		
 		if (br.hasErrors()) {
