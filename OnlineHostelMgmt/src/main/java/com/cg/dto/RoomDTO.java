@@ -27,8 +27,6 @@ public class RoomDTO {
 
 	public RoomDTO() {
 		super();
-		// TODO Auto-generated constructor stub
-
 	}
 
 	public RoomDTO(Integer roomId, String roomNo, String roomDesc, Integer floor, Integer maximumSize, Long hostel_id) {
