@@ -20,40 +20,55 @@ public class Allotment {
 	
 	@ManyToOne
 	@JoinColumn(name="room_id",referencedColumnName="room_id")
-	private Integer roomId;
+	private Room room;
 	
 	@ManyToOne
 	@JoinColumn(name="student_id",referencedColumnName="student_id")
-	private Integer studentId;
+	private Student student;
+
+	//constructors
+	public Allotment(Integer id, Room room, Student student) {
+		super();
+		this.id = id;
+		this.room = room;
+		this.student = student;
+	}
 
 	public Allotment() {
 		super();
 	}
+	
+	//getter and setters
+	
 
 	public Integer getId() {
-		return this.id;
-	}
-
-	public Integer getRoomId() {
-		return roomId;
-	}
-
-	public void setRoomId(Integer roomId) {
-		this.roomId = roomId;
-	}
-
-	public Integer getStudentId() {
-		return studentId;
-	}
-
-	public void setStudentId(Integer studentId) {
-		this.studentId = studentId;
+		return id;
 	}
 
 	public void setId(Integer id) {
 		this.id = id;
 	}
 
+	public Room getRoom() {
+		return room;
+	}
 
+	public void setRoom(Room room) {
+		this.room = room;
+	}
+
+	public Student getStudent() {
+		return student;
+	}
+
+	public void setStudent(Student student) {
+		this.student = student;
+	}
+
+	@Override
+	public String toString() {
+		return "Allotment [id=" + id + "]";
+	}
+	
 	
 }

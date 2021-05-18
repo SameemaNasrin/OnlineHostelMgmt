@@ -23,6 +23,7 @@ import com.cg.entities.Warden;
 import com.cg.exceptions.AllotmentNotFoundException;
 import com.cg.exceptions.HostelNotFoundException;
 import com.cg.exceptions.RoomNotFoundException;
+import com.cg.exceptions.StudentNotFoundException;
 import com.cg.exceptions.WardenNotFoundException;
 
 @Service
@@ -32,62 +33,49 @@ public class AllotmentServiceImpl implements IAllotmentService{
 	IAllotmentDao allotmentDao;
 	
 	@Autowired
-	IHostelDao hosteldao;
+	IHostelDao hostelDao;// why do we need it?
+	
+	@Autowired
+	IStudentDao studentDao;
+	
+	@Autowired
+	IRoomDao roomDao;
 	
 	@Override
 	@Transactional
-	public int addAllotment(AllotmentDto allotmentDto) throws RoomNotFoundException {
+	public int addAllotment(AllotmentDto allotmentDto) throws RoomNotFoundException, StudentNotFoundException {
 		Allotment allotment=new Allotment();
-	//	allotment.setStudentId(allotmentDto.getStudentId());
 		
-		Room room=null;
-		if(room.getMaximumSize()>0) {
-		allotment.setRoomId(room.getRoomId());
-		room.setMaximumSize(room.getMaximumSize()-1);
-		}
-		else
-		{
-			throw new RoomNotFoundException("room full!!");
-		}
-		Student student=null;
-		/*
-
-	public Integer addEmployee(EmpDto empdto) throws DeptException {
-		Emp emp = new Emp();
-		emp.setEmpName(empdto.getEmpName());
-		emp.setEmpSal(empdto.getEmpSal());
-		emp.setEmpDoj(empdto.getDoj());
-		Dept dept = null;
-
-		dept = deptdao.findByDeptName(empdto.getDeptName());
-		if (dept == null) {
-			throw new DeptException("No department found");
-		}
-		emp.setDept(dept);
-		Emp persistedEmp = empdao.save(emp);
-		return persistedEmp.getEmpId();
-	}
-		 */
+		Room room = roomDao.findById(allotmentDto.getRoomId()).orElseThrow(() -> new RoomNotFoundException("Room Doesnot exist with Id " + allotmentDto.getRoomId()));
+		Student student = studentDao.findById(allotmentDto.getStudentId()).orElseThrow(() -> new StudentNotFoundException("Student not found with id " + allotmentDto.getStudentId()));
+	
+		allotment.setRoom(room);
+		allotment.setStudent(student);
 		
-		return 0;
+		return allotmentDao.save(allotment).getId();
+		
 	}
 
 	@Override
 	public Integer removeAllotment(Integer aid) throws AllotmentNotFoundException{
-		Optional<Allotment> optAllotment = allotmentDao.findById(aid);
-		if(!optAllotment.isPresent()) {
+		//Allotment allotment = allotmentDao.findById(aid).orElseThrow(()-> new AllotmentNotFoundException("No Allotment found for id:"+ aid));
+		
+		//check this logic 
+		if(!allotmentDao.findById(aid).isPresent())
 			throw new AllotmentNotFoundException("No Allotment found for id:"+ aid);
-		}
+		allotmentDao.deleteById(aid);
+		
 		return aid;
 	}
 
 	@Override
-	public List<Allotment> viewAllotmentByHostelId(Long hid) throws HostelNotFoundException, AllotmentNotFoundException {
-		Hostel hostel=hosteldao.findById(hid).orElseThrow(()->new HostelNotFoundException("Hostel not found"));
-		List<Allotment> allotments=allotmentDao.filter(d->d.hostelId=hid).stream().collect(Collectors.toList());
-		if(allotments.isEmpty())
-			throw new AllotmentNotFoundException("Allotment not found");
-		return allotments;
+	public List<Allotment> viewAllotmentByHostelId(Long hostelId) throws HostelNotFoundException, AllotmentNotFoundException {
+//		Hostel hostel = hosteldao.findById(hostelId).orElseThrow(()->new HostelNotFoundException("Hostel not found"));
+//		List<Allotment> allotments=allotmentDao.filter(d->d.hostelId=hid).stream().collect(Collectors.toList());
+//		if(allotments.isEmpty())
+//			throw new AllotmentNotFoundException("Allotment not found");
+//		return allotments;
+		return null;
 		
 }
 }
