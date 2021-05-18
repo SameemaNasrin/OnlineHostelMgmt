@@ -4,7 +4,7 @@ import javax.validation.constraints.NotNull;
 
 public class AllotmentDto {
 	
-	@NotNull(message = "Allotment ID must not be blank")
+	//@NotNull(message = "Allotment ID must not be blank")
 	private Integer id;
 	private Integer roomId;
 	private Integer studentId;

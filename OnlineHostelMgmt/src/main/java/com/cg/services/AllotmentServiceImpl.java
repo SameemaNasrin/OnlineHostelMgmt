@@ -1,5 +1,6 @@
 package com.cg.services;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -58,11 +59,9 @@ public class AllotmentServiceImpl implements IAllotmentService{
 
 	@Override
 	public Integer removeAllotment(Integer allotmentId) throws AllotmentNotFoundException{
-		//Allotment allotment = allotmentDao.findById(aid).orElseThrow(()-> new AllotmentNotFoundException("No Allotment found for id:"+ aid));
+		//check this logic
+		allotmentDao.findById(allotmentId).orElseThrow(()-> new AllotmentNotFoundException("No Allotment found for id:"+ allotmentId));
 		
-		//check this logic 
-		if(!allotmentDao.findById(allotmentId).isPresent())
-			throw new AllotmentNotFoundException("No Allotment found for id:"+ allotmentId);
 		allotmentDao.deleteById(allotmentId);
 		
 		return allotmentId;
@@ -70,12 +69,6 @@ public class AllotmentServiceImpl implements IAllotmentService{
 
 	@Override
 	public List<Allotment> viewAllotmentByHostelId(Long hostelId) throws RoomNotFoundException, AllotmentNotFoundException{
-//		Hostel hostel = hosteldao.findById(hostelId).orElseThrow(()->new HostelNotFoundException("Hostel not found"));
-//		List<Allotment> allotments=allotmentDao.filter(d->d.hostelId=hid).stream().collect(Collectors.toList());
-//		if(allotments.isEmpty())
-//			throw new AllotmentNotFoundException("Allotment not found");
-//		return allotments;
-		
 		//check this logic
 		List<Room> rooms = roomDao.findByHostelId(hostelId);
 		
@@ -83,7 +76,7 @@ public class AllotmentServiceImpl implements IAllotmentService{
 			throw new RoomNotFoundException("No room found for hostel id " + hostelId);
 		}
 		
-		List<Allotment> allotment = null;
+		List<Allotment> allotment = new ArrayList<>();
 		
 		for(Room room : rooms) {
 			List<Allotment> a = allotmentDao.findByRoom(room);

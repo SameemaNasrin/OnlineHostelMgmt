@@ -3,6 +3,8 @@ package com.cg.entities;
 import java.util.Set;
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "hostel")
 public class Hostel {
@@ -28,6 +30,7 @@ public class Hostel {
 	private Double fee;
 
 	@OneToMany(mappedBy = "hostel")
+	@JsonIgnore
 	private Set<Room> rooms;
 	
 	@Column(name="total_floors")

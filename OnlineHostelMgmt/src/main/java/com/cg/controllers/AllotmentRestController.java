@@ -42,7 +42,7 @@ public class AllotmentRestController {
 	}
 	
 	@DeleteMapping("/remove/{aid}")
-	public SuccessMessage deallocate(@PathVariable Integer allotmentId) throws AllotmentNotFoundException {
+	public SuccessMessage deallocate(@PathVariable("aid") Integer allotmentId) throws AllotmentNotFoundException {
 		
 		allotmentService.removeAllotment(allotmentId);
 		return new SuccessMessage("Deallocated for allotment Id= " + allotmentId);
@@ -50,7 +50,7 @@ public class AllotmentRestController {
 	}
 	
 	@GetMapping("/get/{hid}")
-	public List<Allotment> viewByHostelId(@PathVariable Long hostelId) throws RoomNotFoundException, AllotmentNotFoundException{
+	public List<Allotment> viewByHostelId(@PathVariable("hid") Long hostelId) throws RoomNotFoundException, AllotmentNotFoundException{
 		
 		return allotmentService.viewAllotmentByHostelId(hostelId);
 	}
