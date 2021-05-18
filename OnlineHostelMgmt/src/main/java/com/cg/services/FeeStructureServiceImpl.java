@@ -43,8 +43,9 @@ public class FeeStructureServiceImpl implements IFeeStructService{
 			throw new AllotmentNotFoundException("Allotment not found for student Id " + studentId);
 		
 		feeStructure.setAllotment(allotment);
-		
-		feeStructure.setPaymentStatus(fsDto.getPaymentStatus());
+		//if(feeStructe.getPaymentStatus=="paid")
+		//throw new FeeStructureNotFoundException("Already paid");
+		feeStructure.setPaymentStatus("paid");
 		feeStructure.setPaymentDate(fsDto.getPaymentDate());//LocalDate.now()
 		
 		return feeStructureDao.save(feeStructure).getId();
