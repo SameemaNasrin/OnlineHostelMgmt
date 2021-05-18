@@ -52,7 +52,7 @@ public class StudentServiceImpl implements IStudentService {
 
 	@Override
 	public List<Student> getStudentByName(String name) throws StudentNotFoundException {
-		List<Student> students = studentDao.findByName(name);
+		List<Student> students = studentDao.findByNameContaining(name);
 		if(students.isEmpty())
 			throw new StudentNotFoundException("Student not found with name " + name);
 		return students;
