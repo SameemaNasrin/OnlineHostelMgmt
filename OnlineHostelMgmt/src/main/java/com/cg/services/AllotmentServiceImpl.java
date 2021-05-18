@@ -57,15 +57,15 @@ public class AllotmentServiceImpl implements IAllotmentService{
 	}
 
 	@Override
-	public Integer removeAllotment(Integer aid) throws AllotmentNotFoundException{
+	public Integer removeAllotment(Integer allotmentId) throws AllotmentNotFoundException{
 		//Allotment allotment = allotmentDao.findById(aid).orElseThrow(()-> new AllotmentNotFoundException("No Allotment found for id:"+ aid));
 		
 		//check this logic 
-		if(!allotmentDao.findById(aid).isPresent())
-			throw new AllotmentNotFoundException("No Allotment found for id:"+ aid);
-		allotmentDao.deleteById(aid);
+		if(!allotmentDao.findById(allotmentId).isPresent())
+			throw new AllotmentNotFoundException("No Allotment found for id:"+ allotmentId);
+		allotmentDao.deleteById(allotmentId);
 		
-		return aid;
+		return allotmentId;
 	}
 
 	@Override
