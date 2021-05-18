@@ -55,10 +55,10 @@ public class VisitorServiceImpl implements IVisitorService {
 	}
 
 	@Override
-	public List<Visitor> getVisitorByDateAndHostel(LocalDate visitDate, Long hostel_Id)
+	public List<Visitor> getVisitorByDateOfVisitingAndHostel(LocalDate visitDate, Long hostel_Id)
 			throws VisitorNotFoundException, HostelNotFoundException {
 		List<Visitor> visitorList = new ArrayList<>();
-		visitorList = visitorDao.findByDateAndHostel_Id(visitDate , hostel_Id );
+		visitorList = visitorDao.findByDateOfVisitingAndHostel_Id(visitDate , hostel_Id );
 		if(visitorList.isEmpty())
 			throw new VisitorNotFoundException("visitor not found  ");
 		return visitorList;

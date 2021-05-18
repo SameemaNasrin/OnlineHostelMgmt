@@ -39,7 +39,7 @@ public class VisitorRestController {
 	}
 	@GetMapping("/get/{Date}/{Id}")
 	public ResponseEntity<List<Visitor>> viewVisitorByDateAndHoste(@PathVariable("Date")LocalDate visitDate ,@PathVariable("Id")Long hostel_Id) throws VisitorNotFoundException,HostelNotFoundException {
-		return new ResponseEntity<List<Visitor>>(visitorService.getVisitorByDateAndHostel(visitDate,hostel_Id), HttpStatus.OK);
+		return new ResponseEntity<List<Visitor>>(visitorService.getVisitorByDateOfVisitingAndHostel(visitDate,hostel_Id), HttpStatus.OK);
 	}
 	@GetMapping("/get/{sId}")
 	public ResponseEntity<List<Visitor>> viewVisitorByStudent(@PathVariable("sId")Integer student_Id) throws VisitorNotFoundException,StudentNotFoundException{

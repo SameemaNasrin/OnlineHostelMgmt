@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,9 +26,10 @@ public class RoomServiceImpl implements IRoomService{
 	
 	@Autowired
 	IHostelDao hosteldao;
-
+	Logger logger = LoggerFactory.getLogger(RoomServiceImpl.class);
 	@Override
 	public Room addRoom(RoomDTO roomdto) throws HostelNotFoundException {
+		logger.info("Adding room");
 		// TODO Auto-generated method stub
 		Hostel hostel=hosteldao.findById(roomdto.getHostel_id()).orElseThrow(()->new HostelNotFoundException("Hostel not found"));
 		
@@ -41,7 +44,7 @@ public class RoomServiceImpl implements IRoomService{
 	}
 
 	@Override
-	public List<Room> getRoomsByHostelId(long hostel_id) throws HostelNotFoundException, RoomNotFoundException {
+	public List<Room> getRoomsByHostelId(Long hostel_id) throws HostelNotFoundException, RoomNotFoundException {
 		// TODO Auto-generated method stub
 		Hostel hostel=hosteldao.findById(hostel_id).orElseThrow(()->new HostelNotFoundException("Hostel not found"));
 		List<Room> rooms=hostel.getRooms().stream().collect(Collectors.toList());
@@ -51,13 +54,14 @@ public class RoomServiceImpl implements IRoomService{
 	}
 
 	@Override
-	public List<Room> getRoomsByFloorAndHostelId(int floor, long hostel_id)
+	public List<Room> getRoomsByFloorAndHostelId(Integer floor, Long hostel_id)
 			throws HostelNotFoundException, FloorNotFoundException, RoomNotFoundException {
 		// TODO Auto-generated method stub
 		Hostel hostel=hosteldao.findById(hostel_id).orElseThrow(()->new HostelNotFoundException("Hostel not found"));
 		if(floor<=0 || floor>hostel.getTotalFloors())
 			throw new FloorNotFoundException("Invalid Floor");
-		List<Room> rooms=hostel.getRooms().stream().collect(Collectors.toList());
+//		List<Room> rooms=hostel.getRooms().stream().collect(Collectors.toList());
+		List<Room> rooms = roomdao.findByHostelIdAndFloor(hostel_id,floor);
 		if(rooms.isEmpty())
 			throw new RoomNotFoundException("Room not found");
 		return rooms;
@@ -66,7 +70,7 @@ public class RoomServiceImpl implements IRoomService{
 	}
 
 	@Override
-	public List<Room> getRoomsAvailableByHostelId(long hostel_id)
+	public List<Room> getRoomsAvailableByHostelId(Long hostel_id)
 			throws HostelNotFoundException, RoomNotFoundException {
 		// TODO Auto-generated method stub
 		Hostel hostel=hosteldao.findById(hostel_id).orElseThrow(()->new HostelNotFoundException("Hostel not found"));

@@ -1,10 +1,6 @@
 package com.cg.dto;
 
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
-
-import com.cg.entities.Hostel;
+import javax.validation.constraints.*;
 
 public class RoomDTO {
 
@@ -17,13 +13,16 @@ public class RoomDTO {
 	private String roomDesc;
 
 	@Min(value = 0, message = "Floor number cannot be less than 0")
+	@Max(value = 5, message = "Floor number cannot be more than 5")
+	@NotNull(message = "Floor cannot be empty")
 	private Integer floor;
 
 	@Max(value = 4, message = "Max size cannot be more than 4")
 	private Integer maximumSize = 4;
 
 	@Min(value = 1, message = "Hostel id cannot be less than 1")
-	private Long hostel_id;//change this to camelCase
+	@NotNull(message = "Hostel id cannot be null")
+	private Long hostelId;
 
 	public RoomDTO() {
 		super();
@@ -36,7 +35,7 @@ public class RoomDTO {
 		this.roomDesc = roomDesc;
 		this.floor = floor;
 		this.maximumSize = maximumSize;
-		this.hostel_id = hostel_id;
+		this.hostelId = hostel_id;
 	}
 
 	public Integer getRoomId() {
@@ -80,11 +79,11 @@ public class RoomDTO {
 	}
 
 	public Long getHostel_id() {
-		return hostel_id;
+		return hostelId;
 	}
 
 	public void setHostel_id(Long hostel_id) {
-		this.hostel_id = hostel_id;
+		this.hostelId = hostel_id;
 	}
 
 }

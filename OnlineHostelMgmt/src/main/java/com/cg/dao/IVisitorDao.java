@@ -13,7 +13,7 @@ public interface IVisitorDao extends JpaRepository<Visitor, Integer> {
 	
 	public List<Visitor> findByStudentId(Integer studentId);
 	
-	public List<Visitor> findByDateAndHostel_Id(LocalDate date ,Long Hostel_id);
+	public List<Visitor> findByDateOfVisitingAndHostel_Id(LocalDate date ,Long Hostel_id);
 	
 
 }
