@@ -78,7 +78,7 @@ public class AllotmentServiceImpl implements IAllotmentService{
 		List<Room> rooms = roomDao.findByHostelId(hostelId);
 		
 		if(rooms.isEmpty()) {
-			throw new RoomNotFoundException("No room found for hostel id " + hostelId);
+			throw new RoomNotFoundException("No room data found for hostel id " + hostelId);
 		}
 		
 		List<Allotment> allotment = new ArrayList<>();
