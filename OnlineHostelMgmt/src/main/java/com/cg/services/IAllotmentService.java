@@ -13,5 +13,5 @@ public interface IAllotmentService {
 
 	public int addAllotment(AllotmentDto allotmentDto) throws RoomNotFoundException, StudentNotFoundException;
 	public Integer removeAllotment(Integer allotmentId) throws AllotmentNotFoundException;
-	public List<Allotment> viewAllotmentByHostelId(Long hid) throws HostelNotFoundException, AllotmentNotFoundException;
+	public List<Allotment> viewAllotmentByHostelId(Long hid) throws RoomNotFoundException, AllotmentNotFoundException;
 }

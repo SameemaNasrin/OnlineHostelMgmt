@@ -69,13 +69,29 @@ public class AllotmentServiceImpl implements IAllotmentService{
 	}
 
 	@Override
-	public List<Allotment> viewAllotmentByHostelId(Long hostelId) throws HostelNotFoundException, AllotmentNotFoundException {
+	public List<Allotment> viewAllotmentByHostelId(Long hostelId) throws RoomNotFoundException, AllotmentNotFoundException{
 //		Hostel hostel = hosteldao.findById(hostelId).orElseThrow(()->new HostelNotFoundException("Hostel not found"));
 //		List<Allotment> allotments=allotmentDao.filter(d->d.hostelId=hid).stream().collect(Collectors.toList());
 //		if(allotments.isEmpty())
 //			throw new AllotmentNotFoundException("Allotment not found");
 //		return allotments;
-		return null;
 		
-}
+		//check this logic
+		List<Room> rooms = roomDao.findByHostelId(hostelId);
+		
+		if(rooms.isEmpty()) {
+			throw new RoomNotFoundException("No room found for hostel id " + hostelId);
+		}
+		
+		List<Allotment> allotment = null;
+		
+		for(Room room : rooms) {
+			List<Allotment> a = allotmentDao.findByRoomId(room.getRoomId());
+			if(a.isEmpty())
+				throw new AllotmentNotFoundException("Allotment not found for room id " + room.getRoomId());
+			allotment.addAll(a);
+		}
+		
+		return allotment;
+	}
 }
