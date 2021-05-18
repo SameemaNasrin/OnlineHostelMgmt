@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.cg.dao.IAllotmentDao;
+import com.cg.dao.IFeeStructureDao;
 import com.cg.dao.IHostelDao;
 import com.cg.dao.IRoomDao;
 import com.cg.dao.IStudentDao;
@@ -17,6 +18,7 @@ import com.cg.dao.IWardenDao;
 import com.cg.dto.AllotmentDto;
 import com.cg.dto.RoomDTO;
 import com.cg.entities.Allotment;
+import com.cg.entities.FeeStructure;
 import com.cg.entities.Hostel;
 import com.cg.entities.Room;
 import com.cg.entities.Student;
@@ -42,6 +44,9 @@ public class AllotmentServiceImpl implements IAllotmentService{
 	@Autowired
 	IRoomDao roomDao;
 	
+	@Autowired
+	IFeeStructureDao feeStructureDao;
+	
 	@Override
 	@Transactional
 	public int addAllotment(AllotmentDto allotmentDto) throws RoomNotFoundException, StudentNotFoundException {
@@ -59,8 +64,13 @@ public class AllotmentServiceImpl implements IAllotmentService{
 	
 		allotment.setRoom(room);
 		allotment.setStudent(student);
-		
-		return allotmentDao.save(allotment).getId();
+		Allotment savedAllotment = allotmentDao.save(allotment);
+		FeeStructure feeStructure = new FeeStructure();
+		feeStructure.setAllotment(allotment);
+		feeStructure.setPaymentStatus("Not Paid");
+		feeStructure.setStudent(student);
+		feeStructureDao.save(feeStructure);
+		return savedAllotment.getId();
 		
 	}
 
