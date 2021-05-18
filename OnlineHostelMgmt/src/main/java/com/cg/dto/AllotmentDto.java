@@ -10,8 +10,7 @@ public class AllotmentDto {
 	private Integer studentId;
 
 	
-	public AllotmentDto(@NotNull(message = "Allotment ID must not be blank") Integer id, Integer roomId,
-			Integer studentId) {
+	public AllotmentDto(Integer id, Integer roomId, Integer studentId) {
 		super();
 		this.id = id;
 		this.roomId = roomId;

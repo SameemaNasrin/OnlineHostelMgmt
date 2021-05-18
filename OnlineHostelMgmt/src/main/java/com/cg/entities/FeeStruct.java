@@ -22,14 +22,14 @@ public class FeeStruct {
 
 	@ManyToOne
 	@JoinColumn(name = "student_id", referencedColumnName = "student_id")
-	private Integer studentId;
+	private Student student;
 
 	@Column(name = "total_fees")
 	private Double totalFees;
 
 	@ManyToOne
 	@JoinColumn(name = "allotment_id", referencedColumnName = "allotment_id")
-	private Integer allotmentId;
+	private Allotment allotment;
 
 	@Column(name = "payment_status")
 	private String paymentStatus = "In Progress";
@@ -37,20 +37,23 @@ public class FeeStruct {
 	@Column(name = "payment_date")
 	private LocalDate paymentDate;
 
+	//constructors
 	public FeeStruct() {
 		super();
 	}
 
-	public FeeStruct(Integer id, Integer studentId, Double totalFees, Integer allotmentId, String paymentStatus,
+	public FeeStruct(Integer id, Student student, Double totalFees, Allotment allotment, String paymentStatus,
 			LocalDate paymentDate) {
 		super();
 		this.id = id;
-		this.studentId = studentId;
+		this.student = student;
 		this.totalFees = totalFees;
-		this.allotmentId = allotmentId;
+		this.allotment = allotment;
 		this.paymentStatus = paymentStatus;
 		this.paymentDate = paymentDate;
 	}
+	
+	//getters and setters
 
 	public Integer getId() {
 		return id;
@@ -60,12 +63,12 @@ public class FeeStruct {
 		this.id = id;
 	}
 
-	public Integer getStudentId() {
-		return studentId;
+	public Student getStudent() {
+		return student;
 	}
 
-	public void setStudentId(Integer studentId) {
-		this.studentId = studentId;
+	public void setStudent(Student student) {
+		this.student = student;
 	}
 
 	public Double getTotalFees() {
@@ -76,12 +79,12 @@ public class FeeStruct {
 		this.totalFees = totalFees;
 	}
 
-	public Integer getAllotmentId() {
-		return allotmentId;
+	public Allotment getAllotment() {
+		return allotment;
 	}
 
-	public void setAllotmentId(Integer allotmentId) {
-		this.allotmentId = allotmentId;
+	public void setAllotment(Allotment allotment) {
+		this.allotment = allotment;
 	}
 
 	public String getPaymentStatus() {
@@ -99,14 +102,5 @@ public class FeeStruct {
 	public void setPaymentDate(LocalDate paymentDate) {
 		this.paymentDate = paymentDate;
 	}
-
-	@Override
-	public String toString() {
-		return id + " " + studentId + " " + totalFees + " "
-				+ allotmentId + " " + paymentStatus + " " + paymentDate;
-	}
-
-	
-	
 
 }

@@ -23,7 +23,7 @@ public class RoomDTO {
 	private Integer maximumSize = 4;
 
 	@Min(value = 1, message = "Hostel id cannot be less than 1")
-	private Long hostel_id;
+	private Long hostel_id;//change this to camelCase
 
 	public RoomDTO() {
 		super();

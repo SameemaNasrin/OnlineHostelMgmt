@@ -6,10 +6,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import com.cg.entities.Allotment;
+import com.cg.entities.Room;
 
 @Repository
 public interface IAllotmentDao extends JpaRepository<Allotment, Integer>{
 
-	List<Allotment> findByRoomId(Integer roomId);
+	List<Allotment> findByRoom(Room room);
+	
 
 }

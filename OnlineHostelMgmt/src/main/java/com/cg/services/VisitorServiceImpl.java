@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.cg.dao.IHostelDao;
 import com.cg.dao.IStudentDao;
@@ -18,6 +19,7 @@ import com.cg.exceptions.HostelNotFoundException;
 import com.cg.exceptions.StudentNotFoundException;
 import com.cg.exceptions.VisitorNotFoundException;
 
+@Service
 public class VisitorServiceImpl implements IVisitorService {
 	@Autowired
 	IVisitorDao visitorDao;

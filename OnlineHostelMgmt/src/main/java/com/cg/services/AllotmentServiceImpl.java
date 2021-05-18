@@ -86,7 +86,7 @@ public class AllotmentServiceImpl implements IAllotmentService{
 		List<Allotment> allotment = null;
 		
 		for(Room room : rooms) {
-			List<Allotment> a = allotmentDao.findByRoomId(room.getRoomId());
+			List<Allotment> a = allotmentDao.findByRoom(room);
 			if(a.isEmpty())
 				throw new AllotmentNotFoundException("Allotment not found for room id " + room.getRoomId());
 			allotment.addAll(a);
