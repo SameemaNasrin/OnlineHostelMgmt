@@ -30,19 +30,21 @@ public class FeeStructRestController {
 
 	@Autowired
 	IFeeStructService feeSturctureService;
-	
+
 	@PostMapping("add/{sid}")
-	public SuccessMessage payFeeByStudentId(@PathVariable("sid") Integer studentId, @Valid @RequestBody FeeStructureDto fsDto, BindingResult br) throws StudentNotFoundException, AllotmentNotFoundException, ValidateFeeStructureException {
+	public SuccessMessage payFeeByStudentId(@PathVariable("sid") Integer studentId,
+			@Valid @RequestBody FeeStructureDto fsDto, BindingResult br)
+			throws StudentNotFoundException, AllotmentNotFoundException, ValidateFeeStructureException {
 		if (br.hasErrors()) {
 			throw new ValidateFeeStructureException(br.getFieldErrors());
 		}
 		Integer id = feeSturctureService.payFeeByStudentId(studentId, fsDto);
 		return new SuccessMessage("Your generated ID is " + id);
 	}
-	
+
 	@GetMapping("/viewunpaid")
 	public List<FeeStructure> viewEmployeebyId() throws FeeStructureNotFoundException {
 		return feeSturctureService.viewAllDefaulter();
 	}
-	
+
 }
