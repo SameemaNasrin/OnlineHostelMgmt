@@ -15,6 +15,7 @@ import com.cg.exceptions.FloorNotFoundException;
 import com.cg.exceptions.HostelNotFoundException;
 import com.cg.exceptions.RoomNotFoundException;
 import com.cg.exceptions.StudentNotFoundException;
+import com.cg.exceptions.ValidateFeeStructureException;
 import com.cg.exceptions.ValidateHostelException;
 import com.cg.exceptions.ValidateRoomException;
 import com.cg.exceptions.ValidateStudentException;
@@ -52,13 +53,22 @@ public class ControllerAdvice {
 		return new ErrorMessage(HttpStatus.BAD_REQUEST.toString(), list);
 	}
 
-	// gives validation messages
+	// gives validation messages for Hostel
 	@ExceptionHandler(ValidateHostelException.class)
 	@ResponseStatus(code = HttpStatus.BAD_REQUEST)
 	public ErrorMessage handleException(ValidateHostelException ex) {
 		List<String> errors = ex.getErrors().stream().map(err -> err.getDefaultMessage()).collect(Collectors.toList());
 		return new ErrorMessage(HttpStatus.BAD_REQUEST.toString(), errors);
 	}
+	
+	// gives validation messages for Fee Structure
+	@ExceptionHandler(ValidateFeeStructureException.class)
+	@ResponseStatus(code = HttpStatus.BAD_REQUEST)
+	public ErrorMessage handleException(ValidateFeeStructureException ex) {
+		List<String> errors = ex.getErrors().stream().map(err -> err.getDefaultMessage()).collect(Collectors.toList());
+		return new ErrorMessage(HttpStatus.BAD_REQUEST.toString(), errors);
+	}
+	
 	
 	@ExceptionHandler(ValidateRoomException.class)
 	@ResponseStatus(code = HttpStatus.BAD_REQUEST)

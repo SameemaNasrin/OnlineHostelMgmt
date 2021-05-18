@@ -1,30 +1,48 @@
-package com.cg.dto;
+package com.cg.entities;
 
 import java.time.LocalDate;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
-import com.cg.entities.Allotment;
-import com.cg.entities.Student;
+@Entity
+@Table(name = "fee_structure")
+public class FeeStructure {
 
-public class FeeStructDto {
-
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "fee_id")
 	private Integer id;
-	@NotBlank(message = "Student ID must not be blank")
+
+	@ManyToOne
+	@JoinColumn(name = "student_id", referencedColumnName = "student_id")
 	private Student student;
-	@NotBlank(message = "Fees cannot be null")
+
+	@Column(name = "total_fees")
 	private Double totalFees;
-	@NotBlank(message = "Allotment ID must not be blank")
+
+	@ManyToOne
+	@JoinColumn(name = "allotment_id", referencedColumnName = "allotment_id")
 	private Allotment allotment;
-	private String paymentStatus = "In Progress";
+
+	@Column(name = "payment_status", length = 10)
+	private String paymentStatus = "Not paid";
+
+	@Column(name = "payment_date")
 	private LocalDate paymentDate;
-	public FeeStructDto() {
+
+	//constructors
+	public FeeStructure() {
 		super();
 	}
-	public FeeStructDto(Integer id, @NotNull(message = "Student ID must not be blank") Student student,
-			@NotBlank(message = "Fees cannot be null") Double totalFees,
-			@NotBlank(message = "Allotment ID must not be blank") Allotment allotment, String paymentStatus,
+
+	public FeeStructure(Integer id, Student student, Double totalFees, Allotment allotment, String paymentStatus,
 			LocalDate paymentDate) {
 		super();
 		this.id = id;
@@ -34,41 +52,55 @@ public class FeeStructDto {
 		this.paymentStatus = paymentStatus;
 		this.paymentDate = paymentDate;
 	}
+	
+	//getters and setters
+
 	public Integer getId() {
 		return id;
 	}
+
 	public void setId(Integer id) {
 		this.id = id;
 	}
+
 	public Student getStudent() {
 		return student;
 	}
+
 	public void setStudent(Student student) {
 		this.student = student;
 	}
+
 	public Double getTotalFees() {
 		return totalFees;
 	}
+
 	public void setTotalFees(Double totalFees) {
 		this.totalFees = totalFees;
 	}
+
 	public Allotment getAllotment() {
 		return allotment;
 	}
+
 	public void setAllotment(Allotment allotment) {
 		this.allotment = allotment;
 	}
+
 	public String getPaymentStatus() {
 		return paymentStatus;
 	}
+
 	public void setPaymentStatus(String paymentStatus) {
 		this.paymentStatus = paymentStatus;
 	}
+
 	public LocalDate getPaymentDate() {
 		return paymentDate;
 	}
+
 	public void setPaymentDate(LocalDate paymentDate) {
 		this.paymentDate = paymentDate;
 	}
-	
+
 }

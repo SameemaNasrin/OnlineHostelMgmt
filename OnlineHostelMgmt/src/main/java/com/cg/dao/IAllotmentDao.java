@@ -12,6 +12,8 @@ import com.cg.entities.Room;
 public interface IAllotmentDao extends JpaRepository<Allotment, Integer>{
 
 	List<Allotment> findByRoom(Room room);
+
+	Allotment findByStudentId(Integer studentId);
 	
 
 }

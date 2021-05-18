@@ -59,7 +59,6 @@ public class AllotmentServiceImpl implements IAllotmentService{
 
 	@Override
 	public Integer removeAllotment(Integer allotmentId) throws AllotmentNotFoundException{
-		//check this logic
 		allotmentDao.findById(allotmentId).orElseThrow(()-> new AllotmentNotFoundException("No Allotment found for id:"+ allotmentId));
 		
 		allotmentDao.deleteById(allotmentId);
@@ -69,7 +68,6 @@ public class AllotmentServiceImpl implements IAllotmentService{
 
 	@Override
 	public List<Allotment> viewAllotmentByHostelId(Long hostelId) throws RoomNotFoundException, AllotmentNotFoundException{
-		//check this logic
 		List<Room> rooms = roomDao.findByHostelId(hostelId);
 		
 		if(rooms.isEmpty()) {
