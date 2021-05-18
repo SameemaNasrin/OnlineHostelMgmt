@@ -13,15 +13,17 @@ import javax.persistence.Table;
 @Table(name = "allotments")
 public class Allotment {
 
+	//primary key
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="allotment_id")
 	private Integer id;
 	
+	//relationship with room entity table
 	@ManyToOne
 	@JoinColumn(name="room_id",referencedColumnName="room_id")
 	private Room room;
-	
+	//relationship with student entity table	
 	@ManyToOne
 	@JoinColumn(name="student_id",referencedColumnName="student_id")
 	private Student student;
@@ -63,11 +65,6 @@ public class Allotment {
 
 	public void setStudent(Student student) {
 		this.student = student;
-	}
-
-	@Override
-	public String toString() {
-		return "Allotment [id=" + id + "]";
 	}
 	
 	

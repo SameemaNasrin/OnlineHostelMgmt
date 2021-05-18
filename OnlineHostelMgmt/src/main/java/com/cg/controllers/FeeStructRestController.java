@@ -16,10 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.cg.dto.FeeStructureDto;
 import com.cg.dto.SuccessMessage;
 import com.cg.entities.FeeStructure;
-import com.cg.entities.Hostel;
 import com.cg.exceptions.AllotmentNotFoundException;
 import com.cg.exceptions.FeeStructureNotFoundException;
-import com.cg.exceptions.HostelNotFoundException;
 import com.cg.exceptions.StudentNotFoundException;
 import com.cg.exceptions.ValidateFeeStructureException;
 import com.cg.services.IFeeStructService;
@@ -29,7 +27,8 @@ import com.cg.services.IFeeStructService;
 public class FeeStructRestController {
 
 	@Autowired
-	IFeeStructService feeSturctureService;
+	IFeeStructService feeStructureService;
+	
 
 	@PostMapping("add/{sid}")
 	public SuccessMessage payFeeByStudentId(@PathVariable("sid") Integer studentId,
@@ -38,13 +37,17 @@ public class FeeStructRestController {
 		if (br.hasErrors()) {
 			throw new ValidateFeeStructureException(br.getFieldErrors());
 		}
-		Integer id = feeSturctureService.payFeeByStudentId(studentId, fsDto);
+		Integer id = feeStructureService.payFeeByStudentId(studentId, fsDto);
 		return new SuccessMessage("Your generated ID is " + id);
 	}
 
 	@GetMapping("/viewunpaid")
 	public List<FeeStructure> viewEmployeebyId() throws FeeStructureNotFoundException {
-		return feeSturctureService.viewAllDefaulter();
+		return feeStructureService.viewAllDefaulter();
+	}
+	@GetMapping("/viewbystudent/{sid}")
+	List<FeeStructure> viewFeeByStudentId(@PathVariable("sid")Integer studentId) throws StudentNotFoundException{
+		return feeStructureService.viewFeeByStudentId(studentId);
 	}
 
 }

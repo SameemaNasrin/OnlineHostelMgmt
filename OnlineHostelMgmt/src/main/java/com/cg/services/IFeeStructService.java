@@ -11,4 +11,5 @@ import com.cg.exceptions.StudentNotFoundException;
 public interface IFeeStructService {
 	List<FeeStructure> viewAllDefaulter() throws FeeStructureNotFoundException;
 	Integer payFeeByStudentId(Integer studentId, FeeStructureDto fsDto) throws StudentNotFoundException, AllotmentNotFoundException;
+	List<FeeStructure> viewFeeByStudentId(Integer studentId) throws StudentNotFoundException;
 }

@@ -42,9 +42,9 @@ public class AllotmentRestController {
 	}
 	
 	@DeleteMapping("/remove/{aid}")
-	public SuccessMessage deallocate(@PathVariable("aid") Integer allotmentId) throws AllotmentNotFoundException {
+	public SuccessMessage deallocate(@PathVariable("aid") Integer allotmentId,@Valid @RequestBody AllotmentDto allotmentDto) throws AllotmentNotFoundException, RoomNotFoundException {
 		
-		allotmentService.removeAllotment(allotmentId);
+		allotmentService.removeAllotment(allotmentId,allotmentDto);
 		return new SuccessMessage("Deallocated for allotment Id= " + allotmentId);
 		
 	}

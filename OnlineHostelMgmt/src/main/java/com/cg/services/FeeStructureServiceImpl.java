@@ -1,5 +1,6 @@
 package com.cg.services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,5 +63,14 @@ public class FeeStructureServiceImpl implements IFeeStructService {
 
 		return defaulters;
 	}
-
+	
+	@Override
+	public List<FeeStructure> viewFeeByStudentId(Integer studentId) throws StudentNotFoundException{
+		Student student = studentDao.findById(studentId)
+				.orElseThrow(() -> new StudentNotFoundException("Student not found by id " + studentId));
+		List<FeeStructure> feeList=new ArrayList<>();
+		feeList.add(feeStructureDao.getFeeStructure(studentId));
+		
+		return feeList;
+	}
 }

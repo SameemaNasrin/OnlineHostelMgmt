@@ -1,21 +1,19 @@
 package com.cg.dto;
 
-import javax.validation.constraints.NotNull;
-
 public class AllotmentDto {
 	
-	//@NotNull(message = "Allotment ID must not be blank")
 	private Integer id;
 	private Integer roomId;
 	private Integer studentId;
 
-	
+	//Constructors for AllotmentDto
 	public AllotmentDto(Integer id, Integer roomId, Integer studentId) {
 		super();
 		this.id = id;
 		this.roomId = roomId;
 		this.studentId = studentId;
 	}
+	//getters and setters
 	public AllotmentDto() {
 		super();
 	}
