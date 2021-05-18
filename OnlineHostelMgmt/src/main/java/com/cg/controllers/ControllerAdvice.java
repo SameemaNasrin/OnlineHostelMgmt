@@ -20,6 +20,7 @@ import com.cg.exceptions.ValidateFeeStructureException;
 import com.cg.exceptions.ValidateHostelException;
 import com.cg.exceptions.ValidateRoomException;
 import com.cg.exceptions.ValidateStudentException;
+import com.cg.exceptions.ValidateVisitorException;
 import com.cg.exceptions.ValidateWardenException;
 import com.cg.exceptions.VisitorNotFoundException;
 import com.cg.exceptions.WardenNotFoundException;
@@ -35,17 +36,17 @@ public class ControllerAdvice {
 		list.add(ex.getMessage());
 		return new ErrorMessage(HttpStatus.NOT_FOUND.toString(), list);
 	}
-	
+
 	// FeeStructureNotFoundException
-		@ExceptionHandler(FeeStructureNotFoundException.class)
-		@ResponseStatus(code = HttpStatus.NOT_FOUND)
-		public ErrorMessage handleExceptionHostelNotFound(FeeStructureNotFoundException ex) {
-			List<String> list = new ArrayList<>();
-			list.add(ex.getMessage());
-			return new ErrorMessage(HttpStatus.NOT_FOUND.toString(), list);
-		}
-	
-	//WardenNotFoundException
+	@ExceptionHandler(FeeStructureNotFoundException.class)
+	@ResponseStatus(code = HttpStatus.NOT_FOUND)
+	public ErrorMessage handleExceptionHostelNotFound(FeeStructureNotFoundException ex) {
+		List<String> list = new ArrayList<>();
+		list.add(ex.getMessage());
+		return new ErrorMessage(HttpStatus.NOT_FOUND.toString(), list);
+	}
+
+	// WardenNotFoundException
 	@ExceptionHandler(WardenNotFoundException.class)
 	@ResponseStatus(code = HttpStatus.NOT_FOUND)
 	public ErrorMessage handleExceptionWardenNotFound(WardenNotFoundException ex) {
@@ -70,7 +71,7 @@ public class ControllerAdvice {
 		List<String> errors = ex.getErrors().stream().map(err -> err.getDefaultMessage()).collect(Collectors.toList());
 		return new ErrorMessage(HttpStatus.BAD_REQUEST.toString(), errors);
 	}
-	
+
 	// gives validation messages for Fee Structure
 	@ExceptionHandler(ValidateFeeStructureException.class)
 	@ResponseStatus(code = HttpStatus.BAD_REQUEST)
@@ -78,31 +79,40 @@ public class ControllerAdvice {
 		List<String> errors = ex.getErrors().stream().map(err -> err.getDefaultMessage()).collect(Collectors.toList());
 		return new ErrorMessage(HttpStatus.BAD_REQUEST.toString(), errors);
 	}
-	
-	
+
+	// gives validation messages for Room
 	@ExceptionHandler(ValidateRoomException.class)
 	@ResponseStatus(code = HttpStatus.BAD_REQUEST)
 	public ErrorMessage handleException(ValidateRoomException ex) {
 		List<String> errors = ex.getErrors().stream().map(err -> err.getDefaultMessage()).collect(Collectors.toList());
 		return new ErrorMessage(HttpStatus.BAD_REQUEST.toString(), errors);
 	}
-	
+
+	// gives validation messages for Student
 	@ExceptionHandler(ValidateStudentException.class)
 	@ResponseStatus(code = HttpStatus.BAD_REQUEST)
 	public ErrorMessage handleException(ValidateStudentException ex) {
 		List<String> errors = ex.getErrors().stream().map(err -> err.getDefaultMessage()).collect(Collectors.toList());
 		return new ErrorMessage(HttpStatus.BAD_REQUEST.toString(), errors);
 	}
-	
-	//for warden
+
+	// gives validation messages for Warden
 	@ExceptionHandler(ValidateWardenException.class)
 	@ResponseStatus(code = HttpStatus.BAD_REQUEST)
 	public ErrorMessage handleException(ValidateWardenException ex) {
 		List<String> errors = ex.getErrors().stream().map(err -> err.getDefaultMessage()).collect(Collectors.toList());
 		return new ErrorMessage(HttpStatus.BAD_REQUEST.toString(), errors);
 	}
-	
-	//RoomNotFoundException
+
+	// gives validation messages for Visitor
+	@ExceptionHandler(ValidateVisitorException.class)
+	@ResponseStatus(code = HttpStatus.BAD_REQUEST)
+	public ErrorMessage handleException(ValidateVisitorException ex) {
+		List<String> errors = ex.getErrors().stream().map(err -> err.getDefaultMessage()).collect(Collectors.toList());
+		return new ErrorMessage(HttpStatus.BAD_REQUEST.toString(), errors);
+	}
+
+	// RoomNotFoundException
 	@ExceptionHandler(RoomNotFoundException.class)
 	@ResponseStatus(code = HttpStatus.NOT_FOUND)
 	public ErrorMessage handleExceptionRoomNotFound(RoomNotFoundException ex) {
@@ -110,8 +120,8 @@ public class ControllerAdvice {
 		list.add(ex.getMessage());
 		return new ErrorMessage(HttpStatus.NOT_FOUND.toString(), list);
 	}
-	
-	//FloorNotFoundException
+
+	// FloorNotFoundException
 	@ExceptionHandler(FloorNotFoundException.class)
 	@ResponseStatus(code = HttpStatus.NOT_FOUND)
 	public ErrorMessage handleExceptionFloorNotFound(FloorNotFoundException ex) {
@@ -119,7 +129,7 @@ public class ControllerAdvice {
 		list.add(ex.getMessage());
 		return new ErrorMessage(HttpStatus.NOT_FOUND.toString(), list);
 	}
-	
+
 	@ExceptionHandler(StudentNotFoundException.class)
 	@ResponseStatus(code = HttpStatus.NOT_FOUND)
 	public ErrorMessage handleExceptionStudentNotFound(StudentNotFoundException ex) {
@@ -127,12 +137,13 @@ public class ControllerAdvice {
 		list.add(ex.getMessage());
 		return new ErrorMessage(HttpStatus.NOT_FOUND.toString(), list);
 	}
-	//VisitorNotFoundException
-		@ExceptionHandler(VisitorNotFoundException.class)
-		@ResponseStatus(code = HttpStatus.NOT_FOUND)
-		public ErrorMessage handleExceptionVisitorNotFound(VisitorNotFoundException ex) {
-			List<String> list = new ArrayList<>();
-			list.add(ex.getMessage());
-			return new ErrorMessage(HttpStatus.NOT_FOUND.toString(), list);
-		}
+
+	// VisitorNotFoundException
+	@ExceptionHandler(VisitorNotFoundException.class)
+	@ResponseStatus(code = HttpStatus.NOT_FOUND)
+	public ErrorMessage handleExceptionVisitorNotFound(VisitorNotFoundException ex) {
+		List<String> list = new ArrayList<>();
+		list.add(ex.getMessage());
+		return new ErrorMessage(HttpStatus.NOT_FOUND.toString(), list);
+	}
 }
