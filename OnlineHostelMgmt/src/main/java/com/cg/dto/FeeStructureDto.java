@@ -14,6 +14,7 @@ public class FeeStructureDto {
 	//@NotNull(message = "Allotment ID must not be blank")
 	private Integer allotmentId;
 	
+	@NotBlank(message = "payment status must not be blank")
 	@Pattern(regexp = "(paid|not paid)", message = "payment status must be paid or not paid")
 	private String paymentStatus = "Not Paid";
 	

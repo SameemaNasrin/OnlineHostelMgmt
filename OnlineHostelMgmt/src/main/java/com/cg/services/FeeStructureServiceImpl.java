@@ -13,6 +13,7 @@ import com.cg.entities.Allotment;
 import com.cg.entities.FeeStructure;
 import com.cg.entities.Student;
 import com.cg.exceptions.AllotmentNotFoundException;
+import com.cg.exceptions.FeeStructureNotFoundException;
 import com.cg.exceptions.StudentNotFoundException;
 
 @Service
@@ -50,9 +51,13 @@ public class FeeStructureServiceImpl implements IFeeStructService{
 	}
 
 	@Override
-	public List<FeeStructure> viewAllDefaulter() throws AllotmentNotFoundException {
+	public List<FeeStructure> viewAllDefaulter() throws FeeStructureNotFoundException{
+		List<FeeStructure> defaulters = feeStructureDao.findByPaymentStatus("not paid");
 		
-		return null;
+		if(defaulters.isEmpty())
+			throw new FeeStructureNotFoundException("No unpaid Fee Structure found");
+		
+		return defaulters;
 	}
 
 

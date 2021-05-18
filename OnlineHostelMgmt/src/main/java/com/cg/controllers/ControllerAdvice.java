@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.cg.dto.ErrorMessage;
+import com.cg.exceptions.FeeStructureNotFoundException;
 import com.cg.exceptions.FloorNotFoundException;
 import com.cg.exceptions.HostelNotFoundException;
 import com.cg.exceptions.RoomNotFoundException;
@@ -34,6 +35,15 @@ public class ControllerAdvice {
 		list.add(ex.getMessage());
 		return new ErrorMessage(HttpStatus.NOT_FOUND.toString(), list);
 	}
+	
+	// FeeStructureNotFoundException
+		@ExceptionHandler(FeeStructureNotFoundException.class)
+		@ResponseStatus(code = HttpStatus.NOT_FOUND)
+		public ErrorMessage handleExceptionHostelNotFound(FeeStructureNotFoundException ex) {
+			List<String> list = new ArrayList<>();
+			list.add(ex.getMessage());
+			return new ErrorMessage(HttpStatus.NOT_FOUND.toString(), list);
+		}
 	
 	//WardenNotFoundException
 	@ExceptionHandler(WardenNotFoundException.class)
