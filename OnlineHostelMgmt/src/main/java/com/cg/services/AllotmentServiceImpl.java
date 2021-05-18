@@ -48,6 +48,13 @@ public class AllotmentServiceImpl implements IAllotmentService{
 		Allotment allotment=new Allotment();
 		
 		Room room = roomDao.findById(allotmentDto.getRoomId()).orElseThrow(() -> new RoomNotFoundException("Room Doesnot exist with Id " + allotmentDto.getRoomId()));
+		 Integer size=room.getMaximumSize();
+		 if(size<=0) {
+			 throw new RoomNotFoundException("Room not empty");
+		 }
+		 else {
+			 room.setMaximumSize(size-1);
+		 }
 		Student student = studentDao.findById(allotmentDto.getStudentId()).orElseThrow(() -> new StudentNotFoundException("Student not found with id " + allotmentDto.getStudentId()));
 	
 		allotment.setRoom(room);
