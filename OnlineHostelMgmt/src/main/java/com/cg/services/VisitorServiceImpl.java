@@ -30,7 +30,6 @@ public class VisitorServiceImpl implements IVisitorService {
 
 	@Override
 	public Visitor addVisitor(VisitorDTO visitorDto) throws StudentNotFoundException, HostelNotFoundException {
-		// TODO Auto-generated method stub
 		Student student = studentDao.findById(visitorDto.getStudent_id()).orElseThrow(()->new StudentNotFoundException("no student found"));
 		Hostel hostel = hostelDao.findById(visitorDto.getHostel_id()).orElseThrow(()->new HostelNotFoundException("No hostel found"));
 		Visitor visitor = new Visitor();
@@ -48,7 +47,6 @@ public class VisitorServiceImpl implements IVisitorService {
 
 	@Override
 	public List<Visitor> getVisitorByVisitDate(LocalDate visitDate) throws VisitorNotFoundException {
-		// TODO Auto-generated method stub
 		List<Visitor> visitorList = new ArrayList<>();
 		visitorList = visitorDao.findByDateOfVisiting(visitDate);
 		if(visitorList.isEmpty())
@@ -59,17 +57,21 @@ public class VisitorServiceImpl implements IVisitorService {
 	@Override
 	public List<Visitor> getVisitorByDateAndHostel(LocalDate visitDate, Long hostel_Id)
 			throws VisitorNotFoundException, HostelNotFoundException {
-		// TODO Auto-generated method stub
+		List<Visitor> visitorList = new ArrayList<>();
+		visitorList = visitorDao.findByDateAndHostel_Id(visitDate , hostel_Id );
+		if(visitorList.isEmpty())
+			throw new VisitorNotFoundException("visitor not found  ");
+		return visitorList;
 		
-		
-		return null;
 	}
 
 	@Override
 	public List<Visitor> getVisitorByStudent(Integer student_Id) throws VisitorNotFoundException, StudentNotFoundException {
-		// TODO Auto-generated method stub
-		Student student = studentDao.findById(student_Id).orElseThrow(()->new StudentNotFoundException("Student not found with Id: "+student_Id));
-		return null;
+		List<Visitor> visitorList = new ArrayList<>();
+		visitorList = visitorDao.findByStudentId(student_Id);
+		if(visitorList.isEmpty())
+			throw new VisitorNotFoundException("Visitor not found with  student_Id: "+student_Id);
+		return visitorList;
 	}
 
 	

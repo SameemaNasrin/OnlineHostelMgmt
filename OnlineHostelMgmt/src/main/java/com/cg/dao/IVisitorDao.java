@@ -10,5 +10,10 @@ import com.cg.entities.Visitor;
 public interface IVisitorDao extends JpaRepository<Visitor, Integer> {
 	
 	public List<Visitor> findByDateOfVisiting(LocalDate dateOfVisiting);
+	
+	public List<Visitor> findByStudentId(Integer studentId);
+	
+	public List<Visitor> findByDateAndHostel_Id(LocalDate date ,Long Hostel_id);
+	
 
 }
