@@ -9,7 +9,7 @@ import com.cg.helper.Helper;
 public class FeeStructureDto {
 
 	private Integer id;
-	//@NotNull(message = "Student ID must not be blank")
+	@NotNull(message = "Student ID must not be blank")
 	private Integer studentId;
 	@NotNull(message = "Fees cannot be null")
 	private Double totalFees;
@@ -18,7 +18,7 @@ public class FeeStructureDto {
 	//initializing payments status as unpaid 
 	private String paymentStatus = Helper.NOT_PAID;
 	
-	private LocalDate paymentDate = LocalDate.now();
+	private LocalDate paymentDate;
 	
 	//constructor
 	public FeeStructureDto() {

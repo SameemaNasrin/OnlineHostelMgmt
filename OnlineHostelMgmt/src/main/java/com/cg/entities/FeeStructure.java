@@ -36,7 +36,7 @@ public class FeeStructure {
 	@Column(name = "payment_status", length = 10)
 	private String paymentStatus = Helper.NOT_PAID;
 
-	@Column(name = "payment_date")
+	@Column(name = "payment_date", nullable = true)
 	private LocalDate paymentDate;
 
 	//constructors

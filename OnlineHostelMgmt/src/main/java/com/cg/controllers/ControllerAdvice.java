@@ -11,11 +11,13 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.cg.dto.ErrorMessage;
+import com.cg.exceptions.AllotmentNotFoundException;
 import com.cg.exceptions.FeeStructureNotFoundException;
 import com.cg.exceptions.FloorNotFoundException;
 import com.cg.exceptions.HostelNotFoundException;
 import com.cg.exceptions.RoomNotFoundException;
 import com.cg.exceptions.StudentNotFoundException;
+import com.cg.exceptions.ValidateAllotmentException;
 import com.cg.exceptions.ValidateFeeStructureException;
 import com.cg.exceptions.ValidateHostelException;
 import com.cg.exceptions.ValidateRoomException;
@@ -64,10 +66,18 @@ public class ControllerAdvice {
 		return new ErrorMessage(HttpStatus.BAD_REQUEST.toString(), list);
 	}
 
-	// gives validation messages for Hostel
+	// gives validation messages for hostel
 	@ExceptionHandler(ValidateHostelException.class)
 	@ResponseStatus(code = HttpStatus.BAD_REQUEST)
 	public ErrorMessage handleException(ValidateHostelException ex) {
+		List<String> errors = ex.getErrors().stream().map(err -> err.getDefaultMessage()).collect(Collectors.toList());
+		return new ErrorMessage(HttpStatus.BAD_REQUEST.toString(), errors);
+	}
+
+	// gives validation messages for allotment
+	@ExceptionHandler(ValidateAllotmentException.class)
+	@ResponseStatus(code = HttpStatus.BAD_REQUEST)
+	public ErrorMessage handleException(ValidateAllotmentException ex) {
 		List<String> errors = ex.getErrors().stream().map(err -> err.getDefaultMessage()).collect(Collectors.toList());
 		return new ErrorMessage(HttpStatus.BAD_REQUEST.toString(), errors);
 	}
@@ -130,6 +140,7 @@ public class ControllerAdvice {
 		return new ErrorMessage(HttpStatus.NOT_FOUND.toString(), list);
 	}
 
+	// Student not found exception
 	@ExceptionHandler(StudentNotFoundException.class)
 	@ResponseStatus(code = HttpStatus.NOT_FOUND)
 	public ErrorMessage handleExceptionStudentNotFound(StudentNotFoundException ex) {
@@ -142,6 +153,15 @@ public class ControllerAdvice {
 	@ExceptionHandler(VisitorNotFoundException.class)
 	@ResponseStatus(code = HttpStatus.NOT_FOUND)
 	public ErrorMessage handleExceptionVisitorNotFound(VisitorNotFoundException ex) {
+		List<String> list = new ArrayList<>();
+		list.add(ex.getMessage());
+		return new ErrorMessage(HttpStatus.NOT_FOUND.toString(), list);
+	}
+
+	// VisitorNotFoundException
+	@ExceptionHandler(AllotmentNotFoundException.class)
+	@ResponseStatus(code = HttpStatus.NOT_FOUND)
+	public ErrorMessage handleExceptionAllotmentNotFound(AllotmentNotFoundException ex) {
 		List<String> list = new ArrayList<>();
 		list.add(ex.getMessage());
 		return new ErrorMessage(HttpStatus.NOT_FOUND.toString(), list);

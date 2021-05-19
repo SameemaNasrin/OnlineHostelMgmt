@@ -23,30 +23,28 @@ import com.cg.exceptions.ValidateFeeStructureException;
 import com.cg.services.IFeeStructService;
 
 @RestController
-@RequestMapping("feestructure")
+@RequestMapping("/feestructure")
 public class FeeStructRestController {
 
 	@Autowired
 	IFeeStructService feeStructureService;
-	
 
-	@PostMapping("add/{sid}")
-	public SuccessMessage payFeeByStudentId(@PathVariable("sid") Integer studentId,
-			@Valid @RequestBody FeeStructureDto fsDto, BindingResult br)
-			throws StudentNotFoundException, AllotmentNotFoundException, ValidateFeeStructureException {
-		if (br.hasErrors()) {
-			throw new ValidateFeeStructureException(br.getFieldErrors());
-		}
-		Integer id = feeStructureService.payFeeByStudentId(studentId, fsDto);
+	@PostMapping("/add/{sid}")
+	public SuccessMessage payFeeByStudentId(@PathVariable("sid") Integer studentId)
+			throws StudentNotFoundException, AllotmentNotFoundException {
+
+		Integer id = feeStructureService.payFeeByStudentId(studentId);
 		return new SuccessMessage("Your generated ID is " + id);
 	}
 
 	@GetMapping("/viewunpaid")
-	public List<FeeStructure> viewEmployeebyId() throws FeeStructureNotFoundException {
+	public List<FeeStructure> viewUnpaidStudents() throws FeeStructureNotFoundException {
 		return feeStructureService.viewAllDefaulter();
 	}
+
 	@GetMapping("/viewbystudent/{sid}")
-	List<FeeStructure> viewFeeByStudentId(@PathVariable("sid")Integer studentId) throws StudentNotFoundException{
+	List<FeeStructure> viewFeeByStudentId(@PathVariable("sid") Integer studentId)
+			throws StudentNotFoundException, FeeStructureNotFoundException {
 		return feeStructureService.viewFeeByStudentId(studentId);
 	}
 

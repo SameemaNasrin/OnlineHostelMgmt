@@ -2,6 +2,10 @@ package com.cg.services;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,15 +18,19 @@ import com.cg.dao.IStudentDao;
 import com.cg.dto.AllotmentDto;
 import com.cg.entities.Allotment;
 import com.cg.entities.FeeStructure;
+import com.cg.entities.Hostel;
 import com.cg.entities.Room;
 import com.cg.entities.Student;
 import com.cg.exceptions.AllotmentNotFoundException;
+import com.cg.exceptions.HostelNotFoundException;
 import com.cg.exceptions.RoomNotFoundException;
 import com.cg.exceptions.StudentNotFoundException;
 import com.cg.helper.Helper;
 
 @Service
 public class AllotmentServiceImpl implements IAllotmentService {
+	
+	Logger logger = LoggerFactory.getLogger(AllotmentServiceImpl.class);
 
 	@Autowired
 	IAllotmentDao allotmentDao;
@@ -36,6 +44,9 @@ public class AllotmentServiceImpl implements IAllotmentService {
 	@Autowired
 	IFeeStructureDao feeStructureDao;
 
+	@Autowired
+	IHostelDao hostelDao;
+
 	@Override
 	@Transactional
 	public Integer addAllotment(AllotmentDto allotmentDto) throws RoomNotFoundException, StudentNotFoundException {
@@ -44,16 +55,18 @@ public class AllotmentServiceImpl implements IAllotmentService {
 		 * finding room id and checking for availability of beds if unavailable then
 		 * throwing exception
 		 */
-		Room room = roomDao.findById(allotmentDto.getRoomId())
-				.orElseThrow(() -> new RoomNotFoundException("Room does not exist with Id " + allotmentDto.getRoomId()));
+		Room room = roomDao.findById(allotmentDto.getRoomId()).orElseThrow(
+				() -> new RoomNotFoundException("Room does not exist with Id " + allotmentDto.getRoomId()));
+		Student student = studentDao.findById(allotmentDto.getStudentId()).orElseThrow(
+				() -> new StudentNotFoundException("Student not found with id " + allotmentDto.getStudentId()));
 		Integer size = room.getMaximumSize();
 		if (size <= 0) {
 			throw new RoomNotFoundException("Room not empty");
 		} else {
 			room.setMaximumSize(size - 1);
 		}
-		Student student = studentDao.findById(allotmentDto.getStudentId()).orElseThrow(
-				() -> new StudentNotFoundException("Student not found with id " + allotmentDto.getStudentId()));
+		// updating reduced room size in database
+		roomDao.save(room);
 		// if student id is valid and room has availability
 		// making entry in allotment and feeStructure entity classes
 		allotment.setRoom(room);
@@ -63,6 +76,8 @@ public class AllotmentServiceImpl implements IAllotmentService {
 		feeStructure.setAllotment(allotment);
 		feeStructure.setPaymentStatus(Helper.NOT_PAID);
 		feeStructure.setStudent(student);
+		// why not setting other fee structure parameters ? ? (total fees)
+		feeStructure.setTotalFees(allotmentDto.getTotalFees());
 		feeStructureDao.save(feeStructure);
 		// returning allotment id for the allocation
 		return savedAllotment.getId();
@@ -76,36 +91,43 @@ public class AllotmentServiceImpl implements IAllotmentService {
 	 */
 	@Override
 	@Transactional
-	public Integer removeAllotment(Integer allotmentId, AllotmentDto allotmentDto)
-			throws AllotmentNotFoundException, RoomNotFoundException {
+	public Integer removeAllotment(Integer allotmentId) throws AllotmentNotFoundException, RoomNotFoundException {
 		Allotment allotment = allotmentDao.findById(allotmentId)
 				.orElseThrow(() -> new AllotmentNotFoundException("No Allotment found for id:" + allotmentId));
-		Room room = roomDao.findById(allotmentDto.getRoomId())
-				.orElseThrow(() -> new RoomNotFoundException("Room Doesnot exist with Id " + allotmentDto.getRoomId()));
+		Room room = allotment.getRoom();
+		if (room == null) {
+			throw new RoomNotFoundException("Room does not exist");
+		}
+
 		Integer size = room.getMaximumSize();
 		room.setMaximumSize(size + 1);
+		roomDao.save(room);
 		allotmentDao.deleteById(allotment.getId());
 		return allotmentId;
 	}
 
 	@Override
 	public List<Allotment> viewAllotmentByHostelId(Long hostelId)
-			throws RoomNotFoundException, AllotmentNotFoundException {
-		List<Room> rooms = roomDao.findByHostelId(hostelId);
+			throws RoomNotFoundException, AllotmentNotFoundException, HostelNotFoundException {
+		Hostel hostel = hostelDao.findById(hostelId)
+				.orElseThrow(() -> new HostelNotFoundException("No hostel found with id " + hostelId));
+		List<Room> rooms = hostel.getRooms().stream().collect(Collectors.toList());
 
 		if (rooms.isEmpty()) {
-			throw new RoomNotFoundException("No room data found for hostel id " + hostelId);
+			throw new RoomNotFoundException("No room data found for hostel id " + hostel.getId());
 		}
 
-		List<Allotment> allotment = new ArrayList<>();
-
+		List<Allotment> allotments = new ArrayList<>();
+		/* have to check this */
 		for (Room room : rooms) {
 			List<Allotment> a = allotmentDao.findByRoom(room);
+			logger.info("hererE");
+			logger.info(String.valueOf(a.size()));
 			if (a.isEmpty())
 				throw new AllotmentNotFoundException("Allotment not found for room id " + room.getRoomId());
-			allotment.addAll(a);
+			allotments.addAll(a);
 		}
 
-		return allotment;
+		return allotments;
 	}
 }
