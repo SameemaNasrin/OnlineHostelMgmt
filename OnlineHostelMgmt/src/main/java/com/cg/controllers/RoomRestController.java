@@ -34,8 +34,9 @@ public class RoomRestController {
 	IRoomService roomService;
 
 	@PostMapping("/add")
-	public SuccessMessage addRoom(@Valid @RequestBody RoomDTO roomDto, BindingResult br) throws ValidateRoomException,HostelNotFoundException {
-		if(br.hasErrors()) {
+	public SuccessMessage addRoom(@Valid @RequestBody RoomDTO roomDto, BindingResult br)
+			throws ValidateRoomException, HostelNotFoundException {
+		if (br.hasErrors()) {
 			throw new ValidateRoomException(br.getFieldErrors());
 		}
 		Integer roomId = roomService.addRoom(roomDto).getRoomId();
@@ -53,7 +54,8 @@ public class RoomRestController {
 	public ResponseEntity<List<Room>> viewRoomsByFloorAndHostelId(@PathVariable("hid") Long hostel_id,
 			@PathVariable("flr") Integer floor_id)
 			throws HostelNotFoundException, RoomNotFoundException, FloorNotFoundException {
-		return new ResponseEntity<List<Room>>(roomService.getRoomsByFloorAndHostelId(floor_id, hostel_id), HttpStatus.OK);
+		return new ResponseEntity<List<Room>>(roomService.getRoomsByFloorAndHostelId(floor_id, hostel_id),
+				HttpStatus.OK);
 	}
 
 	@GetMapping("/get/available/{hid}")

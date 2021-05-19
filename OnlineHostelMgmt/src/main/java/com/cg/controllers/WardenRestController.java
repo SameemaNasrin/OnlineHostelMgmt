@@ -38,8 +38,8 @@ public class WardenRestController {
 		return wardenService.viewWardenByWardenId(wardenId);
 	}
 
-	@GetMapping("/getbyhostelid/{hid}")
-	public List<Warden> viewWardenByHostelId(@PathVariable("hid") Long hostelId) throws WardenNotFoundException {
+	@GetMapping("/get/hostel/{hid}")
+	public List<Warden> viewWardenByHostelId(@PathVariable("hid") Long hostelId) throws WardenNotFoundException,HostelNotFoundException {
 		return wardenService.viewWardenByHostelId(hostelId);
 	}
 

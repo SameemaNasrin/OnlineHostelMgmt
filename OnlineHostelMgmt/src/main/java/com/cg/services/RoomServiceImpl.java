@@ -86,9 +86,11 @@ public class RoomServiceImpl implements IRoomService{
 
 	@Override
 	public List<Room> getRoomsAvailable() throws RoomNotFoundException {
-		// TODO Auto-generated method stub
-		
-		return null;
+		List<Room> allRooms = roomdao.findAll();
+		List<Room> toReturn = allRooms.stream().filter(r -> r.getMaximumSize()>0).collect(Collectors.toList());
+		if(toReturn.isEmpty())
+			throw new RoomNotFoundException("No available rooms found");
+		return toReturn;
 	}
 
 	

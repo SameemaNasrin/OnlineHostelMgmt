@@ -10,7 +10,7 @@ public class StudentDTO {
 	@NotBlank(message = "Student name cannot be empty")
 	private String name;
 	@NotBlank(message = "Student email cannot be empty")
-	@Email
+	@Email(message = "Must be a valid email id")
 	private String email;
 	@NotBlank(message = "Student gender cannot be empty")
 	@Pattern(regexp = "(male|female|other)", message = "Gender should be male/female/other")

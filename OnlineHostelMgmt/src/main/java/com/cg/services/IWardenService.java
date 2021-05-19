@@ -15,6 +15,6 @@ public interface IWardenService {
 
 	public Warden viewWardenByWardenId(Integer wid) throws WardenNotFoundException;
 
-	public List<Warden> viewWardenByHostelId(Long hostelid) throws WardenNotFoundException;
+	public List<Warden> viewWardenByHostelId(Long hostelid) throws WardenNotFoundException, HostelNotFoundException;
 
 }
