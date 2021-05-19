@@ -19,6 +19,7 @@ import com.cg.entities.Student;
 import com.cg.exceptions.AllotmentNotFoundException;
 import com.cg.exceptions.RoomNotFoundException;
 import com.cg.exceptions.StudentNotFoundException;
+import com.cg.helper.Helper;
 
 @Service
 public class AllotmentServiceImpl implements IAllotmentService {
@@ -37,14 +38,14 @@ public class AllotmentServiceImpl implements IAllotmentService {
 
 	@Override
 	@Transactional
-	public int addAllotment(AllotmentDto allotmentDto) throws RoomNotFoundException, StudentNotFoundException {
+	public Integer addAllotment(AllotmentDto allotmentDto) throws RoomNotFoundException, StudentNotFoundException {
 		Allotment allotment = new Allotment();
 		/*
 		 * finding room id and checking for availability of beds if unavailable then
 		 * throwing exception
 		 */
 		Room room = roomDao.findById(allotmentDto.getRoomId())
-				.orElseThrow(() -> new RoomNotFoundException("Room Doesnot exist with Id " + allotmentDto.getRoomId()));
+				.orElseThrow(() -> new RoomNotFoundException("Room does not exist with Id " + allotmentDto.getRoomId()));
 		Integer size = room.getMaximumSize();
 		if (size <= 0) {
 			throw new RoomNotFoundException("Room not empty");
@@ -60,7 +61,7 @@ public class AllotmentServiceImpl implements IAllotmentService {
 		Allotment savedAllotment = allotmentDao.save(allotment);
 		FeeStructure feeStructure = new FeeStructure();
 		feeStructure.setAllotment(allotment);
-		feeStructure.setPaymentStatus("Not Paid");
+		feeStructure.setPaymentStatus(Helper.NOT_PAID);
 		feeStructure.setStudent(student);
 		feeStructureDao.save(feeStructure);
 		// returning allotment id for the allocation
@@ -77,13 +78,13 @@ public class AllotmentServiceImpl implements IAllotmentService {
 	@Transactional
 	public Integer removeAllotment(Integer allotmentId, AllotmentDto allotmentDto)
 			throws AllotmentNotFoundException, RoomNotFoundException {
-		allotmentDao.findById(allotmentId)
+		Allotment allotment = allotmentDao.findById(allotmentId)
 				.orElseThrow(() -> new AllotmentNotFoundException("No Allotment found for id:" + allotmentId));
 		Room room = roomDao.findById(allotmentDto.getRoomId())
 				.orElseThrow(() -> new RoomNotFoundException("Room Doesnot exist with Id " + allotmentDto.getRoomId()));
 		Integer size = room.getMaximumSize();
 		room.setMaximumSize(size + 1);
-		allotmentDao.deleteById(allotmentId);
+		allotmentDao.deleteById(allotment.getId());
 		return allotmentId;
 	}
 

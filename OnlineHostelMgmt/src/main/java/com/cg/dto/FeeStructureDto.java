@@ -4,6 +4,8 @@ import java.time.LocalDate;
 
 import javax.validation.constraints.*;
 
+import com.cg.helper.Helper;
+
 public class FeeStructureDto {
 
 	private Integer id;
@@ -14,7 +16,7 @@ public class FeeStructureDto {
 	//@NotNull(message = "Allotment ID must not be blank")
 	private Integer allotmentId;
 	//initializing payments status as unpaid 
-	private String paymentStatus = "Not Paid";
+	private String paymentStatus = Helper.NOT_PAID;
 	
 	private LocalDate paymentDate = LocalDate.now();
 	

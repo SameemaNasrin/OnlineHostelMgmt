@@ -11,6 +11,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.cg.helper.Helper;
+
 @Entity
 @Table(name = "fee_structure")
 public class FeeStructure {
@@ -32,7 +34,7 @@ public class FeeStructure {
 	private Allotment allotment;
 
 	@Column(name = "payment_status", length = 10)
-	private String paymentStatus = "Not paid";
+	private String paymentStatus = Helper.NOT_PAID;
 
 	@Column(name = "payment_date")
 	private LocalDate paymentDate;

@@ -10,7 +10,10 @@ import com.cg.exceptions.StudentNotFoundException;
 
 public interface IAllotmentService {
 
-	public int addAllotment(AllotmentDto allotmentDto) throws RoomNotFoundException, StudentNotFoundException;
-	public Integer removeAllotment(Integer allotmentId,AllotmentDto allotmentDto) throws AllotmentNotFoundException, RoomNotFoundException;
+	public Integer addAllotment(AllotmentDto allotmentDto) throws RoomNotFoundException, StudentNotFoundException;
+
+	public Integer removeAllotment(Integer allotmentId, AllotmentDto allotmentDto)
+			throws AllotmentNotFoundException, RoomNotFoundException;
+
 	public List<Allotment> viewAllotmentByHostelId(Long hid) throws RoomNotFoundException, AllotmentNotFoundException;
 }

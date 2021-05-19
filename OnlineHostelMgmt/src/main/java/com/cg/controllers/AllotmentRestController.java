@@ -18,8 +18,10 @@ import com.cg.dto.AllotmentDto;
 import com.cg.dto.SuccessMessage;
 import com.cg.entities.Allotment;
 import com.cg.exceptions.AllotmentNotFoundException;
+import com.cg.exceptions.HostelNotFoundException;
 import com.cg.exceptions.RoomNotFoundException;
 import com.cg.exceptions.StudentNotFoundException;
+import com.cg.exceptions.ValidateAllotmentException;
 import com.cg.exceptions.ValidateHostelException;
 import com.cg.services.IAllotmentService;
 
@@ -33,18 +35,23 @@ public class AllotmentRestController {
 
 	@PostMapping("/add")
 	public SuccessMessage addAllotment(@Valid @RequestBody AllotmentDto allotmentDto, BindingResult br)
-			throws ValidateHostelException, RoomNotFoundException, StudentNotFoundException {
+			throws ValidateAllotmentException, HostelNotFoundException, RoomNotFoundException,
+			StudentNotFoundException {
 
 		if (br.hasErrors()) {
-			throw new ValidateHostelException(br.getFieldErrors());
+			throw new ValidateAllotmentException(br.getFieldErrors());
 		}
 		Integer allotmentId = allotmentService.addAllotment(allotmentDto);
-		return new SuccessMessage("Your generated Id is " + allotmentId);
+		return new SuccessMessage("Your generated allotment id is " + allotmentId);
 	}
 
 	@DeleteMapping("/remove/{aid}")
 	public SuccessMessage deallocate(@PathVariable("aid") Integer allotmentId,
-			@Valid @RequestBody AllotmentDto allotmentDto) throws AllotmentNotFoundException, RoomNotFoundException {
+			@Valid @RequestBody AllotmentDto allotmentDto, BindingResult br)
+			throws ValidateAllotmentException, AllotmentNotFoundException, RoomNotFoundException {
+		if (br.hasErrors()) {
+			throw new ValidateAllotmentException(br.getFieldErrors());
+		}
 
 		allotmentService.removeAllotment(allotmentId, allotmentDto);
 		return new SuccessMessage("Deallocated for allotment Id= " + allotmentId);

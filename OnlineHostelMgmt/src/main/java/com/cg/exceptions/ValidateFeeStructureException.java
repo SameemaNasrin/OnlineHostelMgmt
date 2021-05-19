@@ -28,7 +28,5 @@ public class ValidateFeeStructureException extends Exception {
 	public void setErrors(List<FieldError> errors) {
 		this.errors = errors;
 	}
-	
-	
-	
+
 }

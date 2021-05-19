@@ -13,22 +13,22 @@ import javax.persistence.Table;
 @Table(name = "allotments")
 public class Allotment {
 
-	//primary key
+	// primary key
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name="allotment_id")
+	@Column(name = "allotment_id")
 	private Integer id;
-	
-	//relationship with room entity table
+
+	// relationship with room entity table
 	@ManyToOne
-	@JoinColumn(name="room_id",referencedColumnName="room_id")
+	@JoinColumn(name = "room_id", referencedColumnName = "room_id")
 	private Room room;
-	//relationship with student entity table	
+	// relationship with student entity table
 	@ManyToOne
-	@JoinColumn(name="student_id",referencedColumnName="student_id")
+	@JoinColumn(name = "student_id", referencedColumnName = "student_id")
 	private Student student;
 
-	//constructors
+	// constructors
 	public Allotment(Integer id, Room room, Student student) {
 		super();
 		this.id = id;
@@ -39,9 +39,8 @@ public class Allotment {
 	public Allotment() {
 		super();
 	}
-	
-	//getter and setters
-	
+
+	// getter and setters
 
 	public Integer getId() {
 		return id;
@@ -66,6 +65,5 @@ public class Allotment {
 	public void setStudent(Student student) {
 		this.student = student;
 	}
-	
-	
+
 }
