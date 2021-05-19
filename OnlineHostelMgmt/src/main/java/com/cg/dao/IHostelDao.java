@@ -9,6 +9,6 @@ import com.cg.entities.Hostel;
 import com.cg.entities.Room;
 
 @Repository
-public interface IHostelDao extends JpaRepository<Hostel, Long>{
-	
+public interface IHostelDao extends JpaRepository<Hostel, Long> {
+
 }

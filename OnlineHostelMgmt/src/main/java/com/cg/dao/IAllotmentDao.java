@@ -9,11 +9,10 @@ import com.cg.entities.Allotment;
 import com.cg.entities.Room;
 
 @Repository
-public interface IAllotmentDao extends JpaRepository<Allotment, Integer>{
+public interface IAllotmentDao extends JpaRepository<Allotment, Integer> {
 
-	List<Allotment> findByRoom(Room room);
+	public List<Allotment> findByRoom(Room room);
 
-	Allotment findByStudentId(Integer studentId);
-	
+	public Allotment findByStudentId(Integer studentId);
 
 }

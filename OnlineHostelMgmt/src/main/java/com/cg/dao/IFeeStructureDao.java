@@ -10,11 +10,11 @@ import org.springframework.stereotype.Repository;
 import com.cg.entities.FeeStructure;
 
 @Repository
-public interface IFeeStructureDao extends JpaRepository<FeeStructure, Integer>{
+public interface IFeeStructureDao extends JpaRepository<FeeStructure, Integer> {
 
-	List<FeeStructure> findByPaymentStatus(String string);
+	public List<FeeStructure> findByPaymentStatus(String string);
 
-	@Query("from FeeStructure fs inner join fs.student s inner join fs.allotment a where s.studentId = :student_id")
+	@Query("from FeeStructure fs inner join fs.student s inner join fs.allotment a where s.id = :student_id")
 	public FeeStructure getFeeStructure(@Param("student_id") Integer studentId);
 
 }

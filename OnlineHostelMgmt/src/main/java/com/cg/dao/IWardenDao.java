@@ -9,7 +9,7 @@ import com.cg.entities.Warden;
 
 @Repository
 public interface IWardenDao extends JpaRepository<Warden, Integer> {
-	
+
 	public List<Warden> findByHostelId(Long hostelId);
 
 }

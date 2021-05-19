@@ -24,10 +24,10 @@ import com.cg.services.IWardenService;
 @RestController
 @RequestMapping("/warden")
 public class WardenRestController {
-	
+
 	@Autowired
 	IWardenService wardenService;
-	
+
 	@GetMapping("/get")
 	public List<Warden> viewAllWarden() throws WardenNotFoundException {
 		return wardenService.viewAllWarden();
@@ -37,24 +37,22 @@ public class WardenRestController {
 	public Warden viewWardenByWId(@PathVariable("wid") Integer wardenId) throws WardenNotFoundException {
 		return wardenService.viewWardenByWardenId(wardenId);
 	}
-	
+
 	@GetMapping("/getbyhostelid/{hid}")
-	public List<Warden> viewWardenByHostelId(@PathVariable("hid") Long hostelId) throws WardenNotFoundException{
+	public List<Warden> viewWardenByHostelId(@PathVariable("hid") Long hostelId) throws WardenNotFoundException {
 		return wardenService.viewWardenByHostelId(hostelId);
 	}
-	
+
 	@PostMapping("/add")
-	public SuccessMessage addWarden(@Valid @RequestBody WardenDto wardenDto, BindingResult br) throws ValidateWardenException, HostelNotFoundException{	
-		
+	public SuccessMessage addWarden(@Valid @RequestBody WardenDto wardenDto, BindingResult br)
+			throws ValidateWardenException, HostelNotFoundException {
+
 		if (br.hasErrors()) {
 			throw new ValidateWardenException(br.getFieldErrors());
 		}
 		Integer wardenId = wardenService.addWarden(wardenDto);
 		return new SuccessMessage("Your generated ID is " + wardenId);
-		
+
 	}
-	
-	
-	
 
 }

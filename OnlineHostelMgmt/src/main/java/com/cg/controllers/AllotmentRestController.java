@@ -1,4 +1,4 @@
-  package com.cg.controllers;
+package com.cg.controllers;
 
 import java.util.List;
 
@@ -25,36 +25,37 @@ import com.cg.services.IAllotmentService;
 
 //Check these in postman
 @RestController
-@RequestMapping("allotment")
+@RequestMapping("/allotment")
 public class AllotmentRestController {
-	
+
 	@Autowired
 	IAllotmentService allotmentService;
-	
+
 	@PostMapping("/add")
-	public SuccessMessage addAllotment(@Valid @RequestBody AllotmentDto allotmentDto, BindingResult br) throws ValidateHostelException, RoomNotFoundException, StudentNotFoundException {
-		
+	public SuccessMessage addAllotment(@Valid @RequestBody AllotmentDto allotmentDto, BindingResult br)
+			throws ValidateHostelException, RoomNotFoundException, StudentNotFoundException {
+
 		if (br.hasErrors()) {
 			throw new ValidateHostelException(br.getFieldErrors());
 		}
 		Integer allotmentId = allotmentService.addAllotment(allotmentDto);
 		return new SuccessMessage("Your generated Id is " + allotmentId);
 	}
-	
+
 	@DeleteMapping("/remove/{aid}")
-	public SuccessMessage deallocate(@PathVariable("aid") Integer allotmentId,@Valid @RequestBody AllotmentDto allotmentDto) throws AllotmentNotFoundException, RoomNotFoundException {
-		
-		allotmentService.removeAllotment(allotmentId,allotmentDto);
+	public SuccessMessage deallocate(@PathVariable("aid") Integer allotmentId,
+			@Valid @RequestBody AllotmentDto allotmentDto) throws AllotmentNotFoundException, RoomNotFoundException {
+
+		allotmentService.removeAllotment(allotmentId, allotmentDto);
 		return new SuccessMessage("Deallocated for allotment Id= " + allotmentId);
-		
+
 	}
-	
+
 	@GetMapping("/get/{hid}")
-	public List<Allotment> viewByHostelId(@PathVariable("hid") Long hostelId) throws RoomNotFoundException, AllotmentNotFoundException{
-		
+	public List<Allotment> viewByHostelId(@PathVariable("hid") Long hostelId)
+			throws RoomNotFoundException, AllotmentNotFoundException {
+
 		return allotmentService.viewAllotmentByHostelId(hostelId);
 	}
-	
-	
-	
+
 }
