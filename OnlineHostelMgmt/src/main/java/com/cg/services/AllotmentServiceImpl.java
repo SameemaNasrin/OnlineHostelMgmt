@@ -77,7 +77,7 @@ public class AllotmentServiceImpl implements IAllotmentService {
 		feeStructure.setPaymentStatus(Helper.NOT_PAID);
 		feeStructure.setStudent(student);
 		// why not setting other fee structure parameters ? ? (total fees)
-		feeStructure.setTotalFees(allotmentDto.getTotalFees());
+		feeStructure.setTotalFees(allotment.getRoom().getHostel().getFee());
 		feeStructureDao.save(feeStructure);
 		// returning allotment id for the allocation
 		return savedAllotment.getId();
@@ -121,13 +121,6 @@ public class AllotmentServiceImpl implements IAllotmentService {
 		/* have to check this */
 		for (Room room : rooms) {
 			List<Allotment> a = allotmentDao.findByRoom(room);
-//			logger.info("hererE");
-//			logger.info(String.valueOf(a.size()));
-//			if (a.isEmpty())
-				//break;
-				//throw new AllotmentNotFoundException("Allotment not found for room id " + room.getRoomId());
-//			for(Allotment al : a)
-//				System.out.println(al);
 			allotments.addAll(a);
 		}
 		
