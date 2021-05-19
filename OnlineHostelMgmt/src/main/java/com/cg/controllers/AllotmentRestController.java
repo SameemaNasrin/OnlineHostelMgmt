@@ -33,7 +33,7 @@ public class AllotmentRestController {
 	@Autowired
 	IAllotmentService allotmentService;
 
-	@PostMapping("/add")
+	@PostMapping("/add")//works
 	public SuccessMessage addAllotment(@Valid @RequestBody AllotmentDto allotmentDto, BindingResult br)
 			throws ValidateAllotmentException, HostelNotFoundException, RoomNotFoundException,
 			StudentNotFoundException {
@@ -45,7 +45,7 @@ public class AllotmentRestController {
 		return new SuccessMessage("Your generated allotment id is " + allotmentId);
 	}
 
-	@DeleteMapping("/remove/{aid}")
+	@DeleteMapping("/remove/{aid}")//works
 	public SuccessMessage deallocate(@PathVariable("aid") Integer allotmentId)
 			throws AllotmentNotFoundException, RoomNotFoundException {
 
@@ -54,7 +54,7 @@ public class AllotmentRestController {
 
 	}
 
-	@GetMapping("/get/{hid}")
+	@GetMapping("/get/{hid}")//works -- but the order of the output changes sometime when checked for allotment of same hostel but different rooms
 	public List<Allotment> viewByHostelId(@PathVariable("hid") Long hostelId)
 			throws RoomNotFoundException, AllotmentNotFoundException,HostelNotFoundException {
 

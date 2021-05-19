@@ -10,7 +10,6 @@ public class HostelDto {
 	private String name;
 
 	@NotBlank(message = "Contact number must not be blank")
-	//@Size(min = 10, max = 10, message = "Contact no should be of 10 digits")
 	@Pattern(regexp = "^[0-9]{10}",message = "Mobile number should be 10 digits")
 	private String contact;
 
@@ -22,7 +21,7 @@ public class HostelDto {
 	private String address;
 
 	@Min(value = 0, message = "Fee cannot be negative")
-	private Double fee;
+	private Double fee;//we have fee here
 	
 	@Max(value=5,message="Total floors cannot be more than 5")
 	private final Integer totalFloors=5;

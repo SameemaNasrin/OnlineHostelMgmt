@@ -29,7 +29,7 @@ public class FeeStructRestController {
 	@Autowired
 	IFeeStructService feeStructureService;
 
-	@PostMapping("/add/{sid}")
+	@PostMapping("/pay/{sid}")//works fine but gives error if multiple entry with same student id is there.
 	public SuccessMessage payFeeByStudentId(@PathVariable("sid") Integer studentId)
 			throws StudentNotFoundException, AllotmentNotFoundException {
 
@@ -37,12 +37,12 @@ public class FeeStructRestController {
 		return new SuccessMessage("Your generated ID is " + id);
 	}
 
-	@GetMapping("/viewunpaid")
+	@GetMapping("/viewunpaid")//works
 	public List<FeeStructure> viewUnpaidStudents() throws FeeStructureNotFoundException {
 		return feeStructureService.viewAllDefaulter();
 	}
 
-	@GetMapping("/viewbystudent/{sid}")
+	@GetMapping("/viewbystudent/{sid}")//works
 	List<FeeStructure> viewFeeByStudentId(@PathVariable("sid") Integer studentId)
 			throws StudentNotFoundException, FeeStructureNotFoundException {
 		return feeStructureService.viewFeeByStudentId(studentId);

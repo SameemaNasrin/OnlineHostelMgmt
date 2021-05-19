@@ -121,12 +121,18 @@ public class AllotmentServiceImpl implements IAllotmentService {
 		/* have to check this */
 		for (Room room : rooms) {
 			List<Allotment> a = allotmentDao.findByRoom(room);
-			logger.info("hererE");
-			logger.info(String.valueOf(a.size()));
-			if (a.isEmpty())
-				throw new AllotmentNotFoundException("Allotment not found for room id " + room.getRoomId());
+//			logger.info("hererE");
+//			logger.info(String.valueOf(a.size()));
+//			if (a.isEmpty())
+				//break;
+				//throw new AllotmentNotFoundException("Allotment not found for room id " + room.getRoomId());
+//			for(Allotment al : a)
+//				System.out.println(al);
 			allotments.addAll(a);
 		}
+		
+		if(allotments.isEmpty())
+			throw new AllotmentNotFoundException("No allotment found for hostel id " + hostel.getId());
 
 		return allotments;
 	}
