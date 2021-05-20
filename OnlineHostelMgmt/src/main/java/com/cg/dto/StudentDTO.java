@@ -18,7 +18,7 @@ public class StudentDTO {
 	private String gender;
 	@Past(message = "Student date of birth must be a previous date")
 	private LocalDate dob;
-	@Pattern(regexp = "^[0-9]{10}",message = "Mobile number should be 10 digits")
+	@Pattern(regexp = "^[0-9]{10}", message = "Mobile number should be 10 digits")
 	private String mobile;
 	private String address;
 	private String guardianName;
@@ -28,8 +28,8 @@ public class StudentDTO {
 		// TODO Auto-generated constructor stub
 	}
 
-	public StudentDTO(String name, String email, String gender, LocalDate dob, String mobile,
-			String address, String guardianName) {
+	public StudentDTO(String name, String email, String gender, LocalDate dob, String mobile, String address,
+			String guardianName) {
 		super();
 		this.name = name;
 		this.email = email;
