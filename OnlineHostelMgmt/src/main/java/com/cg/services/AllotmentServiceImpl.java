@@ -30,7 +30,7 @@ import com.cg.helper.Helper;
 
 @Service
 public class AllotmentServiceImpl implements IAllotmentService {
-	
+
 	Logger logger = LoggerFactory.getLogger(AllotmentServiceImpl.class);
 
 	@Autowired
@@ -50,23 +50,26 @@ public class AllotmentServiceImpl implements IAllotmentService {
 
 	@Override
 	@Transactional
-	public Integer addAllotment(AllotmentDto allotmentDto) throws RoomNotFoundException, StudentNotFoundException, GenderTypeMismatchException {
+	public Integer addAllotment(AllotmentDto allotmentDto)
+			throws RoomNotFoundException, StudentNotFoundException, GenderTypeMismatchException {
 		Allotment allotment = new Allotment();
 		/*
 		 * finding room id and checking for availability of beds if unavailable then
 		 * throwing exception
 		 */
-				
+
 		Room room = roomDao.findById(allotmentDto.getRoomId()).orElseThrow(
 				() -> new RoomNotFoundException("Room does not exist with Id " + allotmentDto.getRoomId()));
 		Student student = studentDao.findById(allotmentDto.getStudentId()).orElseThrow(
 				() -> new StudentNotFoundException("Student not found with id " + allotmentDto.getStudentId()));
-		
-		//check whether the hostel type and gender matches
+
+		// check whether the hostel type and gender matches
 		String studentGender = student.getGender();
 		String hostelType = room.getHostel().getType();
-		
-		if((studentGender.equals("female") && hostelType.equals("girls")) || (studentGender.equals("male") && hostelType.equals("boys")) || (studentGender.equals("other") && hostelType.equals("others"))) {
+
+		if ((studentGender.equalsIgnoreCase(Helper.FEMALE) && hostelType.equalsIgnoreCase(Helper.GIRLS))
+				|| (studentGender.equalsIgnoreCase(Helper.MALE) && hostelType.equalsIgnoreCase(Helper.BOYS))
+				|| (studentGender.equalsIgnoreCase(Helper.OTHER) && hostelType.equalsIgnoreCase(Helper.OTHERS))) {
 			Integer size = room.getMaximumSize();
 			if (size <= 0) {
 				throw new RoomNotFoundException("Room not empty");
@@ -84,16 +87,15 @@ public class AllotmentServiceImpl implements IAllotmentService {
 			feeStructure.setAllotment(allotment);
 			feeStructure.setPaymentStatus(Helper.NOT_PAID);
 			feeStructure.setStudent(student);
-			// why not setting other fee structure parameters ? ? (total fees)
+
 			feeStructure.setTotalFees(allotment.getRoom().getHostel().getFee());
 			feeStructureDao.save(feeStructure);
 			// returning allotment id for the allocation
 			return savedAllotment.getId();
 
-		}
-		else
-			throw new GenderTypeMismatchException("student's gender and hostel type doesn't match");
-		
+		} else
+			throw new GenderTypeMismatchException("Student's gender and hostel type doesn't match");
+
 	}
 
 	/*
@@ -101,9 +103,9 @@ public class AllotmentServiceImpl implements IAllotmentService {
 	 * present in allotment table, if not found throw respective exception else goto
 	 * next step and delete the allotment row and then add 1 to size of the room id
 	 */
-	
-	//to delete data from allotment table first need to derefer from fee structure
-	//what we can do is set the allotment null in fee structure. 
+
+	// to delete data from allotment table first need to derefer from fee structure
+	// what we can do is set the allotment null in fee structure.
 	@Override
 	@Transactional
 	public Integer removeAllotment(Integer allotmentId) throws AllotmentNotFoundException, RoomNotFoundException {
@@ -117,13 +119,12 @@ public class AllotmentServiceImpl implements IAllotmentService {
 		Integer size = room.getMaximumSize();
 		room.setMaximumSize(size + 1);
 		roomDao.save(room);
-		//added this 
+		// added this
 		FeeStructure feeStructure = feeStructureDao.findByAllotment(allotment);
-		Allotment nullAllotment = null;
-		if(feeStructure != null) {
-			feeStructure.setAllotment(nullAllotment);
+		if (feeStructure != null) {
+			feeStructure.setAllotment(null);
 		}
-		
+
 		allotmentDao.deleteById(allotment.getId());
 		return allotmentId;
 	}
@@ -145,8 +146,8 @@ public class AllotmentServiceImpl implements IAllotmentService {
 			List<Allotment> a = allotmentDao.findByRoom(room);
 			allotments.addAll(a);
 		}
-		
-		if(allotments.isEmpty())
+
+		if (allotments.isEmpty())
 			throw new AllotmentNotFoundException("No allotment found for hostel id " + hostel.getId());
 
 		return allotments;

@@ -13,6 +13,6 @@ public interface IAllotmentDao extends JpaRepository<Allotment, Integer> {
 
 	public List<Allotment> findByRoom(Room room);
 
-	public Allotment findByStudentId(Integer studentId);
+//	public Allotment findByStudentId(Integer studentId);
 
 }
