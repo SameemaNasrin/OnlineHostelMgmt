@@ -16,6 +16,7 @@ import com.cg.exceptions.FeeStructureNotFoundException;
 import com.cg.exceptions.FloorNotFoundException;
 import com.cg.exceptions.GenderTypeMismatchException;
 import com.cg.exceptions.HostelNotFoundException;
+import com.cg.exceptions.IncorrectAmountException;
 import com.cg.exceptions.RoomNotFoundException;
 import com.cg.exceptions.StudentNotFoundException;
 import com.cg.exceptions.ValidateAllotmentException;
@@ -167,12 +168,20 @@ public class ControllerAdvice {
 		list.add(ex.getMessage());
 		return new ErrorMessage(HttpStatus.NOT_FOUND.toString(), list);
 	}
-	
-	
+
 	// AllotmentNotFoundException
 	@ExceptionHandler(GenderTypeMismatchException.class)
 	@ResponseStatus(code = HttpStatus.NOT_FOUND)
 	public ErrorMessage handleExceptionGenderTypeMismatch(GenderTypeMismatchException ex) {
+		List<String> list = new ArrayList<>();
+		list.add(ex.getMessage());
+		return new ErrorMessage(HttpStatus.NOT_FOUND.toString(), list);
+	}
+
+	// IncorrectAmountException
+	@ExceptionHandler(IncorrectAmountException.class)
+	@ResponseStatus(code = HttpStatus.UNPROCESSABLE_ENTITY)
+	public ErrorMessage handleExceptionGenderTypeMismatch(IncorrectAmountException ex) {
 		List<String> list = new ArrayList<>();
 		list.add(ex.getMessage());
 		return new ErrorMessage(HttpStatus.NOT_FOUND.toString(), list);

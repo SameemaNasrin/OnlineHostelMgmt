@@ -12,6 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.cg.helper.Helper;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "fee_structure")
@@ -24,6 +25,7 @@ public class FeeStructure {
 
 	@ManyToOne
 	@JoinColumn(name = "student_id", referencedColumnName = "student_id")
+	@JsonIgnore
 	private Student student;
 
 	@Column(name = "total_fees")

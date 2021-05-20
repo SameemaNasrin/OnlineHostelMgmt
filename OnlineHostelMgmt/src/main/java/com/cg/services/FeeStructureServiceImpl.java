@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +16,7 @@ import com.cg.entities.FeeStructure;
 import com.cg.entities.Student;
 import com.cg.exceptions.AllotmentNotFoundException;
 import com.cg.exceptions.FeeStructureNotFoundException;
+import com.cg.exceptions.IncorrectAmountException;
 import com.cg.exceptions.StudentNotFoundException;
 import com.cg.helper.Helper;
 
@@ -29,26 +32,27 @@ public class FeeStructureServiceImpl implements IFeeStructService {
 	@Autowired
 	IFeeStructureDao feeStructureDao;
 
+	Logger logger = LoggerFactory.getLogger(FeeStructureServiceImpl.class);
+	
 	@Override
-	public Integer payFeeByStudentId(Integer studentId) // need to check later
-			throws StudentNotFoundException, AllotmentNotFoundException {
+	public Integer payFeeByStudentId(Integer studentId, Double amount) // need to check later
+			throws StudentNotFoundException, AllotmentNotFoundException,IncorrectAmountException {
 
 		Student student = studentDao.findById(studentId)
 				.orElseThrow(() -> new StudentNotFoundException("Student not found by id " + studentId));
 //		FeeStructure feeStructure = feeStructureDao.getFeeStructure(studentId);
 		FeeStructure feeStructure = feeStructureDao.findByStudentId(student.getId());
-//		feeStructure.setStudent(student);
-//
-//		feeStructure.setTotalFees(fsDto.getTotalFees());
+		logger.info(feeStructure.getTotalFees().toString());
+		logger.info(amount.toString());
+		
+
+		if(!feeStructure.getTotalFees().equals(amount)) {
+			throw new IncorrectAmountException("The amount should be " + feeStructure.getTotalFees());
+		}
 		feeStructure.setPaymentStatus(Helper.PAID);
 		feeStructure.setPaymentDate(LocalDate.now());
 
-//		Allotment allotment = allotmentDao.findByStudentId(studentId);
-//
-//		if (allotment == null)
-//			throw new AllotmentNotFoundException("Allotment not found for student Id " + studentId);
-//
-//		feeStructure.setAllotment(allotment);
+
 
 		return feeStructureDao.save(feeStructure).getId();
 	}
