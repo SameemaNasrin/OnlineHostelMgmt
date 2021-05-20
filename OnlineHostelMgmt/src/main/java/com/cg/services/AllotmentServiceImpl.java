@@ -22,6 +22,7 @@ import com.cg.entities.Hostel;
 import com.cg.entities.Room;
 import com.cg.entities.Student;
 import com.cg.exceptions.AllotmentNotFoundException;
+import com.cg.exceptions.GenderTypeMismatchException;
 import com.cg.exceptions.HostelNotFoundException;
 import com.cg.exceptions.RoomNotFoundException;
 import com.cg.exceptions.StudentNotFoundException;
@@ -49,39 +50,50 @@ public class AllotmentServiceImpl implements IAllotmentService {
 
 	@Override
 	@Transactional
-	public Integer addAllotment(AllotmentDto allotmentDto) throws RoomNotFoundException, StudentNotFoundException {
+	public Integer addAllotment(AllotmentDto allotmentDto) throws RoomNotFoundException, StudentNotFoundException, GenderTypeMismatchException {
 		Allotment allotment = new Allotment();
 		/*
 		 * finding room id and checking for availability of beds if unavailable then
 		 * throwing exception
 		 */
+				
 		Room room = roomDao.findById(allotmentDto.getRoomId()).orElseThrow(
 				() -> new RoomNotFoundException("Room does not exist with Id " + allotmentDto.getRoomId()));
 		Student student = studentDao.findById(allotmentDto.getStudentId()).orElseThrow(
 				() -> new StudentNotFoundException("Student not found with id " + allotmentDto.getStudentId()));
-		Integer size = room.getMaximumSize();
-		if (size <= 0) {
-			throw new RoomNotFoundException("Room not empty");
-		} else {
-			room.setMaximumSize(size - 1);
-		}
-		// updating reduced room size in database
-		roomDao.save(room);
-		// if student id is valid and room has availability
-		// making entry in allotment and feeStructure entity classes
-		allotment.setRoom(room);
-		allotment.setStudent(student);
-		Allotment savedAllotment = allotmentDao.save(allotment);
-		FeeStructure feeStructure = new FeeStructure();
-		feeStructure.setAllotment(allotment);
-		feeStructure.setPaymentStatus(Helper.NOT_PAID);
-		feeStructure.setStudent(student);
-		// why not setting other fee structure parameters ? ? (total fees)
-		feeStructure.setTotalFees(allotment.getRoom().getHostel().getFee());
-		feeStructureDao.save(feeStructure);
-		// returning allotment id for the allocation
-		return savedAllotment.getId();
+		
+		//check whether the hostel type and gender matches
+		String studentGender = student.getGender();
+		String hostelType = room.getHostel().getType();
+		
+		if((studentGender.equals("female") && hostelType.equals("girls")) || (studentGender.equals("male") && hostelType.equals("boys")) || (studentGender.equals("other") && hostelType.equals("others"))) {
+			Integer size = room.getMaximumSize();
+			if (size <= 0) {
+				throw new RoomNotFoundException("Room not empty");
+			} else {
+				room.setMaximumSize(size - 1);
+			}
+			// updating reduced room size in database
+			roomDao.save(room);
+			// if student id is valid and room has availability
+			// making entry in allotment and feeStructure entity classes
+			allotment.setRoom(room);
+			allotment.setStudent(student);
+			Allotment savedAllotment = allotmentDao.save(allotment);
+			FeeStructure feeStructure = new FeeStructure();
+			feeStructure.setAllotment(allotment);
+			feeStructure.setPaymentStatus(Helper.NOT_PAID);
+			feeStructure.setStudent(student);
+			// why not setting other fee structure parameters ? ? (total fees)
+			feeStructure.setTotalFees(allotment.getRoom().getHostel().getFee());
+			feeStructureDao.save(feeStructure);
+			// returning allotment id for the allocation
+			return savedAllotment.getId();
 
+		}
+		else
+			throw new GenderTypeMismatchException("student's gender and hostel type doesn't match");
+		
 	}
 
 	/*

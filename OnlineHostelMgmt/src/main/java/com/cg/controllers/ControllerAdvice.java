@@ -14,6 +14,7 @@ import com.cg.dto.ErrorMessage;
 import com.cg.exceptions.AllotmentNotFoundException;
 import com.cg.exceptions.FeeStructureNotFoundException;
 import com.cg.exceptions.FloorNotFoundException;
+import com.cg.exceptions.GenderTypeMismatchException;
 import com.cg.exceptions.HostelNotFoundException;
 import com.cg.exceptions.RoomNotFoundException;
 import com.cg.exceptions.StudentNotFoundException;
@@ -158,10 +159,20 @@ public class ControllerAdvice {
 		return new ErrorMessage(HttpStatus.NOT_FOUND.toString(), list);
 	}
 
-	// VisitorNotFoundException
+	// AllotmentNotFoundException
 	@ExceptionHandler(AllotmentNotFoundException.class)
 	@ResponseStatus(code = HttpStatus.NOT_FOUND)
 	public ErrorMessage handleExceptionAllotmentNotFound(AllotmentNotFoundException ex) {
+		List<String> list = new ArrayList<>();
+		list.add(ex.getMessage());
+		return new ErrorMessage(HttpStatus.NOT_FOUND.toString(), list);
+	}
+	
+	
+	// AllotmentNotFoundException
+	@ExceptionHandler(GenderTypeMismatchException.class)
+	@ResponseStatus(code = HttpStatus.NOT_FOUND)
+	public ErrorMessage handleExceptionGenderTypeMismatch(GenderTypeMismatchException ex) {
 		List<String> list = new ArrayList<>();
 		list.add(ex.getMessage());
 		return new ErrorMessage(HttpStatus.NOT_FOUND.toString(), list);
