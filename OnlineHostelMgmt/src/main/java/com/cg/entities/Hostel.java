@@ -29,7 +29,7 @@ public class Hostel {
 	@Column(name = "hostel_fee")
 	private Double fee;
 
-	@OneToMany(mappedBy = "hostel")
+	@OneToMany(mappedBy = "hostel")//bidirectional mapping
 	@JsonIgnore
 	private Set<Room> rooms;
 	
@@ -38,6 +38,16 @@ public class Hostel {
 
 	public Hostel() {
 		super();
+	}
+	
+	public Hostel(Long id, String name, String contact, String type, String address, Double fee) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.contact = contact;
+		this.type = type;
+		this.address = address;
+		this.fee = fee;
 	}
 
 	public Hostel(Long id, String name, String contact, String type, String address, Double fee, Set<Room> rooms) {
