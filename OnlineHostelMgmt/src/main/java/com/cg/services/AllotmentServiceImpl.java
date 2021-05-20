@@ -89,6 +89,9 @@ public class AllotmentServiceImpl implements IAllotmentService {
 	 * present in allotment table, if not found throw respective exception else goto
 	 * next step and delete the allotment row and then add 1 to size of the room id
 	 */
+	
+	//to delete data from allotment table first need to derefer from fee structure
+	//what we can do is set the allotment null in fee structure. 
 	@Override
 	@Transactional
 	public Integer removeAllotment(Integer allotmentId) throws AllotmentNotFoundException, RoomNotFoundException {
@@ -102,6 +105,13 @@ public class AllotmentServiceImpl implements IAllotmentService {
 		Integer size = room.getMaximumSize();
 		room.setMaximumSize(size + 1);
 		roomDao.save(room);
+		//added this 
+		FeeStructure feeStructure = feeStructureDao.findByAllotment(allotment);
+		Allotment nullAllotment = null;
+		if(feeStructure != null) {
+			feeStructure.setAllotment(nullAllotment);
+		}
+		
 		allotmentDao.deleteById(allotment.getId());
 		return allotmentId;
 	}

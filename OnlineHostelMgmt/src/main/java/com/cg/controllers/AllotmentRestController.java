@@ -44,7 +44,7 @@ public class AllotmentRestController {
 		return new SuccessMessage("Your generated allotment id is " + allotmentId);
 	}
 
-	@DeleteMapping("/remove/{aid}")//works
+	@DeleteMapping("/remove/{aid}")//does not
 	public SuccessMessage deallocate(@PathVariable("aid") Integer allotmentId)
 			throws AllotmentNotFoundException, RoomNotFoundException {
 

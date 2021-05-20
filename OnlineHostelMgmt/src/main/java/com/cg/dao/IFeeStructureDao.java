@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import com.cg.entities.Allotment;
 import com.cg.entities.FeeStructure;
 
 @Repository
@@ -17,6 +18,8 @@ public interface IFeeStructureDao extends JpaRepository<FeeStructure, Integer> {
 	@Query("from FeeStructure fs inner join fs.student s inner join fs.allotment a where s.id = :student_id")
 	public FeeStructure getFeeStructure(@Param("student_id") Integer studentId);
 	
-	public FeeStructure findByStudentId(Integer studentId);
+	public FeeStructure findByStudentId(Integer studentId);//does it work?
+
+	public FeeStructure findByAllotment(Allotment allotment);
 
 }
