@@ -8,7 +8,6 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.cg.entities.FeeStructure;
-import com.cg.entities.Student;
 
 @Repository
 public interface IFeeStructureDao extends JpaRepository<FeeStructure, Integer> {

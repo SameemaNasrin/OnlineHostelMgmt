@@ -2,7 +2,6 @@ package com.cg.services;
 
 import java.util.List;
 
-import com.cg.dto.FeeStructureDto;
 import com.cg.entities.FeeStructure;
 import com.cg.exceptions.AllotmentNotFoundException;
 import com.cg.exceptions.FeeStructureNotFoundException;

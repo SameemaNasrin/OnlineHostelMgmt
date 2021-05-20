@@ -18,10 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.cg.dto.SuccessMessage;
 import com.cg.dto.VisitorDTO;
-import com.cg.entities.Room;
 import com.cg.entities.Visitor;
 import com.cg.exceptions.HostelNotFoundException;
-import com.cg.exceptions.RoomNotFoundException;
 import com.cg.exceptions.StudentNotFoundException;
 import com.cg.exceptions.ValidateVisitorException;
 import com.cg.exceptions.VisitorNotFoundException;

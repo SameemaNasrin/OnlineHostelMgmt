@@ -10,8 +10,6 @@ import org.springframework.stereotype.Service;
 import com.cg.dao.IAllotmentDao;
 import com.cg.dao.IFeeStructureDao;
 import com.cg.dao.IStudentDao;
-import com.cg.dto.FeeStructureDto;
-import com.cg.entities.Allotment;
 import com.cg.entities.FeeStructure;
 import com.cg.entities.Student;
 import com.cg.exceptions.AllotmentNotFoundException;

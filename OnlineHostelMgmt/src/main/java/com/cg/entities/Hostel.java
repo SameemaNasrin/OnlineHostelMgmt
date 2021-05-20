@@ -14,7 +14,7 @@ public class Hostel {
 	@Column(name = "hostel_id")
 	private Long id;
 
-	@Column(name = "hostel_name", length = 25)
+	@Column(name = "hostel_name", length = 100)
 	private String name;
 
 	@Column(name = "hostel_contact", length = 10)
@@ -23,7 +23,7 @@ public class Hostel {
 	@Column(name = "hostel_type", length = 10)
 	private String type;
 
-	@Column(name = "hostel_address", length = 40)
+	@Column(name = "hostel_address", length = 140)
 	private String address;
 
 	@Column(name = "hostel_fee")

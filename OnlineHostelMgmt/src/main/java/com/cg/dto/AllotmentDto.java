@@ -1,6 +1,5 @@
 package com.cg.dto;
 
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 public class AllotmentDto {
@@ -10,9 +9,7 @@ public class AllotmentDto {
 	private Integer roomId;
 	@NotNull(message = "Student id cannot be null")
 	private Integer studentId;
-	@NotNull(message = "Total fees cannot be null")
-	@Min(value = 0, message = "Total fees must be greater than 0")
-	private Double totalFees; // to save the total fees in db
+
 	// Constructors for AllotmentDto
 
 	public AllotmentDto(Integer id, Integer roomId, Integer studentId, Double totalFees) {
@@ -20,7 +17,6 @@ public class AllotmentDto {
 		this.id = id;
 		this.roomId = roomId;
 		this.studentId = studentId;
-		this.totalFees = totalFees;
 	}
 
 	// getters and setters
@@ -52,12 +48,5 @@ public class AllotmentDto {
 		this.studentId = studentId;
 	}
 
-	public Double getTotalFees() {
-		return totalFees;
-	}
-
-	public void setTotalFees(Double totalFees) {
-		this.totalFees = totalFees;
-	}
 
 }

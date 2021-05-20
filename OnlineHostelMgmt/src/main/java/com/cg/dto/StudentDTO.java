@@ -2,9 +2,10 @@ package com.cg.dto;
 
 import java.time.LocalDate;
 
-import javax.validation.constraints.*;
-
-import org.hibernate.validator.constraints.UniqueElements;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Past;
+import javax.validation.constraints.Pattern;
 
 public class StudentDTO {
 	@NotBlank(message = "Student name cannot be empty")

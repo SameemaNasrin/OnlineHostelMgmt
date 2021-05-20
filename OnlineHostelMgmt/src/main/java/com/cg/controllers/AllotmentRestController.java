@@ -22,7 +22,6 @@ import com.cg.exceptions.HostelNotFoundException;
 import com.cg.exceptions.RoomNotFoundException;
 import com.cg.exceptions.StudentNotFoundException;
 import com.cg.exceptions.ValidateAllotmentException;
-import com.cg.exceptions.ValidateHostelException;
 import com.cg.services.IAllotmentService;
 
 //Check these in postman
