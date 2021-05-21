@@ -35,12 +35,11 @@ public class FeeStructureServiceImpl implements IFeeStructService {
 	Logger logger = LoggerFactory.getLogger(FeeStructureServiceImpl.class);
 	
 	@Override
-	public Integer payFeeByStudentId(Integer studentId, Double amount) // need to check later
+	public Integer payFeeByStudentId(Integer studentId, Double amount)
 			throws StudentNotFoundException, AllotmentNotFoundException,IncorrectAmountException {
 
 		Student student = studentDao.findById(studentId)
 				.orElseThrow(() -> new StudentNotFoundException("Student not found by id " + studentId));
-//		FeeStructure feeStructure = feeStructureDao.getFeeStructure(studentId);
 		FeeStructure feeStructure = feeStructureDao.findByStudentId(student.getId());
 		logger.info(feeStructure.getTotalFees().toString());
 		logger.info(amount.toString());

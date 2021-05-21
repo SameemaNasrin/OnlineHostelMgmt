@@ -3,6 +3,7 @@ package com.cg.entities;
 import java.util.Set;
 import javax.persistence.*;
 
+import com.cg.helper.Helper;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -29,12 +30,12 @@ public class Hostel {
 	@Column(name = "hostel_fee")
 	private Double fee;
 
-	@OneToMany(mappedBy = "hostel")//bidirectional mapping
-//	@JsonIgnore
+	@OneToMany(mappedBy = "hostel")
+	@JsonIgnore
 	private Set<Room> rooms;
 	
 	@Column(name="total_floors")
-	private final Integer totalFloors=5;
+	private final Integer totalFloors= Helper.FIVE;
 
 	public Hostel() {
 		super();

@@ -29,7 +29,7 @@ public class FeeStructRestController {
 	IFeeStructService feeStructureService;
 	Logger logger = LoggerFactory.getLogger(FeeStructRestController.class);
 
-	@PostMapping("/pay/{sid}") // works fine but gives error if multiple entry with same student id is there.
+	@PostMapping("/pay/{sid}")
 	public SuccessMessage payFeeByStudentId(@RequestParam Double amount, @PathVariable("sid") Integer studentId)
 			throws StudentNotFoundException, AllotmentNotFoundException, IncorrectAmountException {
 
@@ -37,12 +37,12 @@ public class FeeStructRestController {
 		return new SuccessMessage("Your generated ID is " + id);
 	}
 
-	@GetMapping("/viewunpaid") // works
+	@GetMapping("/viewunpaid")
 	public List<FeeStructure> viewUnpaidStudents() throws FeeStructureNotFoundException {
 		return feeStructureService.viewAllDefaulter();
 	}
 
-	@GetMapping("/viewbystudent/{sid}") // works
+	@GetMapping("/viewbystudent/{sid}")
 	List<FeeStructure> viewFeeByStudentId(@PathVariable("sid") Integer studentId)
 			throws StudentNotFoundException, FeeStructureNotFoundException {
 		return feeStructureService.viewFeeByStudentId(studentId);

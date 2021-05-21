@@ -10,4 +10,6 @@ public class Helper {
 	public static final String GIRLS = "girls";
 	public static final String OTHERS = "others";
 	
+	public static final int FIVE = 5;
+	
 }
