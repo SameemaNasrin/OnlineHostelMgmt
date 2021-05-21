@@ -1,12 +1,14 @@
 package com.cg;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -27,6 +29,7 @@ import com.cg.exceptions.RoomNotFoundException;
 import com.cg.services.IRoomService;
 import com.cg.services.RoomServiceImpl;
 
+@SpringBootTest
 public class RoomTest {
 
 	@InjectMocks
@@ -65,7 +68,7 @@ public class RoomTest {
 
 		roomDto = new RoomDTO();
 		roomDto.setFloor(2);
-		roomDto.setHostel_id((201));
+		roomDto.setHostel_id(201);
 		roomDto.setMaximumSize(3);
 		roomDto.setRoomDesc("Test Room desc");
 		roomDto.setRoomNo("301");
@@ -77,16 +80,27 @@ public class RoomTest {
 		room.setMaximumSize(roomDto.getMaximumSize());
 		room.setHostel(hostel);
 		room.setRoomId(101);
+		when(hostelDao.findById(201)).thenReturn(Optional.of(hostel));
+		when(roomDao.save(any(Room.class))).thenReturn(room);
+		when(roomDao.findAll()).thenReturn(Stream.of(room).collect(Collectors.toList()));
 
 	}
 
 	@Test
 	@DisplayName("Test case to add room")
 	public void testAddRoom() throws HostelNotFoundException {
-		when(hostelDao.findById(roomDto.getHostel_id())).thenReturn(Optional.of(hostel));
-		when(roomDao.save(any(Room.class))).thenReturn(room);
+//		when(hostelDao.findById(roomDto.getHostel_id())).thenReturn(Optional.of(hostel));
+//		when(roomDao.save(any(Room.class))).thenReturn(room);
 		assertEquals(room, roomService.addRoom(roomDto));
 
+	}
+
+	@Test
+	@DisplayName("Negative test case to add room")
+	public void testAddRoomNegative() {
+//		when(hostelDao.findById(201)).thenReturn(Optional.of(hostel));
+		roomDto.setHostel_id(202);
+		Assertions.assertThrows(HostelNotFoundException.class, () -> roomService.addRoom(roomDto));
 	}
 
 //	@Test
@@ -101,14 +115,14 @@ public class RoomTest {
 	@DisplayName("Test case to get room by wrong hostel id")
 	public void testGetRoomsByHostelIdNegative() {
 
-		when(hostelDao.findById((int) 201)).thenReturn(Optional.of(hostel));
+//		when(hostelDao.findById((int) 201)).thenReturn(Optional.of(hostel));
 		Assertions.assertThrows(HostelNotFoundException.class, () -> roomService.getRoomsByHostelId((202)));
 	}
 
 	@Test
 	@DisplayName("Test case to get rooms available")
 	public void testGetRoomsAvailable() throws RoomNotFoundException {
-		when(roomDao.findAll()).thenReturn(Stream.of(room).collect(Collectors.toList()));
+//		when(roomDao.findAll()).thenReturn(Stream.of(room).collect(Collectors.toList()));
 		assertEquals(1, roomService.getRoomsAvailable().size());
 	}
 

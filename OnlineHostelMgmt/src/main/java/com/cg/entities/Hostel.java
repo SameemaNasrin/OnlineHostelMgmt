@@ -30,7 +30,7 @@ public class Hostel {
 	private Double fee;
 
 	@OneToMany(mappedBy = "hostel")//bidirectional mapping
-	@JsonIgnore
+//	@JsonIgnore
 	private Set<Room> rooms;
 	
 	@Column(name="total_floors")
