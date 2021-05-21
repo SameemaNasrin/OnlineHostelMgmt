@@ -71,7 +71,7 @@ public class TestAddAllotment {
 		liststudent.add(s1);
 		listhostel.add(new Hostel(2, "GNIT Hostel", "9898172634", "boys", "sodepur, west bengal", 30000.0, null));
 		listroom.add(new Room(51,"12A" , listhostel.get(0), "empty", 2, 4));
-	listallotment.add(new Allotment(1001,listroom.get(0),liststudent.get(0),listhostel.get(0),30000.0));	
+	listallotment.add(new Allotment(1001,listroom.get(0),liststudent.get(0),listhostel.get(0)));	
 
 	}
 	@Test

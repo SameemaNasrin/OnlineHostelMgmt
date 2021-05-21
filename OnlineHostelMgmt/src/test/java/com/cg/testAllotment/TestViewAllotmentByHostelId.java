@@ -78,8 +78,8 @@ public class TestViewAllotmentByHostelId {
 	//	Optional<Room> room2=Optional.empty();
 		Optional<Room> room3=Optional.of(new Room(52,"12B" , hostel4.get(), "empty", 2, 3));
 		
-		list1.add(new Allotment(1001,room1.get(),student1.get(),hostel1.get(),30000.0));
-		list1.add(new Allotment(1002,room1.get(),student2.get(),hostel1.get(),30000.0));
+		list1.add(new Allotment(1001,room1.get(),student1.get(),hostel1.get()));
+		list1.add(new Allotment(1002,room1.get(),student2.get(),hostel1.get()));
 		when(allotmentDao.findByHostelId(hostel3.get())).thenReturn(list2);
 		when(allotmentDao.findByHostelId(hostel1.get())).thenReturn(list1);
 		

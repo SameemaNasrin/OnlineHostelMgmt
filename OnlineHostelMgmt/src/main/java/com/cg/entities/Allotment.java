@@ -30,28 +30,17 @@ public class Allotment {
 	@ManyToOne
 	@JoinColumn(name="hostel_id",referencedColumnName = "hostel_id")
 	private Hostel hostel;
-	@Column(name="total_fees")
-	private Double totalFees;
+
 
 	
 	// constructors
-	public Allotment(Integer id, Room room, Student student,Hostel hostel,Double totalFees) {
+	public Allotment(Integer id, Room room, Student student,Hostel hostel) {
 		super();
 		this.id = id;
 		this.room = room;
 		this.student = student;
 		this.hostel=hostel;
-		this.totalFees=totalFees;
 	}
-
-	public Double getTotalFees() {
-		return totalFees;
-	}
-
-	public void setTotalFees(Double totalFees) {
-		this.totalFees = totalFees;
-	}
-
 	public Allotment() {
 		super();
 	}

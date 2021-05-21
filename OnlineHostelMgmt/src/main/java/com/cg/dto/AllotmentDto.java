@@ -12,15 +12,15 @@ public class AllotmentDto {
 	@NotNull(message = "Hostel id cannot be null")
 	private Integer hostelId;
 	// Constructors for AllotmentDto
-	private Double totalFees;
 
-	public AllotmentDto(Integer id, Integer roomId, Integer studentId, Integer hostelId,Double totalFees) {
+
+	public AllotmentDto(Integer id, Integer roomId, Integer studentId, Integer hostelId) {
 		super();
 		this.id = id;
 		this.roomId = roomId;
 		this.hostelId=hostelId;
 		this.studentId = studentId;
-		this.totalFees=totalFees;
+
 		
 	}
 
@@ -30,14 +30,6 @@ public class AllotmentDto {
 
 	public void setHostelId(Integer hostelId) {
 		this.hostelId = hostelId;
-	}
-
-	public Double getTotalFees() {
-		return totalFees;
-	}
-
-	public void setTotalFees(Double totalFees) {
-		this.totalFees = totalFees;
 	}
 
 	// getters and setters
