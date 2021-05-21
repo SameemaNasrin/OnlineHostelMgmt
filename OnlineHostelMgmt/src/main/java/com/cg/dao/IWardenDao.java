@@ -12,4 +12,5 @@ public interface IWardenDao extends JpaRepository<Warden, Integer> {
 
 	public List<Warden> findByHostelId(Integer hostelId);
 
+
 }
