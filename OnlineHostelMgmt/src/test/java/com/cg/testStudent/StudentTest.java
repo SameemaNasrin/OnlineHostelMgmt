@@ -1,4 +1,4 @@
-package com.cg;
+package com.cg.testStudent;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -10,7 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 import java.time.LocalDate;
 import java.util.Optional;
@@ -66,7 +66,7 @@ public class StudentTest {
 	@DisplayName("Add student test case")
 	public void addStudentTest() {
 
-		when(studentDao.save(student)).thenReturn(student);
+		when(studentDao.save(any(Student.class))).thenReturn(student);
 
 		assertEquals(student, studentService.addStudent(studentDto));
 	}
@@ -85,11 +85,11 @@ public class StudentTest {
 		assertNotEquals(2, studentService.getStudents().size());
 	}
 
-	@Test
-	@DisplayName("Remove student test case")
-	public void removeStudentByIdTest() {
-
-	}
+//	@Test
+//	@DisplayName("Remove student test case")
+//	public void removeStudentByIdTest() {
+//
+//	}
 
 	@Test
 	@DisplayName("View student by id test case")
@@ -97,7 +97,7 @@ public class StudentTest {
 		when(studentDao.findById(student.getId())).thenReturn(Optional.of(student));
 		assertEquals(student, studentService.getStudentById(101));
 	}
-
+//
 	@Test
 	@DisplayName("View student by id negative test case")
 	public void viewStudentByIdTestNegative() throws StudentNotFoundException {
@@ -105,15 +105,15 @@ public class StudentTest {
 		Assertions.assertThrows(StudentNotFoundException.class, () -> studentService.getStudentById(102));
 	}
 
-	@Test
-	@DisplayName("View student by name test case")
-	public void viewStudentBySearchedNameTest() {
+//	@Test
+//	@DisplayName("View student by name test case")
+//	public void viewStudentBySearchedNameTest() {
+//
+//	}
 
-	}
-
-	@Test
-	@DisplayName("View student by mobile number test case")
-	public void viewStudentBYMobileNumberTest() {
-
-	}
+//	@Test
+//	@DisplayName("View student by mobile number test case")
+//	public void viewStudentBYMobileNumberTest() {
+//
+//	}
 }
