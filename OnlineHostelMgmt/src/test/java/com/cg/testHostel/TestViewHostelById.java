@@ -20,7 +20,7 @@ import com.cg.services.HostelServiceImpl;
 import com.cg.services.IHostelService;
 
 @SpringBootTest
-public class TestViewHostelById {
+class TestViewHostelById {
 
 	@Mock
 	IHostelDao dao;
@@ -40,13 +40,13 @@ public class TestViewHostelById {
 
 	@Test
 	@DisplayName(value = "test view by Id 101")
-	public void testViewById1() throws HostelNotFoundException  {
+	void testViewById1() throws HostelNotFoundException  {
 		assertNotNull(service.viewHostelById(101));
 	}
 	
 	@Test
 	@DisplayName(value = "test view by Id 102")
-	public void testViewById2() {
+	void testViewById2() {
 		assertThrows(HostelNotFoundException.class, ()->service.viewHostelById(102));
 	}
 	

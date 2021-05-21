@@ -41,8 +41,8 @@ public class FeeStructureServiceImpl implements IFeeStructService {
 		Student student = studentDao.findById(studentId)
 				.orElseThrow(() -> new StudentNotFoundException("Student not found by id " + studentId));
 		FeeStructure feeStructure = feeStructureDao.findByStudentId(student.getId());
-		logger.info(feeStructure.getTotalFees().toString());
-		logger.info(amount.toString());
+//		logger.info(feeStructure.getTotalFees().toString());
+//		logger.info(amount.toString());
 		
 
 		if(!feeStructure.getTotalFees().equals(amount)) {

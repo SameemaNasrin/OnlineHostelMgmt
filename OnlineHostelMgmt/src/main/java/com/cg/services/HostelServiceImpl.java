@@ -11,12 +11,24 @@ import com.cg.dto.HostelDto;
 import com.cg.entities.Hostel;
 import com.cg.exceptions.HostelNotFoundException;
 
+
+/** 
+ * @Author - Sameema Nasrin
+ * @Version - 1.0
+ * Description - This service class contains the service regarding the Hostel
+ */
 @Service
 public class HostelServiceImpl implements IHostelService{
 
 	@Autowired
 	IHostelDao hostelDao;
 	
+	/** 
+	   * @Param HostelDto
+	   * @return hostel id
+	   * Description - This method adds new hostel and returns hostel id
+	   * createdAt - 18-May-2021
+	   */
 	public Integer addHostel(HostelDto hostelDto) {
 		Hostel hostel = new Hostel();
 		
@@ -29,6 +41,11 @@ public class HostelServiceImpl implements IHostelService{
 		return hostelDao.save(hostel).getId();
 	}
 	
+	/** 
+	   * @return list of hostel
+	   * Description - This method finds all hostels and returns list of hostel else throws exception
+	   * createdAt - 18-May-2021
+	   */
 	public List<Hostel> viewAllHostel() throws HostelNotFoundException{
 		List<Hostel> list = hostelDao.findAll();
 		if (list.isEmpty()) {
@@ -38,6 +55,11 @@ public class HostelServiceImpl implements IHostelService{
 		return list;
 	}
 	
+	/** 
+	   * @return hostel
+	   * Description - This method finds hostel by hostel id and returns the hostel if present else throws exception
+	   * createdAt - 18-May-2021
+	   */
 	public Hostel viewHostelById(Integer hid) throws HostelNotFoundException {
 		Optional<Hostel> optHostel = hostelDao.findById(hid);
 		if (!optHostel.isPresent()) {

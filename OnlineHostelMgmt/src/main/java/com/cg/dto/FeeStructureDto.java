@@ -13,11 +13,8 @@ public class FeeStructureDto {
 	private Integer studentId;
 	@NotNull(message = "Fees cannot be null")
 	private Double totalFees;
-	//@NotNull(message = "Allotment ID must not be blank")
 	private Integer allotmentId;
-	//initializing payments status as unpaid 
 	private String paymentStatus = Helper.NOT_PAID;
-	
 	private LocalDate paymentDate;
 	
 	//constructor

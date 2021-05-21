@@ -1,4 +1,4 @@
-package com.cg.testFee;
+package com.cg.testFeeStructure;
 
 public class TestViewFeeByStudentId {
 

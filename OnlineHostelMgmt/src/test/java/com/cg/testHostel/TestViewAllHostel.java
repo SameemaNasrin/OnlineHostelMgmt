@@ -23,7 +23,7 @@ import com.cg.services.IHostelService;
 
 
 @SpringBootTest
-public class TestViewAllHostel {
+class TestViewAllHostel {
 
 	@Mock
 	private IHostelDao dao;
@@ -45,14 +45,14 @@ public class TestViewAllHostel {
 	
 	@Test
 	@DisplayName("Test for view all hostel")
-	public void testViewAllHostel1() throws HostelNotFoundException {
+	void testViewAllHostel1() throws HostelNotFoundException {
 		when(dao.findAll()).thenReturn(list1);
 		assertTrue(service.viewAllHostel().size()>0);
 	}
 	
 	@Test
 	@DisplayName("Negative Test for view all hostel")
-	public void testViewAllHostel2() throws HostelNotFoundException {
+	void testViewAllHostel2() throws HostelNotFoundException {
 		when(dao.findAll()).thenReturn(list2);
 		assertThrows(HostelNotFoundException.class, ()-> service.viewAllHostel());
 	}
