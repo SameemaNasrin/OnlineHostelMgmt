@@ -39,9 +39,9 @@ public class TestViewAllWarden {
 	@BeforeEach
 	public void beforeEach(){
 		
-		list1.add(new Hostel((long)1, "NHSM Hostel", "8918273646", "girls", "kolkata, west bengal", 32000.0, null));
-		list1.add(new Hostel((long)2, "GNIT Hostel", "9898172634", "boys", "sodepur, west bengal", 30000.0, null));
-		list1.add(new Hostel((long)3, "Techno Hostel", "9991723361", "girls", "kolkata, west bengal", 42000.0, null));	
+		list1.add(new Hostel(1, "NHSM Hostel", "8918273646", "girls", "kolkata, west bengal", 32000.0, null));
+		list1.add(new Hostel(2, "GNIT Hostel", "9898172634", "boys", "sodepur, west bengal", 30000.0, null));
+		list1.add(new Hostel(3, "Techno Hostel", "9991723361", "girls", "kolkata, west bengal", 42000.0, null));	
 		
 		list2.add(new Warden(11,"rahul21@yahoo.com","Rahul",(list1.get(0))));
 		list2.add(new Warden(12,"rakesh15@gmail.com","Rakesh",(list1.get(1))));

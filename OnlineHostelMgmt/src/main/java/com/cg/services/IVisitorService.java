@@ -14,7 +14,7 @@ public interface IVisitorService {
 
 	public List<Visitor> getVisitorByVisitDate(LocalDate visitDate) throws VisitorNotFoundException;
 
-	public List<Visitor> getVisitorByDateOfVisitingAndHostel(LocalDate visitDate, Long hostel_Id)
+	public List<Visitor> getVisitorByDateOfVisitingAndHostel(LocalDate visitDate, Integer hostel_Id)
 			throws VisitorNotFoundException, HostelNotFoundException;
 
 	public List<Visitor> getVisitorByStudent(Integer student_Id)

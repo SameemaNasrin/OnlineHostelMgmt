@@ -55,7 +55,7 @@ public class AllotmentRestController {
 	}
 
 	@GetMapping("/get/{hid}")//works -- but the order of the output changes sometime when checked for allotment of same hostel but different rooms
-	public List<Allotment> viewByHostelId(@PathVariable("hid") Long hostelId)
+	public List<Allotment> viewByHostelId(@PathVariable("hid") Integer hostelId)
 			throws RoomNotFoundException, AllotmentNotFoundException,HostelNotFoundException {
 
 		return allotmentService.viewAllotmentByHostelId(hostelId);

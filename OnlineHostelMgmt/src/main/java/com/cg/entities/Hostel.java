@@ -12,7 +12,7 @@ public class Hostel {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "hostel_id")
-	private Long id;
+	private Integer id;
 
 	@Column(name = "hostel_name", length = 100)
 	private String name;
@@ -40,7 +40,7 @@ public class Hostel {
 		super();
 	}
 
-	public Hostel(Long id, String name, String contact, String type, String address, Double fee, Set<Room> rooms) {
+	public Hostel(Integer id, String name, String contact, String type, String address, Double fee, Set<Room> rooms) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -51,11 +51,11 @@ public class Hostel {
 		this.rooms = rooms;
 	}
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

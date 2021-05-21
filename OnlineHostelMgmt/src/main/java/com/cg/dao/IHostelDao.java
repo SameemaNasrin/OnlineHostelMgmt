@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.cg.entities.Hostel;
 
 @Repository
-public interface IHostelDao extends JpaRepository<Hostel, Long> {
+public interface IHostelDao extends JpaRepository<Hostel, Integer> {
 
 }

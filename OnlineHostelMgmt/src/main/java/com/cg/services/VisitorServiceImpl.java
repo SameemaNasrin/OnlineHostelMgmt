@@ -53,7 +53,7 @@ public class VisitorServiceImpl implements IVisitorService {
 	}
 
 	@Override
-	public List<Visitor> getVisitorByDateOfVisitingAndHostel(LocalDate visitDate, Long hostel_Id)
+	public List<Visitor> getVisitorByDateOfVisitingAndHostel(LocalDate visitDate, Integer hostel_Id)
 			throws VisitorNotFoundException, HostelNotFoundException {
 		hostelDao.findById(hostel_Id)
 				.orElseThrow(() -> new HostelNotFoundException("No hostel found with id: " + hostel_Id));

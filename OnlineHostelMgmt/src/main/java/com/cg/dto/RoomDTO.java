@@ -22,13 +22,13 @@ public class RoomDTO {
 
 	@Min(value = 1, message = "Hostel id cannot be less than 1")
 	@NotNull(message = "Hostel id cannot be null")
-	private Long hostelId;
+	private Integer hostelId;
 
 	public RoomDTO() {
 		super();
 	}
 
-	public RoomDTO(Integer roomId, String roomNo, String roomDesc, Integer floor, Integer maximumSize, Long hostel_id) {
+	public RoomDTO(Integer roomId, String roomNo, String roomDesc, Integer floor, Integer maximumSize, Integer hostel_id) {
 		super();
 		this.roomId = roomId;
 		this.roomNo = roomNo;
@@ -78,11 +78,11 @@ public class RoomDTO {
 		this.maximumSize = maximumSize;
 	}
 
-	public Long getHostel_id() {
+	public Integer getHostel_id() {
 		return hostelId;
 	}
 
-	public void setHostel_id(Long hostel_id) {
+	public void setHostel_id(Integer hostel_id) {
 		this.hostelId = hostel_id;
 	}
 

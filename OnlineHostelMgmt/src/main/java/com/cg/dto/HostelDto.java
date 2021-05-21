@@ -4,7 +4,7 @@ import javax.validation.constraints.*;
 
 public class HostelDto {
 
-	private Long id;
+	private Integer id;
 
 	@NotBlank(message = "Hostel name must not be blank")
 	private String name;
@@ -30,7 +30,7 @@ public class HostelDto {
 
 	}
 
-	public HostelDto(Long id, String name, String contact, String type, String address, Double fee) {
+	public HostelDto(Integer id, String name, String contact, String type, String address, Double fee) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -40,11 +40,11 @@ public class HostelDto {
 		this.fee = fee;
 	}
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

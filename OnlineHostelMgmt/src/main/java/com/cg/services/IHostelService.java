@@ -8,7 +8,7 @@ import com.cg.exceptions.HostelNotFoundException;
 
 public interface IHostelService{
 
-	public Long addHostel(HostelDto hostelDto);
+	public Integer addHostel(HostelDto hostelDto);
 	public List<Hostel> viewAllHostel() throws HostelNotFoundException;
-	public Hostel viewHostelById(Long hid) throws HostelNotFoundException;
+	public Hostel viewHostelById(Integer hid) throws HostelNotFoundException;
 }

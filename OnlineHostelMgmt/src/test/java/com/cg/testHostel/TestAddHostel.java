@@ -40,20 +40,20 @@ public class TestAddHostel {
 		dto.setAddress("kolkata, west bengal");
 		dto.setFee(3200.0);
 		
-		hostel.setId((long)1);
+		hostel.setId(1);
 		hostel.setName(dto.getName());
 		hostel.setContact(dto.getContact());
 		hostel.setType(dto.getType());
 		hostel.setAddress(dto.getAddress());
 		hostel.setFee(dto.getFee());
 		
-		
+		when(dao.save(hostel)).thenReturn(hostel);
 	}
 	
 	@Test
 	@DisplayName("Test for add hostel")
 	public void testAddHostel() {
-		when(dao.save(hostel)).thenReturn(hostel);
+		System.out.println(hostel);
 		assertEquals(1, service.addHostel(dto));
 	}
 	

@@ -17,7 +17,7 @@ public class HostelServiceImpl implements IHostelService{
 	@Autowired
 	IHostelDao hostelDao;
 	
-	public Long addHostel(HostelDto hostelDto) {
+	public Integer addHostel(HostelDto hostelDto) {
 		Hostel hostel = new Hostel();
 		
 		hostel.setName(hostelDto.getName());
@@ -38,7 +38,7 @@ public class HostelServiceImpl implements IHostelService{
 		return list;
 	}
 	
-	public Hostel viewHostelById(Long hid) throws HostelNotFoundException {
+	public Hostel viewHostelById(Integer hid) throws HostelNotFoundException {
 		Optional<Hostel> optHostel = hostelDao.findById(hid);
 		if (!optHostel.isPresent()) {
 			throw new HostelNotFoundException("No hostel found for id " + hid);

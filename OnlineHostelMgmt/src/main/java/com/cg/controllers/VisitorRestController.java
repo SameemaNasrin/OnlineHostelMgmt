@@ -51,7 +51,7 @@ public class VisitorRestController {
 
 	@GetMapping("/get/date/{date}/{id}")
 	public ResponseEntity<List<Visitor>> viewVisitorByDateAndHoste(@PathVariable("date") String date,
-			@PathVariable("id") Long hostel_Id) throws VisitorNotFoundException, HostelNotFoundException {
+			@PathVariable("id") Integer hostel_Id) throws VisitorNotFoundException, HostelNotFoundException {
 		LocalDate visitDate = LocalDate.parse(date);
 		return new ResponseEntity<List<Visitor>>(
 				visitorService.getVisitorByDateOfVisitingAndHostel(visitDate, hostel_Id), HttpStatus.OK);

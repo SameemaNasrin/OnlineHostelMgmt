@@ -43,7 +43,7 @@ public class RoomServiceImpl implements IRoomService{
 	}
 
 	@Override
-	public List<Room> getRoomsByHostelId(Long hostel_id) throws HostelNotFoundException, RoomNotFoundException {
+	public List<Room> getRoomsByHostelId(Integer hostel_id) throws HostelNotFoundException, RoomNotFoundException {
 		// TODO Auto-generated method stub
 		Hostel hostel=hosteldao.findById(hostel_id).orElseThrow(()->new HostelNotFoundException("Hostel not found"));
 		List<Room> rooms=hostel.getRooms().stream().collect(Collectors.toList());
@@ -53,7 +53,7 @@ public class RoomServiceImpl implements IRoomService{
 	}
 
 	@Override
-	public List<Room> getRoomsByFloorAndHostelId(Integer floor, Long hostel_id)
+	public List<Room> getRoomsByFloorAndHostelId(Integer floor, Integer hostel_id)
 			throws HostelNotFoundException, FloorNotFoundException, RoomNotFoundException {
 		// TODO Auto-generated method stub
 		Hostel hostel=hosteldao.findById(hostel_id).orElseThrow(()->new HostelNotFoundException("Hostel not found"));
@@ -69,7 +69,7 @@ public class RoomServiceImpl implements IRoomService{
 	}
 
 	@Override
-	public List<Room> getRoomsAvailableByHostelId(Long hostel_id)
+	public List<Room> getRoomsAvailableByHostelId(Integer hostel_id)
 			throws HostelNotFoundException, RoomNotFoundException {
 		// TODO Auto-generated method stub
 		Hostel hostel=hosteldao.findById(hostel_id).orElseThrow(()->new HostelNotFoundException("Hostel not found"));

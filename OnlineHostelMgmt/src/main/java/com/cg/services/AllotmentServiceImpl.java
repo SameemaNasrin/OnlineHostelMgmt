@@ -130,7 +130,7 @@ public class AllotmentServiceImpl implements IAllotmentService {
 	}
 
 	@Override
-	public List<Allotment> viewAllotmentByHostelId(Long hostelId)
+	public List<Allotment> viewAllotmentByHostelId(Integer hostelId)
 			throws RoomNotFoundException, AllotmentNotFoundException, HostelNotFoundException {
 		Hostel hostel = hostelDao.findById(hostelId)
 				.orElseThrow(() -> new HostelNotFoundException("No hostel found with id " + hostelId));

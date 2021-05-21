@@ -10,6 +10,6 @@ import com.cg.entities.Room;
 @Repository
 public interface IRoomDao extends JpaRepository<Room, Integer> {
 
-	public List<Room> findByHostelId(Long hostelId);
-	public List<Room> findByHostelIdAndFloor(Long hostelId,Integer floor);
+	public List<Room> findByHostelId(Integer hostelId);
+	public List<Room> findByHostelIdAndFloor(Integer hostelId,Integer floor);
 }

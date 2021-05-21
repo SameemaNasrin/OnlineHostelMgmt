@@ -33,21 +33,21 @@ public class TestViewHostelById {
 		Optional<Hostel> optHostel1 = Optional.of(new Hostel());
 		Optional<Hostel> optHostel2 = Optional.empty();
 	
-		when(dao.findById((long) 101)).thenReturn(optHostel1);
-		when(dao.findById((long) 102)).thenReturn(optHostel2);
+		when(dao.findById(101)).thenReturn(optHostel1);
+		when(dao.findById(102)).thenReturn(optHostel2);
 	}
 	
 
 	@Test
 	@DisplayName(value = "test view by Id 101")
 	public void testViewById1() throws HostelNotFoundException  {
-		assertNotNull(service.viewHostelById((long) 101));
+		assertNotNull(service.viewHostelById(101));
 	}
 	
 	@Test
 	@DisplayName(value = "test view by Id 102")
 	public void testViewById2() {
-		assertThrows(HostelNotFoundException.class, ()->service.viewHostelById((long)102));
+		assertThrows(HostelNotFoundException.class, ()->service.viewHostelById(102));
 	}
 	
 }

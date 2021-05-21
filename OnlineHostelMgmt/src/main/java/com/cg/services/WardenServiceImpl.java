@@ -54,7 +54,7 @@ public class WardenServiceImpl implements IWardenService {
 	}
 
 	@Override
-	public List<Warden> viewWardenByHostelId(Long hostelId) throws WardenNotFoundException, HostelNotFoundException {
+	public List<Warden> viewWardenByHostelId(Integer hostelId) throws WardenNotFoundException, HostelNotFoundException {
 		Hostel hostel = hostelDao.findById(hostelId)
 				.orElseThrow(() -> new HostelNotFoundException("No hostel found with id " + hostelId));
 		List<Warden> wardens = wardenDao.findByHostelId(hostel.getId());

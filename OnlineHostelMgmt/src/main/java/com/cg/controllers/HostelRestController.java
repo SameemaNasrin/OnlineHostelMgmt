@@ -33,7 +33,7 @@ public class HostelRestController {
 	}
 	
 	@GetMapping("/get/{hid}")
-	public Hostel viewEmployeebyId(@PathVariable("hid") Long hostelId) throws HostelNotFoundException {
+	public Hostel viewEmployeebyId(@PathVariable("hid") Integer hostelId) throws HostelNotFoundException {
 		return hostelService.viewHostelById(hostelId);
 	}
 
@@ -43,7 +43,7 @@ public class HostelRestController {
 		if (br.hasErrors()) {
 			throw new ValidateHostelException(br.getFieldErrors());
 		}
-		Long hostelId = hostelService.addHostel(hostelDto);
+		Integer hostelId = hostelService.addHostel(hostelDto);
 		return new SuccessMessage("Your generated ID is " + hostelId);
 		
 	}

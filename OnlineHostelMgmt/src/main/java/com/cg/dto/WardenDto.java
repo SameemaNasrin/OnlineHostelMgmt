@@ -14,13 +14,13 @@ public class WardenDto {
 	private String name;
 
 	@NotNull(message = "Hostel Id must not be blank")
-	private Long hostelId;
+	private Integer hostelId;
 
 	public WardenDto() {
 		super();
 	}
 
-	public WardenDto(Integer id, String email, String name, Long hostelId) {
+	public WardenDto(Integer id, String email, String name, Integer hostelId) {
 		super();
 		this.id = id;
 		this.email = email;
@@ -52,11 +52,11 @@ public class WardenDto {
 		this.name = name;
 	}
 
-	public Long getHostelId() {
+	public Integer getHostelId() {
 		return hostelId;
 	}
 
-	public void setHostel(Long hostelId) {
+	public void setHostel(Integer hostelId) {
 		this.hostelId = hostelId;
 	}
 

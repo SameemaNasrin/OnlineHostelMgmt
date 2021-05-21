@@ -24,7 +24,7 @@ public class VisitorDTO {
 	@NotNull(message = "Date of visiting should not be empty")
 	private LocalDate dateOfVisiting;
 	@NotNull(message = "hostel_id name cannot be empty")
-	private Long hostelId;
+	private Integer hostelId;
 
 	public VisitorDTO() {
 		super();
@@ -32,7 +32,7 @@ public class VisitorDTO {
 	}
 
 	public VisitorDTO(String name, String number, Integer studentId, String studentRelation, String visitorAddress,
-			String reason, LocalDate dateOfVisiting, Long hostelId) {
+			String reason, LocalDate dateOfVisiting, Integer hostelId) {
 		super();
 		this.name = name;
 		this.number = number;
@@ -100,11 +100,11 @@ public class VisitorDTO {
 		this.dateOfVisiting = dateOfVisiting;
 	}
 
-	public Long getHostelId() {
+	public Integer getHostelId() {
 		return hostelId;
 	}
 
-	public void setHostelId(Long hostelId) {
+	public void setHostelId(Integer hostelId) {
 		this.hostelId = hostelId;
 	}
 

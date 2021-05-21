@@ -45,13 +45,13 @@ public class RoomRestController {
 	}
 
 	@GetMapping("/get/{hid}")
-	public ResponseEntity<List<Room>> viewRoomsByHostelId(@PathVariable("hid") Long hostel_id)
+	public ResponseEntity<List<Room>> viewRoomsByHostelId(@PathVariable("hid") Integer hostel_id)
 			throws HostelNotFoundException, RoomNotFoundException {
 		return new ResponseEntity<List<Room>>(roomService.getRoomsByHostelId(hostel_id), HttpStatus.OK);
 	}
 
 	@GetMapping("/get/{hid}/{flr}")
-	public ResponseEntity<List<Room>> viewRoomsByFloorAndHostelId(@PathVariable("hid") Long hostel_id,
+	public ResponseEntity<List<Room>> viewRoomsByFloorAndHostelId(@PathVariable("hid") Integer hostel_id,
 			@PathVariable("flr") Integer floor_id)
 			throws HostelNotFoundException, RoomNotFoundException, FloorNotFoundException {
 		return new ResponseEntity<List<Room>>(roomService.getRoomsByFloorAndHostelId(floor_id, hostel_id),
@@ -59,7 +59,7 @@ public class RoomRestController {
 	}
 
 	@GetMapping("/get/available/{hid}")
-	public ResponseEntity<List<Room>> viewRoomsAvailableByHostelId(@PathVariable("hid") Long hostel_id)
+	public ResponseEntity<List<Room>> viewRoomsAvailableByHostelId(@PathVariable("hid") Integer hostel_id)
 			throws HostelNotFoundException, RoomNotFoundException {
 		return new ResponseEntity<List<Room>>(roomService.getRoomsAvailableByHostelId(hostel_id), HttpStatus.OK);
 	}
