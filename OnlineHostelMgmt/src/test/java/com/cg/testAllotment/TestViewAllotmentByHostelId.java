@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.when;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -25,7 +24,6 @@ import com.cg.dao.IStudentDao;
 import com.cg.entities.Allotment;
 import com.cg.entities.Hostel;
 import com.cg.entities.Room;
-import com.cg.entities.Student;
 import com.cg.exceptions.AllotmentNotFoundException;
 import com.cg.exceptions.HostelNotFoundException;
 import com.cg.exceptions.RoomNotFoundException;
@@ -73,6 +71,7 @@ public class TestViewAllotmentByHostelId {
 		when(hostelDao.findById(3)).thenReturn(opthostel3);
 		when(allotmentDao.findByRoom(room1)).thenReturn(lstallotment1);
 		when(allotmentDao.findByRoom(room2)).thenReturn(new ArrayList<Allotment>());
+	
 	}
 
 	@Test
@@ -83,17 +82,11 @@ public class TestViewAllotmentByHostelId {
 	}
 
 	@Test
-	@DisplayName("Negative Test Case for viewing Allotment for hostelId 5")
+	@DisplayName("Negative Test Case for viewing Allotment for hostelId 2")
 	public void viewAllotmentTest1() throws RoomNotFoundException, AllotmentNotFoundException, HostelNotFoundException {
 		assertThrows(HostelNotFoundException.class, () -> service.viewAllotmentByHostelId(2));
 	}
 
-/*	@Test
-	@DisplayName("Negative Test Case for viewing Allotment for no room registered")
-	public void viewAllotmentTest2() throws RoomNotFoundException, AllotmentNotFoundException, HostelNotFoundException {
-		assertThrows(RoomNotFoundException.class, () -> service.viewAllotmentByHostelId(3));
-	}
-*/
 	@Test
 	@DisplayName("Negative Test Case for viewing Allotment for no allotment registered")
 	public void viewAllotmentTest3() throws RoomNotFoundException, AllotmentNotFoundException, HostelNotFoundException {

@@ -1,12 +1,9 @@
 package com.cg.testAllotment;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -24,14 +21,12 @@ import com.cg.dao.IHostelDao;
 import com.cg.dao.IRoomDao;
 import com.cg.dao.IStudentDao;
 import com.cg.dto.AllotmentDto;
-import com.cg.dto.StudentDTO;
 import com.cg.entities.Allotment;
 import com.cg.entities.FeeStructure;
 import com.cg.entities.Hostel;
 import com.cg.entities.Room;
 import com.cg.entities.Student;
 import com.cg.exceptions.GenderTypeMismatchException;
-import com.cg.exceptions.HostelNotFoundException;
 import com.cg.exceptions.RoomNotFoundException;
 import com.cg.exceptions.StudentNotFoundException;
 import com.cg.helper.Helper;
@@ -119,6 +114,7 @@ public class TestAddAllotment {
 		allotmentdto.setRoomId(1);
 		assertThrows(GenderTypeMismatchException.class,()->service.addAllotment(allotmentdto));
 	}
+
 	@Test
 	@DisplayName("Test for add allotment4")
 	public void addAllotmentTest4() throws RoomNotFoundException, StudentNotFoundException, GenderTypeMismatchException{
