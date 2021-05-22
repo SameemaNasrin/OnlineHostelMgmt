@@ -40,16 +40,15 @@ public class TestViewWardenByHostelId {
 		List<Warden> lst1 = new  ArrayList<>();
 		Optional<Hostel> hostel1= Optional.of(new Hostel(1, "techno hostel", "9877627162", "girls", "kolkata, west bengal", 32000.0, null));
 		Optional<Hostel> hostel2=Optional.empty();
-		Optional<Hostel> hostel3= Optional.of(new Hostel(2, "NSHM hostel", "9877627165", "boys", "kolkata, west bengal", 22000.0, null));
+		Optional<Hostel> hostel3= Optional.of(new Hostel(3, "NSHM hostel", "9877627165", "boys", "kolkata, west bengal", 22000.0, null));
 		
 		lst.add(new Warden(11,"rahul21@yahoo.com","Rahul",hostel1.get()));
 		lst.add(new Warden(12,"rakesh21@yahoo.com","Rakesh",hostel1.get()));
-		
-		when(hostelDao.findById(hostel1.get().getId())).thenReturn(hostel1);
-		when(hostelDao.findById(1003)).thenReturn(hostel2);
-		when(hostelDao.findById(1004)).thenReturn(hostel3);
-		when(wardenDao.findByHostelId(hostel1.get().getId())).thenReturn(lst);
-		when(wardenDao.findByHostelId(hostel3.get().getId())).thenReturn(lst1);
+		when(hostelDao.findById(1)).thenReturn(hostel1);
+		when(hostelDao.findById(2)).thenReturn(hostel2);
+		when(hostelDao.findById(3)).thenReturn(hostel3);
+		when(wardenDao.findByHostelId(1)).thenReturn(lst);
+		when(wardenDao.findByHostelId(3)).thenReturn(lst1);
 	}
 		@Test
 		@DisplayName(value="Test for view warden for hostel id 1")
@@ -62,13 +61,13 @@ public class TestViewWardenByHostelId {
 		@DisplayName(value="Test for view warden for hostel id 3")
 		
 		public void testViewWarden2()throws WardenNotFoundException,HostelNotFoundException {
-			assertThrows(HostelNotFoundException.class, ()-> service.viewWardenByHostelId(3));
+			assertThrows(WardenNotFoundException.class, ()-> service.viewWardenByHostelId(3));
 			}
 		//not working
 		@Test
 		@DisplayName(value="Test for view warden for hostel id 2")
 		public void testViewOrder3() throws WardenNotFoundException, HostelNotFoundException{
-			assertThrows(WardenNotFoundException.class, ()->service.viewWardenByHostelId(2));
+			assertThrows(HostelNotFoundException.class, ()->service.viewWardenByHostelId(2));
 		}
 		
 	}
