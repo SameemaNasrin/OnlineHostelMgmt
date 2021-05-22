@@ -23,7 +23,7 @@ import com.cg.services.AllotmentServiceImpl;
 import com.cg.services.IAllotmentService;
 
 @SpringBootTest
-public class TestRemoveAllotment {
+class TestRemoveAllotment {
 
 	@InjectMocks
 	private IAllotmentService service = new AllotmentServiceImpl();
@@ -53,17 +53,17 @@ public class TestRemoveAllotment {
 	}
 	@Test
 	@DisplayName("test 1")
-	public void removeAllotmentTest()throws AllotmentNotFoundException,RoomNotFoundException{
+	void removeAllotmentTest()throws AllotmentNotFoundException,RoomNotFoundException{
 		assertNotNull(service.removeAllotment(1001));
 	}
 	@Test
 	@DisplayName("test 2")
-	public void removeAllotmentTest1()throws AllotmentNotFoundException,RoomNotFoundException{
+	void removeAllotmentTest1()throws AllotmentNotFoundException,RoomNotFoundException{
 		assertThrows(RoomNotFoundException.class, ()->service.removeAllotment(1002));
 	}
 	@Test
 	@DisplayName("test 3")
-	public void removeAllotmentTest2()throws AllotmentNotFoundException,RoomNotFoundException{
+	void removeAllotmentTest2()throws AllotmentNotFoundException,RoomNotFoundException{
 		assertThrows(AllotmentNotFoundException.class, ()->service.removeAllotment(1003));
 	}
 	

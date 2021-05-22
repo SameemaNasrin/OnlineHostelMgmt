@@ -34,7 +34,7 @@ import com.cg.services.AllotmentServiceImpl;
 import com.cg.services.IAllotmentService;
 
 @SpringBootTest
-public class TestAddAllotment {
+ class TestAddAllotment {
 	
 
 	@InjectMocks
@@ -64,6 +64,7 @@ public class TestAddAllotment {
 		student1.setGender(Helper.MALE);
 		Student student2=new Student();
 		student2.setGender(Helper.FEMALE);
+		
 		Allotment allotment1=new Allotment();
 		allotment1.setId(1);
 		Room room1=new Room();
@@ -88,7 +89,7 @@ public class TestAddAllotment {
 	}
 	@Test
 	@DisplayName("Test for add allotment1")
-	public void addAllotmentTest() throws RoomNotFoundException, StudentNotFoundException, GenderTypeMismatchException{
+	void addAllotmentTest() throws RoomNotFoundException, StudentNotFoundException, GenderTypeMismatchException{
 		AllotmentDto allotmentdto=new AllotmentDto();
 		allotmentdto.setStudentId(101);
 		allotmentdto.setHostelId(5001);
@@ -98,7 +99,7 @@ public class TestAddAllotment {
 	
 	@Test
 	@DisplayName("Test for add allotment2")
-	public void addAllotmentTest2() throws RoomNotFoundException, StudentNotFoundException, GenderTypeMismatchException{
+	void addAllotmentTest2() throws RoomNotFoundException, StudentNotFoundException, GenderTypeMismatchException{
 		AllotmentDto allotmentdto=new AllotmentDto();
 		allotmentdto.setStudentId(102);
 		allotmentdto.setHostelId(5001);
@@ -107,7 +108,7 @@ public class TestAddAllotment {
 	}
 	@Test
 	@DisplayName("Test for add allotment3")
-	public void addAllotmentTest3() throws RoomNotFoundException, StudentNotFoundException, GenderTypeMismatchException{
+	void addAllotmentTest3() throws RoomNotFoundException, StudentNotFoundException, GenderTypeMismatchException{
 		AllotmentDto allotmentdto=new AllotmentDto();
 		allotmentdto.setStudentId(103);
 		allotmentdto.setHostelId(5001);
@@ -117,7 +118,7 @@ public class TestAddAllotment {
 
 	@Test
 	@DisplayName("Test for add allotment4")
-	public void addAllotmentTest4() throws RoomNotFoundException, StudentNotFoundException, GenderTypeMismatchException{
+	void addAllotmentTest4() throws RoomNotFoundException, StudentNotFoundException, GenderTypeMismatchException{
 		AllotmentDto allotmentdto=new AllotmentDto();
 		allotmentdto.setStudentId(101);
 		allotmentdto.setHostelId(5001);

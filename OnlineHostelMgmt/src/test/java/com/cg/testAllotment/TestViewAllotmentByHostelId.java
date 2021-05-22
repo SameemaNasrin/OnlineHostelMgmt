@@ -32,7 +32,7 @@ import com.cg.services.IAllotmentService;
 
 //NotWorking
 @SpringBootTest
-public class TestViewAllotmentByHostelId {
+class TestViewAllotmentByHostelId {
 	@InjectMocks
 	private IAllotmentService service = new AllotmentServiceImpl();
 	@Mock
@@ -47,7 +47,7 @@ public class TestViewAllotmentByHostelId {
 
 
 	@BeforeEach
-	public void beforeEach() throws RoomNotFoundException, AllotmentNotFoundException, HostelNotFoundException {
+	void beforeEach() throws RoomNotFoundException, AllotmentNotFoundException, HostelNotFoundException {
 		
 		List<Allotment> lstallotment1=new ArrayList<>();
 		lstallotment1.add(new Allotment());
@@ -62,7 +62,7 @@ public class TestViewAllotmentByHostelId {
 		room2.setRoomId(2);
 		Set<Room> roomset2=new HashSet<>();
 		roomset2.add(room2);
-		hostel2.setRooms(roomset2);
+		hostel2.setRooms(roomset2);;
 		Optional<Hostel> opthostel = Optional.of(hostel);
 		Optional<Hostel> opthostel2 = Optional.empty();
 		Optional<Hostel> opthostel3=Optional.of(hostel2);
@@ -76,20 +76,20 @@ public class TestViewAllotmentByHostelId {
 
 	@Test
 	@DisplayName("Test Case for viewing Allotment for hostelId 1")
-	public void viewAllotmentTest() throws RoomNotFoundException, AllotmentNotFoundException, HostelNotFoundException {
+	void viewAllotmentTest() throws AllotmentNotFoundException, HostelNotFoundException, RoomNotFoundException {
 		assertTrue(service.viewAllotmentByHostelId(1).size() > 0);
 
 	}
 
 	@Test
-	@DisplayName("Negative Test Case for viewing Allotment for hostelId 2")
-	public void viewAllotmentTest1() throws RoomNotFoundException, AllotmentNotFoundException, HostelNotFoundException {
+	@DisplayName("Negative Test Case for viewing Allotment for HotstelNot")
+	void viewAllotmentTest1() throws RoomNotFoundException, AllotmentNotFoundException, HostelNotFoundException {
 		assertThrows(HostelNotFoundException.class, () -> service.viewAllotmentByHostelId(2));
 	}
 
 	@Test
 	@DisplayName("Negative Test Case for viewing Allotment for no allotment registered")
-	public void viewAllotmentTest3() throws RoomNotFoundException, AllotmentNotFoundException, HostelNotFoundException {
+	void viewAllotmentTest3() throws RoomNotFoundException, AllotmentNotFoundException, HostelNotFoundException {
 		assertThrows(AllotmentNotFoundException.class, () -> service.viewAllotmentByHostelId(3));
 	}
 

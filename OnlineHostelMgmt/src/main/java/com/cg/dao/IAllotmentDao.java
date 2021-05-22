@@ -16,7 +16,4 @@ public interface IAllotmentDao extends JpaRepository<Allotment, Integer> {
 	
 	@Query("from Allotment a inner join a.room r inner join a.hostel h where h.id=hostel_id")
 	public List<Allotment> findByHostelId(@Param("hostel_id") Integer hostelId);
-
-//	public Allotment findByStudentId(Integer studentId);
-
 }
