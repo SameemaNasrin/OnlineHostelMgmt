@@ -1,21 +1,20 @@
 package com.cg.testAllotment;
 
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.cg.dao.IAllotmentDao;
 import com.cg.dao.IFeeStructureDao;
-import com.cg.dao.IHostelDao;
 import com.cg.dao.IRoomDao;
-import com.cg.dao.IStudentDao;
 import com.cg.entities.Allotment;
 import com.cg.entities.Room;
 import com.cg.exceptions.AllotmentNotFoundException;
@@ -37,27 +36,37 @@ public class TestRemoveAllotment {
 	
 	@BeforeEach
 	public void beforeEach()throws AllotmentNotFoundException,RoomNotFoundException {
-		/*Room room1=new Room();
-		room1.setRoomId(101);
-		room1.setMaximumSize(4);
-		Allotment allotment1=new Allotment();
-		allotment1.setId(1);
-		allotment1.setRoom(room1);
-		List<Allotment> lstallotment=new ArrayList<>();
-		lstallotment.add(allotment1);
-		*/
-		
-		Optional<Allotment> allot1 = Optional.of(new Allotment());
-		when(allotmentDao.findById(1001)).thenReturn(allot1);
-		when(allotmentDao.findById(1003)).thenReturn(allot1);
-		Optional<Allotment> allot2 = Optional.empty();
-		when(allotmentDao.findById(1002)).thenReturn(allot2);
+	
 		Room room=new Room();
 		room.setRoomId(100);
 		room.setMaximumSize(3);
-		
-		
-		
-		
+		Allotment allotment1=new Allotment();
+		allotment1.setRoom(room);
+		Allotment allotment2=new Allotment();
+		Optional<Allotment> optallotment = Optional.of(allotment1);
+		Optional<Allotment> optallotment1 = Optional.of(allotment2);
+		Optional<Allotment> optallotment2 = Optional.empty();
+		when(allotmentDao.findById(1001)).thenReturn(optallotment);
+		when(allotmentDao.findById(1002)).thenReturn(optallotment1);
+		when(allotmentDao.findById(1003)).thenReturn(optallotment2);	
+
 	}
-}
+	@Test
+	@DisplayName("test 1")
+	public void removeAllotmentTest()throws AllotmentNotFoundException,RoomNotFoundException{
+		assertNotNull(service.removeAllotment(1001));
+	}
+	@Test
+	@DisplayName("test 2")
+	public void removeAllotmentTest1()throws AllotmentNotFoundException,RoomNotFoundException{
+		assertThrows(RoomNotFoundException.class, ()->service.removeAllotment(1002));
+	}
+	@Test
+	@DisplayName("test 3")
+	public void removeAllotmentTest2()throws AllotmentNotFoundException,RoomNotFoundException{
+		assertThrows(AllotmentNotFoundException.class, ()->service.removeAllotment(1003));
+	}
+	
+	}
+	
+
