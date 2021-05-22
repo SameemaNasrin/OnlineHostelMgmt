@@ -29,7 +29,6 @@ public class RoomServiceImpl implements IRoomService{
 	@Override
 	public Room addRoom(RoomDTO roomdto) throws HostelNotFoundException {
 		logger.info("Adding room");
-		// TODO Auto-generated method stub
 		Hostel hostel=hosteldao.findById(roomdto.getHostel_id()).orElseThrow(()->new HostelNotFoundException("Hostel not found"));
 		
 		Room room =new Room();
@@ -44,9 +43,8 @@ public class RoomServiceImpl implements IRoomService{
 
 	@Override
 	public List<Room> getRoomsByHostelId(Integer hostel_id) throws HostelNotFoundException, RoomNotFoundException {
-		// TODO Auto-generated method stub
-		Hostel hostel=hosteldao.findById(hostel_id).orElseThrow(()->new HostelNotFoundException("Hostel not found"));
-		List<Room> rooms=hostel.getRooms().stream().collect(Collectors.toList());
+		hosteldao.findById(hostel_id).orElseThrow(()->new HostelNotFoundException("Hostel not found"));
+		List<Room> rooms=roomdao.findByHostelId(hostel_id);
 		if(rooms.isEmpty())
 			throw new RoomNotFoundException("Room not found");
 		return rooms;
@@ -55,11 +53,9 @@ public class RoomServiceImpl implements IRoomService{
 	@Override
 	public List<Room> getRoomsByFloorAndHostelId(Integer floor, Integer hostel_id)
 			throws HostelNotFoundException, FloorNotFoundException, RoomNotFoundException {
-		// TODO Auto-generated method stub
 		Hostel hostel=hosteldao.findById(hostel_id).orElseThrow(()->new HostelNotFoundException("Hostel not found"));
 		if(floor<=0 || floor>hostel.getTotalFloors())
 			throw new FloorNotFoundException("Invalid Floor");
-//		List<Room> rooms=hostel.getRooms().stream().collect(Collectors.toList());
 		List<Room> rooms = roomdao.findByHostelIdAndFloor(hostel_id,floor);
 		if(rooms.isEmpty())
 			throw new RoomNotFoundException("Room not found");
@@ -71,9 +67,8 @@ public class RoomServiceImpl implements IRoomService{
 	@Override
 	public List<Room> getRoomsAvailableByHostelId(Integer hostel_id)
 			throws HostelNotFoundException, RoomNotFoundException {
-		// TODO Auto-generated method stub
-		Hostel hostel=hosteldao.findById(hostel_id).orElseThrow(()->new HostelNotFoundException("Hostel not found"));
-		List<Room> rooms=hostel.getRooms().stream().collect(Collectors.toList());
+		hosteldao.findById(hostel_id).orElseThrow(()->new HostelNotFoundException("Hostel not found"));
+		List<Room> rooms=roomdao.findByHostelId(hostel_id);
 		if(rooms.isEmpty())
 			throw new RoomNotFoundException("Room not found");
 		List<Room> list=rooms.stream().filter(r->r.getMaximumSize()>0).collect(Collectors.toList());

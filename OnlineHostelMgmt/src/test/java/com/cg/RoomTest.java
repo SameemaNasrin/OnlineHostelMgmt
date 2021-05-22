@@ -24,6 +24,7 @@ import com.cg.dto.HostelDto;
 import com.cg.dto.RoomDTO;
 import com.cg.entities.Hostel;
 import com.cg.entities.Room;
+import com.cg.exceptions.FloorNotFoundException;
 import com.cg.exceptions.HostelNotFoundException;
 import com.cg.exceptions.RoomNotFoundException;
 import com.cg.services.IRoomService;
@@ -47,7 +48,7 @@ public class RoomTest {
 
 	HostelDto hostelDto;
 
-	Hostel hostel;
+	Hostel hostel, hostel1;
 
 	@BeforeEach
 	public void init() {
@@ -65,6 +66,14 @@ public class RoomTest {
 		hostel.setAddress(hostelDto.getAddress());
 		hostel.setFee(hostelDto.getFee());
 		hostel.setId((201));
+		
+		hostel1 = new Hostel();
+		hostel1.setName(hostelDto.getName());
+		hostel1.setContact(hostelDto.getContact());
+		hostel1.setType(hostelDto.getType());
+		hostel1.setAddress(hostelDto.getAddress());
+		hostel1.setFee(hostelDto.getFee());
+		hostel1.setId((204));
 
 		roomDto = new RoomDTO();
 		roomDto.setFloor(2);
@@ -89,8 +98,6 @@ public class RoomTest {
 	@Test
 	@DisplayName("Test case to add room")
 	public void testAddRoom() throws HostelNotFoundException {
-//		when(hostelDao.findById(roomDto.getHostel_id())).thenReturn(Optional.of(hostel));
-//		when(roomDao.save(any(Room.class))).thenReturn(room);
 		assertEquals(room, roomService.addRoom(roomDto));
 
 	}
@@ -98,31 +105,69 @@ public class RoomTest {
 	@Test
 	@DisplayName("Negative test case to add room")
 	public void testAddRoomNegative() {
-//		when(hostelDao.findById(201)).thenReturn(Optional.of(hostel));
 		roomDto.setHostel_id(202);
 		Assertions.assertThrows(HostelNotFoundException.class, () -> roomService.addRoom(roomDto));
 	}
 
-//	@Test
-//	@DisplayName("Test case to get room by hostel id")
-//	public void testGetRoomsByHostelId() {
-//		when(hostelDao.findById(roomDto.getHostel_id())).thenReturn(Optional.of(hostel));
-//		when()
-//		
-//	}
-
 	@Test
-	@DisplayName("Test case to get room by wrong hostel id")
-	public void testGetRoomsByHostelIdNegative() {
-
-//		when(hostelDao.findById((int) 201)).thenReturn(Optional.of(hostel));
-		Assertions.assertThrows(HostelNotFoundException.class, () -> roomService.getRoomsByHostelId((202)));
+	@DisplayName("Test case to get rooms by hostel id")
+	public void testGetRoomsByHostelId() throws HostelNotFoundException, RoomNotFoundException {
+		when(roomDao.findByHostelId(201)).thenReturn(Stream.of(room).collect(Collectors.toList()));
+		assertEquals(1, roomService.getRoomsByHostelId(201).size());
 	}
 
 	@Test
+	@DisplayName("Test case to get room by invalid hostel id")
+	public void testGetRoomsByHostelIdNegative() {
+		Assertions.assertThrows(HostelNotFoundException.class, () -> roomService.getRoomsByHostelId((202)));
+	}
+	
+	@Test
+	@DisplayName("Test case to find no rooms with valid hostel ID")
+	public void testGetNoRoomsByHostelId() {
+		when(hostelDao.findById(204)).thenReturn(Optional.of(hostel1));
+		Assertions.assertThrows(RoomNotFoundException.class, ()->roomService.getRoomsByHostelId(204));
+	}
+
+	
+	@Test
+	@DisplayName("Test case for rooms unavailable with valid hostel id")
+	public void testGetRoomsUnavailableByHostelId() {
+		when(hostelDao.findById(204)).thenReturn(Optional.of(hostel1));
+		Assertions.assertThrows(RoomNotFoundException.class, ()->roomService.getRoomsAvailableByHostelId(204));
+	}
+	
+	@Test
+	@DisplayName("Test case to get rooms by floor no. and hostel ID")
+	public void testGetRoomsByFloorAndHostelId() throws HostelNotFoundException, FloorNotFoundException, RoomNotFoundException {
+		when(roomDao.findByHostelIdAndFloor(201, 2)).thenReturn(Stream.of(room).collect(Collectors.toList()));
+		assertEquals(1, roomService.getRoomsByFloorAndHostelId(2, 201).size());
+	}
+	
+	@Test
+	@DisplayName("Test case to get rooms by invalid floor no. and valid hostel ID")
+	public void testGetRoomsByInvalidFloorAndValidHostelId() {
+		when(roomDao.findByHostelIdAndFloor(201, 2)).thenReturn(Stream.of(room).collect(Collectors.toList()));
+		Assertions.assertThrows(FloorNotFoundException.class, ()->roomService.getRoomsByFloorAndHostelId(6, 201));
+	}
+	
+	@Test
+	@DisplayName("Test case to get rooms by valid floor no. and invalid hostel ID")
+	public void testGetRoomsByValidFloorAndInvalidHostelId() {
+		when(roomDao.findByHostelIdAndFloor(201, 2)).thenReturn(Stream.of(room).collect(Collectors.toList()));
+		Assertions.assertThrows(HostelNotFoundException.class, ()->roomService.getRoomsByFloorAndHostelId(2, 204));
+	}
+	
+	@Test
+	@DisplayName("Test case to get unavailable rooms by valid floor no. and hostel ID")
+	public void testGetUnavailableRoomsByFloorAndHostelID() {
+		when(roomDao.findByHostelIdAndFloor(201, 2)).thenReturn(Stream.of(room).collect(Collectors.toList()));
+		Assertions.assertThrows(RoomNotFoundException.class, ()->roomService.getRoomsByFloorAndHostelId(3, 201));
+	}
+	
+	@Test
 	@DisplayName("Test case to get rooms available")
 	public void testGetRoomsAvailable() throws RoomNotFoundException {
-//		when(roomDao.findAll()).thenReturn(Stream.of(room).collect(Collectors.toList()));
 		assertEquals(1, roomService.getRoomsAvailable().size());
 	}
 
