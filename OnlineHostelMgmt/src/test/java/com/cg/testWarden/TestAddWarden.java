@@ -1,6 +1,7 @@
 package com.cg.testWarden;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 import java.util.ArrayList;
@@ -56,5 +57,12 @@ public class TestAddWarden {
 		WardenDto wardenDto=new WardenDto();
 		wardenDto.setHostel(5001);
 		assertNotNull(service.addWarden(wardenDto));
+	}
+	@Test
+	@DisplayName("test 2")
+	public void addWardenTest1()throws HostelNotFoundException{
+		WardenDto wardenDto=new WardenDto();
+		wardenDto.setHostel(5002);
+		assertThrows(HostelNotFoundException.class,()->service.addWarden(wardenDto));
 	}
 }
