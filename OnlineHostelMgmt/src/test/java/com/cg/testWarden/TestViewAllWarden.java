@@ -23,7 +23,7 @@ import com.cg.services.IWardenService;
 import com.cg.services.WardenServiceImpl;
 
 @SpringBootTest
-public class TestViewAllWarden {
+class TestViewAllWarden {
 	
 	@Mock
 	private IWardenDao dao;
@@ -50,14 +50,14 @@ public class TestViewAllWarden {
 	
 	@Test
 	@DisplayName("Test for view all wardens")
-	public void testViewAllWarden1() throws WardenNotFoundException {
+	void testViewAllWarden1() throws WardenNotFoundException {
 		when(dao.findAll()).thenReturn(list2);
 		assertTrue(service.viewAllWarden().size()>0);
 	}
 	
 	@Test
 	@DisplayName("Negative Test for view all hostel")
-	public void testViewAllHostel2() throws WardenNotFoundException {
+	void testViewAllHostel2() throws WardenNotFoundException {
 		when(dao.findAll()).thenReturn(list3);
 		assertThrows(WardenNotFoundException.class, ()-> service.viewAllWarden());
 	}

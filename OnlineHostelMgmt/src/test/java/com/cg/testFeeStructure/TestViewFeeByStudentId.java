@@ -1,10 +1,9 @@
 package com.cg.testFeeStructure;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -24,7 +23,7 @@ import com.cg.services.IFeeStructService;
 
 
 @SpringBootTest
-public class TestViewFeeByStudentId {
+class TestViewFeeByStudentId {
 	
 	@Mock
 	IFeeStructureDao feeStructureDao;
@@ -35,7 +34,7 @@ public class TestViewFeeByStudentId {
 	@InjectMocks
 	IFeeStructService service = new FeeStructureServiceImpl();
 	
-	Student student;
+	Student student, student1;
 	FeeStructure feeStructure;
 	
 	@BeforeEach
@@ -43,14 +42,29 @@ public class TestViewFeeByStudentId {
 		student = new Student();
 		student.setId(1);
 		
+		student1 = new Student();
+		student.setId(3);
+		
 		feeStructure = new FeeStructure();
 		
 		when(studentDao.findById(1)).thenReturn(Optional.of(student));
+		when(studentDao.findById(3)).thenReturn(Optional.of(student1));
+		
 		when(feeStructureDao.getFeeStructure(1)).thenReturn(feeStructure);
 	}
 	
 	@Test
-	public void testViewFeeStructureByStudentId1() throws StudentNotFoundException, FeeStructureNotFoundException {
+	void testViewFeeStructureByStudentId1() throws StudentNotFoundException, FeeStructureNotFoundException {
 		assertEquals(feeStructure, service.viewFeeByStudentId(1).get(0));
+	}
+	
+	@Test
+	void testViewFeeStructureByStudentId2() throws StudentNotFoundException, FeeStructureNotFoundException {
+		assertThrows(StudentNotFoundException.class, () -> service.viewFeeByStudentId(2).get(0));
+	}
+	
+	@Test
+	void testViewFeeStructureByStudentId3() throws StudentNotFoundException, FeeStructureNotFoundException {
+		assertThrows(FeeStructureNotFoundException.class , () -> service.viewFeeByStudentId(3).get(0));
 	}
 }
