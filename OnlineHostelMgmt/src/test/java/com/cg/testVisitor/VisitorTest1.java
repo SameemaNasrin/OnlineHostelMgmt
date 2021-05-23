@@ -1,6 +1,7 @@
 package com.cg.testVisitor;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 import java.util.Optional;
@@ -40,7 +41,7 @@ class VisitorTest1 {
 	IVisitorService service = new VisitorServiceImpl();
 	
 	Visitor visitor;
-	VisitorDTO visitorDto;
+	VisitorDTO visitorDto, visitorDto1, visitorDto3;
 	Student student;
 	Hostel hostel;
 	
@@ -58,6 +59,11 @@ class VisitorTest1 {
 		when(studentDao.findById(1)).thenReturn(Optional.of(student));
 		when(hostelDao.findById(1001)).thenReturn(Optional.of(hostel));
 		when(visitorDao.save(any(Visitor.class))).thenReturn(visitor);
+		
+		visitorDto1 = new VisitorDTO();
+		
+		visitorDto3 = new VisitorDTO();
+		visitorDto3.setStudentId(1);
 	}
 	
 	@Test
@@ -69,6 +75,12 @@ class VisitorTest1 {
 	@Test
 	@DisplayName("Negative test for add visitor")
 	void testAddVisitor2() throws StudentNotFoundException, HostelNotFoundException {
-		assertEquals(visitor, service.addVisitor(visitorDto));
+		assertThrows(StudentNotFoundException.class, () -> service.addVisitor(visitorDto1));
+	}
+	
+	@Test
+	@DisplayName("Negative test for add visitor")
+	void testAddVisitor3() throws StudentNotFoundException, HostelNotFoundException {
+		assertThrows(HostelNotFoundException.class, () -> service.addVisitor(visitorDto3));
 	}
 }
