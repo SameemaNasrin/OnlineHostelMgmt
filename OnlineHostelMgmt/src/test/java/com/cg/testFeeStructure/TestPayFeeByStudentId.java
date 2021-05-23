@@ -1,4 +1,4 @@
-package com.cg.testFeeStructure;
+	package com.cg.testFeeStructure;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;

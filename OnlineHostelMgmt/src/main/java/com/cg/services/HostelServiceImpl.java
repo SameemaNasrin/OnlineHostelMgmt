@@ -24,7 +24,7 @@ public class HostelServiceImpl implements IHostelService{
 	IHostelDao hostelDao;
 	
 	/** 
-	   * @Param HostelDto
+	   * @Param hostelDto HostelDto
 	   * @return hostel id
 	   * Description - This method adds new hostel and returns hostel id
 	   * createdAt - 18-May-2021

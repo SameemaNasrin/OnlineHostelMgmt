@@ -39,13 +39,13 @@ class TestViewHostelById {
 	
 
 	@Test
-	@DisplayName(value = "test view by Id 101")
+	@DisplayName(value = "Test for view by Id 101")
 	void testViewById1() throws HostelNotFoundException  {
 		assertNotNull(service.viewHostelById(101));
 	}
 	
 	@Test
-	@DisplayName(value = "test view by Id 102")
+	@DisplayName(value = "Negative test for view by Id 102")
 	void testViewById2() {
 		assertThrows(HostelNotFoundException.class, ()->service.viewHostelById(102));
 	}

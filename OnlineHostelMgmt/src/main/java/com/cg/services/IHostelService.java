@@ -10,5 +10,5 @@ public interface IHostelService{
 
 	public Integer addHostel(HostelDto hostelDto);
 	public List<Hostel> viewAllHostel() throws HostelNotFoundException;
-	public Hostel viewHostelById(Integer hid) throws HostelNotFoundException;
+	public Hostel viewHostelById(Integer hostelId) throws HostelNotFoundException;
 }

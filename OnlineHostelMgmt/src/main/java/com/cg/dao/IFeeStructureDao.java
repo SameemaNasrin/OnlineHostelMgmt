@@ -13,7 +13,7 @@ import com.cg.entities.FeeStructure;
 @Repository
 public interface IFeeStructureDao extends JpaRepository<FeeStructure, Integer> {
 
-	public List<FeeStructure> findByPaymentStatus(String string);
+	public List<FeeStructure> findByPaymentStatus(String paymentStatus);
 
 	@Query("from FeeStructure fs inner join fs.student s inner join fs.allotment a where s.id = :student_id")
 	public FeeStructure getFeeStructure(@Param("student_id") Integer studentId);
