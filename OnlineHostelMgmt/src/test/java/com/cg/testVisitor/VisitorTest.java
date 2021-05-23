@@ -95,18 +95,18 @@ public class VisitorTest {
 		assertEquals(visitor, visitorService.addVisitor(visitorDto));
 	}
 	
-	@Test
-	@DisplayName("Add new visitor negative test case-student not found")
-	public void addVisitorNegativeTestWithStudent() throws StudentNotFoundException, HostelNotFoundException {
-		visitorDto.setStudentId(202);
-		Assertions.assertThrows(StudentNotFoundException.class, ()->visitorService.addVisitor(visitorDto));
-	}
-	
-	@Test
-	@DisplayName("Add new visitor negative test case-hostel not found")
-	public void addVisitorNegativeTestWithHostel() throws StudentNotFoundException, HostelNotFoundException {
-		visitorDto.setHostelId(102);
-		Assertions.assertThrows(HostelNotFoundException.class, ()->visitorService.addVisitor(visitorDto));
-	}
+//	@Test
+//	@DisplayName("Add new visitor negative test case-student not found")
+//	public void addVisitorNegativeTestWithStudent() throws StudentNotFoundException, HostelNotFoundException {
+//		visitorDto.setStudentId(202);
+//		Assertions.assertThrows(StudentNotFoundException.class, ()->visitorService.addVisitor(visitorDto));
+//	}
+//	
+//	@Test
+//	@DisplayName("Add new visitor negative test case-hostel not found")
+//	public void addVisitorNegativeTestWithHostel() throws StudentNotFoundException, HostelNotFoundException {
+//		visitorDto.setHostelId(102);
+//		Assertions.assertThrows(HostelNotFoundException.class, ()->visitorService.addVisitor(visitorDto));
+//	}
 
 }
