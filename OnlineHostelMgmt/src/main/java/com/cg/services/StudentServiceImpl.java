@@ -1,6 +1,5 @@
 package com.cg.services;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,8 +30,7 @@ public class StudentServiceImpl implements IStudentService {
 
 	@Override
 	public List<Student> getStudents() throws StudentNotFoundException {
-		List<Student> studentList = new ArrayList<>();
-		studentList = studentDao.findAll();
+		List<Student> studentList = studentDao.findAll();
 		if(studentList.isEmpty())
 			throw new StudentNotFoundException("No student found");
 		return studentList;

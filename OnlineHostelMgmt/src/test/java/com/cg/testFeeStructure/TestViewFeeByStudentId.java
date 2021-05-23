@@ -52,6 +52,6 @@ public class TestViewFeeByStudentId {
 	
 	@Test
 	public void testViewFeeStructureByStudentId1() throws StudentNotFoundException, FeeStructureNotFoundException {
-		assertEquals(feeStructure, service.viewFeeByStudentId(1));
+		assertEquals(feeStructure, service.viewFeeByStudentId(1).get(0));
 	}
 }

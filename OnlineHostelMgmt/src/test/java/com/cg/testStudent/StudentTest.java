@@ -13,14 +13,13 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-
 import com.cg.dao.IStudentDao;
 import com.cg.dto.StudentDTO;
 import com.cg.entities.Student;
@@ -60,60 +59,85 @@ public class StudentTest {
 		student.setGuardianName(studentDto.getGuardianName());
 		student.setMobile(studentDto.getMobile());
 		student.setAddress(studentDto.getAddress());
+
+		when(studentDao.save(any(Student.class))).thenReturn(student);
+		when(studentDao.findAll()).thenReturn(Stream.of(student).collect(Collectors.toList()));
+		when(studentDao.findById(student.getId())).thenReturn(Optional.of(student));
+		when(studentDao.findByMobile(student.getMobile())).thenReturn(Optional.of(student).get());
+		when(studentDao.findByNameContaining(student.getName()))
+				.thenReturn(Stream.of(student).collect(Collectors.toList()));
 	}
 
 	@Test
 	@DisplayName("Add student test case")
 	public void addStudentTest() {
-
-		when(studentDao.save(any(Student.class))).thenReturn(student);
-
 		assertEquals(student, studentService.addStudent(studentDto));
 	}
 
 	@Test
 	@DisplayName("View all student test case")
 	public void viewAllStudentTest() throws StudentNotFoundException {
-		when(studentDao.findAll()).thenReturn(Stream.of(student).collect(Collectors.toList()));
 		assertEquals(1, studentService.getStudents().size());
 	}
 
 	@Test
 	@DisplayName("View all student negative test case")
 	public void viewAllStudentTestNegative() throws StudentNotFoundException {
-		when(studentDao.findAll()).thenReturn(Stream.of(student).collect(Collectors.toList()));
-		assertNotEquals(2, studentService.getStudents().size());
+		List<Student> list = new ArrayList<>();
+		when(studentDao.findAll()).thenReturn(list);
+		Assertions.assertThrows(StudentNotFoundException.class, () -> studentService.getStudents());
+
 	}
 
-//	@Test
-//	@DisplayName("Remove student test case")
-//	public void removeStudentByIdTest() {
-//
-//	}
+	@Test
+	@DisplayName("Remove student test case")
+	public void removeStudentByIdTest() throws StudentNotFoundException {
+		studentService.removeStudentById(student.getId());
+		verify(studentDao, times(1)).delete(student);
+	}
+
+	@Test
+	@DisplayName("Remove student negative test case")
+	public void removeStudentByIdNegative() throws StudentNotFoundException {
+		Assertions.assertThrows(StudentNotFoundException.class, () -> studentService.removeStudentById(102));
+	}
 
 	@Test
 	@DisplayName("View student by id test case")
 	public void viewStudentByIdTest() throws StudentNotFoundException {
-		when(studentDao.findById(student.getId())).thenReturn(Optional.of(student));
 		assertEquals(student, studentService.getStudentById(101));
 	}
-//
+
 	@Test
 	@DisplayName("View student by id negative test case")
 	public void viewStudentByIdTestNegative() throws StudentNotFoundException {
-		when(studentDao.findById(student.getId())).thenReturn(Optional.of(student));
 		Assertions.assertThrows(StudentNotFoundException.class, () -> studentService.getStudentById(102));
 	}
 
-//	@Test
-//	@DisplayName("View student by name test case")
-//	public void viewStudentBySearchedNameTest() {
-//
-//	}
+	@Test
+	@DisplayName("View student by name test case")
+	public void viewStudentBySearchedNameTest() throws StudentNotFoundException {
+		assertEquals(student.getName(), studentService.getStudentByName(student.getName()).get(0).getName());
+	}
+	
+	@Test
+	@DisplayName("View student by name negative test case")
+	public void viewStudentBySearchedNameNegativeTest() throws StudentNotFoundException {
+		List<Student> list = new ArrayList<>();
+		when(studentDao.findByNameContaining(student.getName())).thenReturn(list);
+		Assertions.assertThrows(StudentNotFoundException.class, () -> studentService.getStudentByName(student.getName()));
+	}
 
-//	@Test
-//	@DisplayName("View student by mobile number test case")
-//	public void viewStudentBYMobileNumberTest() {
-//
-//	}
+	@Test
+	@DisplayName("View student by mobile number test case")
+	public void viewStudentBYMobileNumberTest() throws StudentNotFoundException {
+		assertEquals(student, studentService.getStudentByMobileNumber(student.getMobile()));
+	}
+	
+	@Test
+	@DisplayName("View student by mobile number negative test case")
+	public void viewStudentBYMobileNumberNegativeTest() throws StudentNotFoundException {
+		Assertions.assertThrows(StudentNotFoundException.class, ()->studentService.getStudentByMobileNumber("8013206938"));
+	}
+	
 }
