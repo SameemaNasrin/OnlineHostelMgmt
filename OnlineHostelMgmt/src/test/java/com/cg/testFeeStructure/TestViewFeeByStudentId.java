@@ -23,7 +23,6 @@ import com.cg.services.FeeStructureServiceImpl;
 import com.cg.services.IFeeStructService;
 
 
-//doesnot work--- as in the service return type is List<FeeStructure> 
 @SpringBootTest
 public class TestViewFeeByStudentId {
 	
