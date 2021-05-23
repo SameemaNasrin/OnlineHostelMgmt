@@ -1,5 +1,8 @@
 package com.cg.services;
-
+/*
+ * @Author: Frazia Sajadin
+ * @Created at: 22.05.2021
+ * */
 import java.time.LocalDate;
 import java.util.List;
 
@@ -16,6 +19,7 @@ import com.cg.entities.Visitor;
 import com.cg.exceptions.HostelNotFoundException;
 import com.cg.exceptions.StudentNotFoundException;
 import com.cg.exceptions.VisitorNotFoundException;
+import com.cg.helper.Helper;
 
 @Service
 public class VisitorServiceImpl implements IVisitorService {
@@ -29,9 +33,9 @@ public class VisitorServiceImpl implements IVisitorService {
 	@Override
 	public Visitor addVisitor(VisitorDTO visitorDto) throws StudentNotFoundException, HostelNotFoundException {
 		Student student = studentDao.findById(visitorDto.getStudentId()).orElseThrow(
-				() -> new StudentNotFoundException("No student found with id: " + visitorDto.getStudentId()));
+				() -> new StudentNotFoundException(Helper.NO_STUDENT_FOUND_WITH_ID + visitorDto.getStudentId()));
 		Hostel hostel = hostelDao.findById(visitorDto.getHostelId()).orElseThrow(
-				() -> new HostelNotFoundException("No hostel found with id: " + visitorDto.getHostelId()));
+				() -> new HostelNotFoundException(Helper.NO_HOSTEL_FOUND_WITH_ID + visitorDto.getHostelId()));
 		Visitor visitor = new Visitor();
 		visitor.setVisitorName(visitorDto.getName());
 		visitor.setContactNumber(visitorDto.getNumber());
@@ -56,7 +60,7 @@ public class VisitorServiceImpl implements IVisitorService {
 	public List<Visitor> getVisitorByDateOfVisitingAndHostel(LocalDate visitDate, Integer hostel_Id)
 			throws VisitorNotFoundException, HostelNotFoundException {
 		hostelDao.findById(hostel_Id)
-				.orElseThrow(() -> new HostelNotFoundException("No hostel found with id: " + hostel_Id));
+				.orElseThrow(() -> new HostelNotFoundException(Helper.NO_HOSTEL_FOUND_WITH_ID + hostel_Id));
 		List<Visitor> visitorList = visitorDao.findByDateOfVisitingAndHostel_Id(visitDate, hostel_Id);
 		if (visitorList.isEmpty())
 			throw new VisitorNotFoundException("No visitors found");
