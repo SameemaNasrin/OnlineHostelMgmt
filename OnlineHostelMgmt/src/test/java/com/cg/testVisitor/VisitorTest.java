@@ -1,20 +1,31 @@
 package com.cg.testVisitor;
 
+import static org.hamcrest.CoreMatchers.any;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 import java.time.LocalDate;
 import java.util.Optional;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
+import static org.mockito.Mockito.*;
+
 import com.cg.dao.IHostelDao;
+import com.cg.dao.IStudentDao;
 import com.cg.dao.IVisitorDao;
 import com.cg.dto.VisitorDTO;
 import com.cg.entities.Hostel;
 import com.cg.entities.Student;
 import com.cg.entities.Visitor;
+import com.cg.exceptions.HostelNotFoundException;
+import com.cg.exceptions.StudentNotFoundException;
 import com.cg.services.IVisitorService;
 import com.cg.services.VisitorServiceImpl;
 
@@ -26,6 +37,8 @@ public class VisitorTest {
 	private IVisitorDao visitorDao;
 	@Mock
 	private IHostelDao hostelDao;
+	@Mock
+	private IStudentDao studentDao;
 	
 	VisitorDTO visitorDto;
 	
@@ -73,6 +86,28 @@ public class VisitorTest {
 		visitor.setHostel(hostel);
 		visitor.setStudent(student);
 		
+		when(studentDao.findById(student.getId())).thenReturn(Optional.of(student));
+//		when(visitorDao.save(any(Visitor.class))).thenReturn(visitor);
+	}
+	
+//	@Test
+//	@DisplayName("Add new visitor test case")
+//	public void addVisitorTest() throws StudentNotFoundException, HostelNotFoundException {
+//		assertEquals(visitor, visitorService.addVisitor(visitorDto));
+//	}
+	
+	@Test
+	@DisplayName("Add new visitor negative test case-student not found")
+	public void addVisitorNegativeTestWithStudent() throws StudentNotFoundException, HostelNotFoundException {
+		visitorDto.setStudentId(202);
+		Assertions.assertThrows(StudentNotFoundException.class, ()->visitorService.addVisitor(visitorDto));
+	}
+	
+	@Test
+	@DisplayName("Add new visitor negative test case-hostel not found")
+	public void addVisitorNegativeTestWithHostel() throws StudentNotFoundException, HostelNotFoundException {
+		visitorDto.setHostelId(102);
+		Assertions.assertThrows(HostelNotFoundException.class, ()->visitorService.addVisitor(visitorDto));
 	}
 
 }
