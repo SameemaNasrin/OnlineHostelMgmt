@@ -1,9 +1,8 @@
 package com.cg.testVisitor;
 
-import static org.hamcrest.CoreMatchers.any;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 import java.time.LocalDate;
 import java.util.Optional;
@@ -87,14 +86,14 @@ public class VisitorTest {
 		visitor.setStudent(student);
 		
 		when(studentDao.findById(student.getId())).thenReturn(Optional.of(student));
-//		when(visitorDao.save(any(Visitor.class))).thenReturn(visitor);
+		when(visitorDao.save(any(Visitor.class))).thenReturn(visitor);
 	}
 	
-//	@Test
-//	@DisplayName("Add new visitor test case")
-//	public void addVisitorTest() throws StudentNotFoundException, HostelNotFoundException {
-//		assertEquals(visitor, visitorService.addVisitor(visitorDto));
-//	}
+	@Test
+	@DisplayName("Add new visitor test case")
+	public void addVisitorTest() throws StudentNotFoundException, HostelNotFoundException {
+		assertEquals(visitor, visitorService.addVisitor(visitorDto));
+	}
 	
 	@Test
 	@DisplayName("Add new visitor negative test case-student not found")
