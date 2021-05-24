@@ -24,6 +24,7 @@ import com.cg.entities.Student;
 import com.cg.exceptions.AllotmentNotFoundException;
 import com.cg.exceptions.GenderTypeMismatchException;
 import com.cg.exceptions.HostelNotFoundException;
+import com.cg.exceptions.HostelRoomMismatchException;
 import com.cg.exceptions.RoomNotFoundException;
 import com.cg.exceptions.StudentNotFoundException;
 import com.cg.helper.Helper;
@@ -51,7 +52,7 @@ public class AllotmentServiceImpl implements IAllotmentService {
 	@Override
 	@Transactional
 	public Integer addAllotment(AllotmentDto allotmentDto)
-			throws RoomNotFoundException, StudentNotFoundException, GenderTypeMismatchException {
+			throws RoomNotFoundException, StudentNotFoundException, GenderTypeMismatchException, HostelNotFoundException, HostelRoomMismatchException {
 		Allotment allotment = new Allotment();
 		/*
 		 * finding room id and checking for availability of beds if unavailable then
@@ -62,6 +63,11 @@ public class AllotmentServiceImpl implements IAllotmentService {
 				() -> new RoomNotFoundException("Room does not exist with Id " + allotmentDto.getRoomId()));
 		Student student = studentDao.findById(allotmentDto.getStudentId()).orElseThrow(
 				() -> new StudentNotFoundException("Student not found with id " + allotmentDto.getStudentId()));
+		Hostel hostel = hostelDao.findById(allotmentDto.getHostelId()).orElseThrow(
+				() -> new HostelNotFoundException("Hostel not found with id " + allotmentDto.getHostelId()));
+		
+		if(room.getHostel().getId() != hostel.getId())
+			throw new HostelRoomMismatchException("No room with id "+ room.getRoomId() + " is present in hostel with hostel id " + hostel.getId());
 
 		// check whether the hostel type and gender matches
 		String studentGender = student.getGender();
@@ -82,6 +88,7 @@ public class AllotmentServiceImpl implements IAllotmentService {
 			// making entry in allotment and feeStructure entity classes
 			allotment.setRoom(room);
 			allotment.setStudent(student);
+			allotment.setHostel(hostel);
 			Allotment savedAllotment = allotmentDao.save(allotment);
 			FeeStructure feeStructure = new FeeStructure();
 			feeStructure.setAllotment(allotment);

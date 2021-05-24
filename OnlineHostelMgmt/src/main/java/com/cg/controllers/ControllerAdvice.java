@@ -16,6 +16,7 @@ import com.cg.exceptions.FeeStructureNotFoundException;
 import com.cg.exceptions.FloorNotFoundException;
 import com.cg.exceptions.GenderTypeMismatchException;
 import com.cg.exceptions.HostelNotFoundException;
+import com.cg.exceptions.HostelRoomMismatchException;
 import com.cg.exceptions.IncorrectAmountException;
 import com.cg.exceptions.RoomNotFoundException;
 import com.cg.exceptions.StudentNotFoundException;
@@ -186,4 +187,13 @@ public class ControllerAdvice {
 		list.add(ex.getMessage());
 		return new ErrorMessage(HttpStatus.NOT_FOUND.toString(), list);
 	}
+	
+	// HostelRoomMismatchException
+		@ExceptionHandler(HostelRoomMismatchException.class)
+		@ResponseStatus(code = HttpStatus.NOT_FOUND)
+		public ErrorMessage handleExceptionHostelRoomMismatch(HostelRoomMismatchException ex) {
+			List<String> list = new ArrayList<>();
+			list.add(ex.getMessage());
+			return new ErrorMessage(HttpStatus.NOT_FOUND.toString(), list);
+		}
 }
