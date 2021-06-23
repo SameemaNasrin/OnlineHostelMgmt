@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.cg.dto.ErrorMessage;
 import com.cg.exceptions.AllotmentNotFoundException;
+import com.cg.exceptions.EmailAlreadyExistException;
 import com.cg.exceptions.FeeStructureNotFoundException;
 import com.cg.exceptions.FloorNotFoundException;
 import com.cg.exceptions.GenderTypeMismatchException;
@@ -43,6 +44,15 @@ public class ControllerAdvice {
 		list.add(ex.getMessage());
 		return new ErrorMessage(HttpStatus.NOT_FOUND.toString(), list);
 	}
+	
+	// EmailAlreadyExistException
+		@ExceptionHandler(EmailAlreadyExistException.class)
+		@ResponseStatus(code = HttpStatus.CONFLICT)
+		public ErrorMessage handleExceptionEmailAlreadyExist(EmailAlreadyExistException ex) {
+			List<String> list = new ArrayList<>();
+			list.add(ex.getMessage());
+			return new ErrorMessage(HttpStatus.CONFLICT.toString(), list);
+		}
 
 	// FeeStructureNotFoundException
 	@ExceptionHandler(FeeStructureNotFoundException.class)

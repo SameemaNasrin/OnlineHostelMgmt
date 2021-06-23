@@ -23,6 +23,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import com.cg.dao.IStudentDao;
 import com.cg.dto.StudentDTO;
 import com.cg.entities.Student;
+import com.cg.exceptions.EmailAlreadyExistException;
 import com.cg.exceptions.StudentNotFoundException;
 import com.cg.services.IStudentService;
 import com.cg.services.StudentServiceImpl;
@@ -70,7 +71,7 @@ public class StudentTest {
 
 	@Test
 	@DisplayName("Add student test case")
-	public void addStudentTest() {
+	public void addStudentTest() throws EmailAlreadyExistException {
 		assertEquals(student, studentService.addStudent(studentDto));
 	}
 

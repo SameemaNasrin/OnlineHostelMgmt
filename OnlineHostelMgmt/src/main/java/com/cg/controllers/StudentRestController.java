@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.cg.dto.StudentDTO;
 import com.cg.dto.SuccessMessage;
 import com.cg.entities.Student;
+import com.cg.exceptions.EmailAlreadyExistException;
 import com.cg.exceptions.StudentNotFoundException;
 import com.cg.exceptions.ValidateStudentException;
 import com.cg.services.IStudentService;
@@ -34,7 +35,7 @@ public class StudentRestController {
 
 	@PostMapping("/add")
 	public ResponseEntity<Student> addStudent(@Valid @RequestBody StudentDTO studentDto, BindingResult br)
-			throws ValidateStudentException {
+			throws ValidateStudentException, EmailAlreadyExistException {
 		if (br.hasErrors()) {
 			throw new ValidateStudentException(br.getFieldErrors());
 		}
