@@ -10,8 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cg.dao.IStudentDao;
+import com.cg.dao.IWardenDao;
 import com.cg.dto.StudentDTO;
 import com.cg.entities.Student;
+import com.cg.entities.Warden;
 import com.cg.exceptions.EmailAlreadyExistException;
 import com.cg.exceptions.StudentNotFoundException;
 import com.cg.helper.Helper;
@@ -20,6 +22,9 @@ import com.cg.helper.Helper;
 public class StudentServiceImpl implements IStudentService {
 	@Autowired
 	IStudentDao studentDao;
+	
+	@Autowired
+	IWardenDao wardenDao;
 
 	@Override
 	public Student addStudent(StudentDTO studentDto) throws EmailAlreadyExistException {
@@ -31,9 +36,10 @@ public class StudentServiceImpl implements IStudentService {
 		 * if returned list is empty then add student
 		 * else if return list is not empty then throw exception that the email is already registered
 		 */
-		List<Student> email = checkEmail(studentDto.getEmail());
+		List<Student> studentEmail = checkStudentEmail(studentDto.getEmail());
+		List<Warden> wardenEmail = checkWardenEmail(studentDto.getEmail());
 
-		if(email.size()>0)
+		if(studentEmail.size()>0 || wardenEmail.size()>0)
 			throw new EmailAlreadyExistException("This Email is already registered");
 		
 		student.setEmail(studentDto.getEmail());
@@ -88,10 +94,16 @@ public class StudentServiceImpl implements IStudentService {
 	
 	
 	//checking the email
-	public List<Student> checkEmail(String email)    {
+	public List<Student> checkStudentEmail(String email)    {
 	    List<Student> student = studentDao.findByEmail(email);
 	    System.out.print(student);
 	    return(student);
+	}
+	
+	public List<Warden> checkWardenEmail(String email)    {
+	    List<Warden> warden = wardenDao.findByEmail(email);
+	    System.out.print(warden);
+	    return(warden);
 	}
 
 

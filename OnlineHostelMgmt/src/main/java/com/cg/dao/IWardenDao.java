@@ -11,6 +11,8 @@ import com.cg.entities.Warden;
 public interface IWardenDao extends JpaRepository<Warden, Integer> {
 
 	public List<Warden> findByHostelId(Integer hostelId);
+	
+	List<Warden> findByEmail(String email);
 
 
 }
