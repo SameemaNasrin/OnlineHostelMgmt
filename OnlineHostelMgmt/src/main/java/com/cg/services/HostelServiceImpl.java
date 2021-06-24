@@ -9,7 +9,10 @@ import org.springframework.stereotype.Service;
 import com.cg.dao.IHostelDao;
 import com.cg.dto.HostelDto;
 import com.cg.entities.Hostel;
+import com.cg.entities.Student;
 import com.cg.exceptions.HostelNotFoundException;
+import com.cg.exceptions.StudentNotFoundException;
+import com.cg.helper.Helper;
 
 
 /** 
@@ -67,5 +70,13 @@ public class HostelServiceImpl implements IHostelService{
 		}
 		return optHostel.get();
 		
+	}
+
+	@Override
+	public List<Hostel> getHostelByName(String name) throws HostelNotFoundException {
+		List<Hostel> hostel = hostelDao.findByName(name);
+		if (hostel.isEmpty())
+			throw new HostelNotFoundException("No hostel found with name " + name);
+		return hostel;
 	}
 }
