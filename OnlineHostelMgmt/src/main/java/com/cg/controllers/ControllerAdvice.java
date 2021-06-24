@@ -20,6 +20,7 @@ import com.cg.exceptions.GenderTypeMismatchException;
 import com.cg.exceptions.HostelNotFoundException;
 import com.cg.exceptions.HostelRoomMismatchException;
 import com.cg.exceptions.IncorrectAmountException;
+import com.cg.exceptions.MobileNumberAlreadyExistsException;
 import com.cg.exceptions.RoomNotFoundException;
 import com.cg.exceptions.StudentNotFoundException;
 import com.cg.exceptions.ValidateAllotmentException;
@@ -44,15 +45,24 @@ public class ControllerAdvice {
 		list.add(ex.getMessage());
 		return new ErrorMessage(HttpStatus.NOT_FOUND.toString(), list);
 	}
-	
+
 	// EmailAlreadyExistException
-		@ExceptionHandler(EmailAlreadyExistException.class)
-		@ResponseStatus(code = HttpStatus.CONFLICT)
-		public ErrorMessage handleExceptionEmailAlreadyExist(EmailAlreadyExistException ex) {
-			List<String> list = new ArrayList<>();
-			list.add(ex.getMessage());
-			return new ErrorMessage(HttpStatus.CONFLICT.toString(), list);
-		}
+	@ExceptionHandler(EmailAlreadyExistException.class)
+	@ResponseStatus(code = HttpStatus.CONFLICT)
+	public ErrorMessage handleExceptionEmailAlreadyExist(EmailAlreadyExistException ex) {
+		List<String> list = new ArrayList<>();
+		list.add(ex.getMessage());
+		return new ErrorMessage(HttpStatus.CONFLICT.toString(), list);
+	}
+
+	// MobileNumberAlreadyExistsException
+	@ExceptionHandler(MobileNumberAlreadyExistsException.class)
+	@ResponseStatus(code = HttpStatus.CONFLICT)
+	public ErrorMessage handleExceptionMobileNumberAlreadyExists(MobileNumberAlreadyExistsException ex) {
+		List<String> list = new ArrayList<>();
+		list.add(ex.getMessage());
+		return new ErrorMessage(HttpStatus.CONFLICT.toString(), list);
+	}
 
 	// FeeStructureNotFoundException
 	@ExceptionHandler(FeeStructureNotFoundException.class)
@@ -199,13 +209,13 @@ public class ControllerAdvice {
 		list.add(ex.getMessage());
 		return new ErrorMessage(HttpStatus.NOT_FOUND.toString(), list);
 	}
-	
+
 	// HostelRoomMismatchException
-		@ExceptionHandler(HostelRoomMismatchException.class)
-		@ResponseStatus(code = HttpStatus.NOT_FOUND)
-		public ErrorMessage handleExceptionHostelRoomMismatch(HostelRoomMismatchException ex) {
-			List<String> list = new ArrayList<>();
-			list.add(ex.getMessage());
-			return new ErrorMessage(HttpStatus.NOT_FOUND.toString(), list);
-		}
+	@ExceptionHandler(HostelRoomMismatchException.class)
+	@ResponseStatus(code = HttpStatus.NOT_FOUND)
+	public ErrorMessage handleExceptionHostelRoomMismatch(HostelRoomMismatchException ex) {
+		List<String> list = new ArrayList<>();
+		list.add(ex.getMessage());
+		return new ErrorMessage(HttpStatus.NOT_FOUND.toString(), list);
+	}
 }

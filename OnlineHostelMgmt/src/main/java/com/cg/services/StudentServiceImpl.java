@@ -1,4 +1,5 @@
 package com.cg.services;
+
 import java.util.ArrayList;
 /*
  * @Author: Supriyo Das
@@ -15,6 +16,7 @@ import com.cg.dto.StudentDTO;
 import com.cg.entities.Student;
 import com.cg.entities.Warden;
 import com.cg.exceptions.EmailAlreadyExistException;
+import com.cg.exceptions.MobileNumberAlreadyExistsException;
 import com.cg.exceptions.StudentNotFoundException;
 import com.cg.helper.Helper;
 
@@ -22,26 +24,28 @@ import com.cg.helper.Helper;
 public class StudentServiceImpl implements IStudentService {
 	@Autowired
 	IStudentDao studentDao;
-	
+
 	@Autowired
 	IWardenDao wardenDao;
 
 	@Override
-	public Student addStudent(StudentDTO studentDto) throws EmailAlreadyExistException {
+	public Student addStudent(StudentDTO studentDto) throws EmailAlreadyExistException, MobileNumberAlreadyExistsException {
 		Student student = new Student();
 		student.setName(studentDto.getName());
 		/*
-		 * checking for unique email
-		 * run a function-> return type- list of email
-		 * if returned list is empty then add student
-		 * else if return list is not empty then throw exception that the email is already registered
+		 * checking for unique email run a function-> return type- list of email if
+		 * returned list is empty then add student else if return list is not empty then
+		 * throw exception that the email is already registered
 		 */
 		List<Student> studentEmail = checkStudentEmail(studentDto.getEmail());
 		List<Warden> wardenEmail = checkWardenEmail(studentDto.getEmail());
+		List<Student> studentPhone = checkStudentPhone(studentDto.getMobile());
 
-		if(studentEmail.size()>0 || wardenEmail.size()>0)
+		if (studentEmail.size() > 0 || wardenEmail.size() > 0)
 			throw new EmailAlreadyExistException("This Email is already registered");
-		
+		if(studentPhone.size() > 0)
+			throw new MobileNumberAlreadyExistsException("This mobile number is already registered");
+
 		student.setEmail(studentDto.getEmail());
 		student.setGender(studentDto.getGender());
 		student.setAddress(studentDto.getAddress());
@@ -85,26 +89,27 @@ public class StudentServiceImpl implements IStudentService {
 
 	@Override
 	public Student getStudentByMobileNumber(String mobileNumber) throws StudentNotFoundException {
-		Student student = studentDao.findByMobile(mobileNumber);
+		Student student = studentDao.findByMobile(mobileNumber).get(0);
 		if (student == null)
 			throw new StudentNotFoundException(Helper.NO_STUDENT_FOUND_WITH_MOBILE_NUMBER + mobileNumber);
 		return student;
 	}
-	
-	
-	
-	//checking the email
-	public List<Student> checkStudentEmail(String email)    {
-	    List<Student> student = studentDao.findByEmail(email);
-	    System.out.print(student);
-	    return(student);
-	}
-	
-	public List<Warden> checkWardenEmail(String email)    {
-	    List<Warden> warden = wardenDao.findByEmail(email);
-	    System.out.print(warden);
-	    return(warden);
+
+	// checking the email
+	private List<Student> checkStudentEmail(String email) {
+		List<Student> students = studentDao.findByEmail(email);
+
+		return students;
 	}
 
+	private List<Warden> checkWardenEmail(String email) {
+		List<Warden> wardens = wardenDao.findByEmail(email);
+
+		return wardens;
+	}
+	private List<Student> checkStudentPhone(String phone) {
+		List<Student> students = studentDao.findByMobile(phone);
+		return students;
+	}
 
 }

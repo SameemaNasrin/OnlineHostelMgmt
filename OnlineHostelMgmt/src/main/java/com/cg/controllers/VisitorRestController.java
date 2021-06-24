@@ -43,6 +43,11 @@ public class VisitorRestController {
 		Integer visitorId = visitorService.addVisitor(visitorDto).getId();
 		return new SuccessMessage("Visitor created with id: " + visitorId);
 	}
+	
+	@GetMapping("/get")
+	public ResponseEntity<List<Visitor>> viewAllVisitors() throws VisitorNotFoundException {
+		return new ResponseEntity<List<Visitor>>(visitorService.getAllVisitors(),HttpStatus.OK);
+	}
 
 	@GetMapping("/get/{date}")
 	public ResponseEntity<List<Visitor>> viewVisitorByVisitDate(@PathVariable("date") String date)

@@ -2,6 +2,7 @@ package com.cg.dto;
 
 import java.time.LocalDate;
 
+import javax.validation.constraints.FutureOrPresent;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -22,6 +23,7 @@ public class VisitorDTO {
 	@NotBlank(message = "reason name cannot be empty")
 	private String reason;
 	@NotNull(message = "Date of visiting should not be empty")
+	@FutureOrPresent(message = "Must be a present or future date")
 	private LocalDate dateOfVisiting;
 	@NotNull(message = "hostel_id name cannot be empty")
 	private Integer hostelId;

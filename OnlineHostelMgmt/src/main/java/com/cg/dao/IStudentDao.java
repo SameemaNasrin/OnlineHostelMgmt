@@ -11,6 +11,6 @@ import com.cg.entities.Student;
 public interface IStudentDao extends JpaRepository<Student, Integer> {
 	public List<Student> findByNameContaining(String name);
 
-	public Student findByMobile(String mobile);
+	public List<Student> findByMobile(String mobile);
 	public List<Student> findByEmail(String email);
 }

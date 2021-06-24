@@ -78,4 +78,14 @@ public class VisitorServiceImpl implements IVisitorService {
 		return visitorList;
 	}
 
+	@Override
+	public List<Visitor> getAllVisitors() throws VisitorNotFoundException {
+		List<Visitor> visitorList = visitorDao.findAll();
+		if (visitorList.isEmpty()) {
+			throw new VisitorNotFoundException(Helper.NO_VISITORS_FOUND);
+		}
+
+		return visitorList;
+	}
+
 }

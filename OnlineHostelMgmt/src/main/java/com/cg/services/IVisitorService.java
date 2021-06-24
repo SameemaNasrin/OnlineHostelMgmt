@@ -19,5 +19,7 @@ public interface IVisitorService {
 
 	public List<Visitor> getVisitorByStudent(Integer student_Id)
 			throws VisitorNotFoundException, StudentNotFoundException;
+	
+	public List<Visitor> getAllVisitors() throws VisitorNotFoundException;
 
 }

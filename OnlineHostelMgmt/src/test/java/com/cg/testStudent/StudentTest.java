@@ -24,6 +24,7 @@ import com.cg.dao.IStudentDao;
 import com.cg.dto.StudentDTO;
 import com.cg.entities.Student;
 import com.cg.exceptions.EmailAlreadyExistException;
+import com.cg.exceptions.MobileNumberAlreadyExistsException;
 import com.cg.exceptions.StudentNotFoundException;
 import com.cg.services.IStudentService;
 import com.cg.services.StudentServiceImpl;
@@ -64,14 +65,14 @@ public class StudentTest {
 		when(studentDao.save(any(Student.class))).thenReturn(student);
 		when(studentDao.findAll()).thenReturn(Stream.of(student).collect(Collectors.toList()));
 		when(studentDao.findById(student.getId())).thenReturn(Optional.of(student));
-		when(studentDao.findByMobile(student.getMobile())).thenReturn(Optional.of(student).get());
+		when(studentDao.findByMobile(student.getMobile())).thenReturn(Stream.of(student).collect(Collectors.toList()));
 		when(studentDao.findByNameContaining(student.getName()))
 				.thenReturn(Stream.of(student).collect(Collectors.toList()));
 	}
 
 	@Test
 	@DisplayName("Add student test case")
-	public void addStudentTest() throws EmailAlreadyExistException {
+	public void addStudentTest() throws EmailAlreadyExistException, MobileNumberAlreadyExistsException {
 		assertEquals(student, studentService.addStudent(studentDto));
 	}
 
