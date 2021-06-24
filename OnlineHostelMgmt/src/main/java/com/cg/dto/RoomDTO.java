@@ -18,6 +18,7 @@ public class RoomDTO {
 	private Integer floor;
 
 	@Max(value = 4, message = "Max size cannot be more than 4")
+	@Min(value = 1, message = "Max size cannot be less than 1")
 	private Integer maximumSize = 4;
 
 	@Min(value = 1, message = "Hostel id cannot be less than 1")

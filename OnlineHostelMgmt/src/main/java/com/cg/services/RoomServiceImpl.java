@@ -87,5 +87,13 @@ public class RoomServiceImpl implements IRoomService{
 		return toReturn;
 	}
 
+	@Override
+	public List<Room> getAllRooms() throws RoomNotFoundException {
+		List<Room> rooms = roomdao.findAll();
+		if(rooms.isEmpty())
+			throw new RoomNotFoundException("No room found");
+		return rooms;
+	}
+
 	
 }

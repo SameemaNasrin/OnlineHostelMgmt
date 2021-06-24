@@ -66,9 +66,14 @@ public class RoomRestController {
 		return new ResponseEntity<List<Room>>(roomService.getRoomsAvailableByHostelId(hostel_id), HttpStatus.OK);
 	}
 
-	@GetMapping("/get")
+	@GetMapping("/get/all/available")
 	public ResponseEntity<List<Room>> viewRoomsAvailable() throws HostelNotFoundException, RoomNotFoundException {
 		return new ResponseEntity<List<Room>>(roomService.getRoomsAvailable(), HttpStatus.OK);
+	}
+	
+	@GetMapping("/get/all")
+	public ResponseEntity<List<Room>> viewAllRooms() throws RoomNotFoundException {
+		return new ResponseEntity<List<Room>>(roomService.getAllRooms(), HttpStatus.OK);
 	}
 
 }

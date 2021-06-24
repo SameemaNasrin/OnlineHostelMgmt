@@ -20,7 +20,7 @@ public interface IRoomService {
 	
 	public List<Room> getRoomsAvailable() throws RoomNotFoundException;
 	
-	
+	public List<Room> getAllRooms() throws RoomNotFoundException;
 		
 	
 
