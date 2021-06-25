@@ -20,6 +20,7 @@ import com.cg.exceptions.GenderTypeMismatchException;
 import com.cg.exceptions.HostelNotFoundException;
 import com.cg.exceptions.HostelRoomMismatchException;
 import com.cg.exceptions.IncorrectAmountException;
+import com.cg.exceptions.LoginException;
 import com.cg.exceptions.MobileNumberAlreadyExistsException;
 import com.cg.exceptions.RoomNotFoundException;
 import com.cg.exceptions.StudentNotFoundException;
@@ -44,6 +45,15 @@ public class ControllerAdvice {
 		List<String> list = new ArrayList<>();
 		list.add(ex.getMessage());
 		return new ErrorMessage(HttpStatus.NOT_FOUND.toString(), list);
+	}
+
+	// LoginException
+	@ExceptionHandler(LoginException.class)
+	@ResponseStatus(code = HttpStatus.UNPROCESSABLE_ENTITY)
+	public ErrorMessage handleLoginException(LoginException ex) {
+		List<String> list = new ArrayList<>();
+		list.add(ex.getMessage());
+		return new ErrorMessage(HttpStatus.UNPROCESSABLE_ENTITY.toString(), list);
 	}
 
 	// EmailAlreadyExistException

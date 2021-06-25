@@ -1,14 +1,18 @@
 package com.cg.services;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cg.dao.IHostelDao;
+import com.cg.dao.ILoginDao;
 import com.cg.dao.IWardenDao;
 import com.cg.dto.WardenDto;
 import com.cg.entities.Hostel;
+import com.cg.entities.Login;
 import com.cg.entities.Warden;
 import com.cg.exceptions.HostelNotFoundException;
 import com.cg.exceptions.WardenNotFoundException;
@@ -22,8 +26,11 @@ public class WardenServiceImpl implements IWardenService {
 	@Autowired
 	IHostelDao hostelDao;
 
+	@Autowired
+	ILoginDao loginDao;
+
 	@Override
-	public Integer addWarden(WardenDto wardenDto) throws HostelNotFoundException {
+	public Map<String, String> addWarden(WardenDto wardenDto) throws HostelNotFoundException {
 		Warden warden = new Warden();
 		warden.setName(wardenDto.getName());
 		warden.setEmail(wardenDto.getEmail());
@@ -33,7 +40,18 @@ public class WardenServiceImpl implements IWardenService {
 				.orElseThrow(() -> new HostelNotFoundException("Hostel not found with id " + wardenDto.getHostelId()));
 
 		warden.setHostel(hostel);
-		return wardenDao.save(warden).getId();
+		Warden savedWarden = wardenDao.save(warden);
+		String password = savedWarden.getName().substring(0, 3) + "-" + savedWarden.getId();
+		String encryptedPassword = LoginServiceImpl.encryptPassword(password);
+		Map<String, String> output = new HashMap<>();
+		Login login = new Login();
+		login.setEmail(warden.getEmail());
+		login.setPassword(encryptedPassword);
+		login.setRole("warden");
+		loginDao.save(login);
+		output.put("wardenId", String.valueOf(savedWarden.getId()));
+		output.put("password", password);
+		return output;
 
 	}
 

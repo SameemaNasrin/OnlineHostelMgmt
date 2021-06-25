@@ -43,6 +43,7 @@ public class RoomServiceImpl implements IRoomService{
 
 	@Override
 	public List<Room> getRoomsByHostelId(Integer hostel_id) throws HostelNotFoundException, RoomNotFoundException {
+		System.out.println("===here=====");
 		hosteldao.findById(hostel_id).orElseThrow(()->new HostelNotFoundException("Hostel not found"));
 		List<Room> rooms=roomdao.findByHostelId(hostel_id);
 		if(rooms.isEmpty())

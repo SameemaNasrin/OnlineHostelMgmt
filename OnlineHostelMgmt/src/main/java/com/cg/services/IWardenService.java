@@ -1,6 +1,7 @@
 package com.cg.services;
 
 import java.util.List;
+import java.util.Map;
 
 import com.cg.dto.WardenDto;
 import com.cg.entities.Warden;
@@ -9,7 +10,7 @@ import com.cg.exceptions.WardenNotFoundException;
 
 public interface IWardenService {
 
-	public Integer addWarden(WardenDto wardendto) throws HostelNotFoundException;
+	public Map<String, String> addWarden(WardenDto wardendto) throws HostelNotFoundException;
 
 	public List<Warden> viewAllWarden() throws WardenNotFoundException;
 

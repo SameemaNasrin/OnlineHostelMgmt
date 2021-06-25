@@ -1,18 +1,22 @@
 package com.cg.services;
 
-import java.util.ArrayList;
 /*
  * @Author: Supriyo Das
  * @Created at: 20.05.2021
  * */
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cg.dao.ILoginDao;
 import com.cg.dao.IStudentDao;
 import com.cg.dao.IWardenDao;
 import com.cg.dto.StudentDTO;
+import com.cg.entities.Login;
 import com.cg.entities.Student;
 import com.cg.entities.Warden;
 import com.cg.exceptions.EmailAlreadyExistException;
@@ -27,9 +31,12 @@ public class StudentServiceImpl implements IStudentService {
 
 	@Autowired
 	IWardenDao wardenDao;
+	
+	@Autowired
+	ILoginDao loginDao;
 
 	@Override
-	public Student addStudent(StudentDTO studentDto) throws EmailAlreadyExistException, MobileNumberAlreadyExistsException {
+	public Map<String, String> addStudent(StudentDTO studentDto) throws EmailAlreadyExistException, MobileNumberAlreadyExistsException {
 		Student student = new Student();
 		student.setName(studentDto.getName());
 		/*
@@ -46,13 +53,26 @@ public class StudentServiceImpl implements IStudentService {
 		if(studentPhone.size() > 0)
 			throw new MobileNumberAlreadyExistsException("This mobile number is already registered");
 
+		Map<String, String> output = new HashMap<>();
 		student.setEmail(studentDto.getEmail());
 		student.setGender(studentDto.getGender());
 		student.setAddress(studentDto.getAddress());
 		student.setDob(studentDto.getDob());
 		student.setGuardianName(studentDto.getGuardianName());
 		student.setMobile(studentDto.getMobile());
-		return studentDao.save(student);
+		Student savedStudent = studentDao.save(student);
+		String password = savedStudent.getName().substring(0,3) + "-" + savedStudent.getId();
+		String encryptedPassword = LoginServiceImpl.encryptPassword(password);
+		
+		Login login = new Login();
+		login.setEmail(student.getEmail());
+		login.setPassword(encryptedPassword);
+		login.setRole("student");
+		loginDao.save(login);
+		output.put("studentId", String.valueOf(savedStudent.getId()));
+		output.put("password", password);
+		
+		return output;
 	}
 
 	@Override

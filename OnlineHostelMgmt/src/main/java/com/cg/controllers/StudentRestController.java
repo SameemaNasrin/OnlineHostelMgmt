@@ -1,6 +1,7 @@
 package com.cg.controllers;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.validation.Valid;
 
@@ -35,13 +36,14 @@ public class StudentRestController {
 	IStudentService studentService;
 
 	@PostMapping("/add")
-	public ResponseEntity<Student> addStudent(@Valid @RequestBody StudentDTO studentDto, BindingResult br)
+	public SuccessMessage addStudent(@Valid @RequestBody StudentDTO studentDto, BindingResult br)
 			throws ValidateStudentException, EmailAlreadyExistException, MobileNumberAlreadyExistsException {
 		if (br.hasErrors()) {
 			throw new ValidateStudentException(br.getFieldErrors());
 		}
+		Map<String, String> outputMap = studentService.addStudent(studentDto);
 
-		return new ResponseEntity<Student>(studentService.addStudent(studentDto), HttpStatus.CREATED);
+		return new SuccessMessage("Your generated ID is " + outputMap.get("studentId") + " and Password is: " + outputMap.get("password"));
 
 	}
 

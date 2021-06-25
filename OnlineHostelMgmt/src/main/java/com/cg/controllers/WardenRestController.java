@@ -1,6 +1,7 @@
 package com.cg.controllers;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.validation.Valid;
 
@@ -52,8 +53,9 @@ public class WardenRestController {
 		if (br.hasErrors()) {
 			throw new ValidateWardenException(br.getFieldErrors());
 		}
-		Integer wardenId = wardenService.addWarden(wardenDto);
-		return new SuccessMessage("Your generated ID is " + wardenId);
+		Map<String, String> outputMap = wardenService.addWarden(wardenDto);
+
+		return new SuccessMessage("Your generated ID is " + outputMap.get("wardenId") + " and Password is: " + outputMap.get("password"));
 
 	}
 
