@@ -12,10 +12,12 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cg.dao.IAdminDao;
 import com.cg.dao.ILoginDao;
 import com.cg.dao.IStudentDao;
 import com.cg.dao.IWardenDao;
 import com.cg.dto.StudentDTO;
+import com.cg.entities.Admin;
 import com.cg.entities.Login;
 import com.cg.entities.Student;
 import com.cg.entities.Warden;
@@ -34,6 +36,9 @@ public class StudentServiceImpl implements IStudentService {
 	
 	@Autowired
 	ILoginDao loginDao;
+	
+	@Autowired
+	IAdminDao adminDao;
 
 	@Override
 	public Map<String, String> addStudent(StudentDTO studentDto) throws EmailAlreadyExistException, MobileNumberAlreadyExistsException {
@@ -46,9 +51,10 @@ public class StudentServiceImpl implements IStudentService {
 		 */
 		List<Student> studentEmail = checkStudentEmail(studentDto.getEmail());
 		List<Warden> wardenEmail = checkWardenEmail(studentDto.getEmail());
+		List<Admin> adminEmail = checkAdminEmail(studentDto.getEmail());
 		List<Student> studentPhone = checkStudentPhone(studentDto.getMobile());
 
-		if (studentEmail.size() > 0 || wardenEmail.size() > 0)
+		if (studentEmail.size() > 0 || wardenEmail.size() > 0 || adminEmail.size() > 0)
 			throw new EmailAlreadyExistException("This Email is already registered");
 		if(studentPhone.size() > 0)
 			throw new MobileNumberAlreadyExistsException("This mobile number is already registered");
@@ -68,6 +74,7 @@ public class StudentServiceImpl implements IStudentService {
 		login.setEmail(student.getEmail());
 		login.setPassword(encryptedPassword);
 		login.setRole("student");
+		login.setStudent(savedStudent);
 		loginDao.save(login);
 		output.put("studentId", String.valueOf(savedStudent.getId()));
 		output.put("password", password);
@@ -116,6 +123,11 @@ public class StudentServiceImpl implements IStudentService {
 	}
 
 	// checking the email
+	private List<Admin> checkAdminEmail(String email) {
+		List<Admin> admins = adminDao.findByEmail(email);
+
+		return admins;
+	}
 	private List<Student> checkStudentEmail(String email) {
 		List<Student> students = studentDao.findByEmail(email);
 

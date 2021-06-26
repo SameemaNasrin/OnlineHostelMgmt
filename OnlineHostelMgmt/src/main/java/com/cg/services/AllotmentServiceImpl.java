@@ -51,8 +51,8 @@ public class AllotmentServiceImpl implements IAllotmentService {
 
 	@Override
 	@Transactional
-	public Integer addAllotment(AllotmentDto allotmentDto)
-			throws RoomNotFoundException, StudentNotFoundException, GenderTypeMismatchException, HostelNotFoundException, HostelRoomMismatchException {
+	public Integer addAllotment(AllotmentDto allotmentDto) throws RoomNotFoundException, StudentNotFoundException,
+			GenderTypeMismatchException, HostelNotFoundException, HostelRoomMismatchException {
 		Allotment allotment = new Allotment();
 		/*
 		 * finding room id and checking for availability of beds if unavailable then
@@ -65,9 +65,10 @@ public class AllotmentServiceImpl implements IAllotmentService {
 				() -> new StudentNotFoundException("Student not found with id " + allotmentDto.getStudentId()));
 		Hostel hostel = hostelDao.findById(allotmentDto.getHostelId()).orElseThrow(
 				() -> new HostelNotFoundException("Hostel not found with id " + allotmentDto.getHostelId()));
-		
-		if(room.getHostel().getId() != hostel.getId())
-			throw new HostelRoomMismatchException("No room with id "+ room.getRoomId() + " is present in hostel with hostel id " + hostel.getId());
+
+		if (room.getHostel().getId() != hostel.getId())
+			throw new HostelRoomMismatchException(
+					"No room with id " + room.getRoomId() + " is present in hostel with hostel id " + hostel.getId());
 
 		// check whether the hostel type and gender matches
 		String studentGender = student.getGender();
@@ -125,7 +126,7 @@ public class AllotmentServiceImpl implements IAllotmentService {
 		Integer size = room.getMaximumSize();
 		room.setMaximumSize(size + 1);
 		roomDao.save(room);
-		
+
 		FeeStructure feeStructure = feeStructureDao.findByAllotment(allotment);
 		if (feeStructure != null) {
 			feeStructure.setAllotment(null);

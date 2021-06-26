@@ -16,6 +16,7 @@ public class LoginDto {
 	@NotBlank(message = LoginConstants.PASSWORD_REQUIRED_MESSAGE)
 	private String password;
 
+	@NotNull(message = "Role is mandatory")
 	private String role;
 
 	public String getEmail() {

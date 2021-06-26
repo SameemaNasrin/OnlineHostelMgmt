@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.cg.dto.SuccessMessage;
 import com.cg.dto.WardenDto;
 import com.cg.entities.Warden;
+import com.cg.exceptions.EmailAlreadyExistException;
 import com.cg.exceptions.HostelNotFoundException;
 import com.cg.exceptions.ValidateWardenException;
 import com.cg.exceptions.WardenNotFoundException;
@@ -48,7 +49,7 @@ public class WardenRestController {
 
 	@PostMapping("/add")
 	public SuccessMessage addWarden(@Valid @RequestBody WardenDto wardenDto, BindingResult br)
-			throws ValidateWardenException, HostelNotFoundException {
+			throws ValidateWardenException, HostelNotFoundException, EmailAlreadyExistException {
 
 		if (br.hasErrors()) {
 			throw new ValidateWardenException(br.getFieldErrors());

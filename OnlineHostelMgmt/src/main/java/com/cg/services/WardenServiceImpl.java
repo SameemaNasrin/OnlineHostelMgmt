@@ -7,13 +7,18 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cg.dao.IAdminDao;
 import com.cg.dao.IHostelDao;
 import com.cg.dao.ILoginDao;
+import com.cg.dao.IStudentDao;
 import com.cg.dao.IWardenDao;
 import com.cg.dto.WardenDto;
+import com.cg.entities.Admin;
 import com.cg.entities.Hostel;
 import com.cg.entities.Login;
+import com.cg.entities.Student;
 import com.cg.entities.Warden;
+import com.cg.exceptions.EmailAlreadyExistException;
 import com.cg.exceptions.HostelNotFoundException;
 import com.cg.exceptions.WardenNotFoundException;
 
@@ -28,10 +33,19 @@ public class WardenServiceImpl implements IWardenService {
 
 	@Autowired
 	ILoginDao loginDao;
+	@Autowired
+	IAdminDao adminDao;
+	@Autowired
+	IStudentDao studentDao;
 
 	@Override
-	public Map<String, String> addWarden(WardenDto wardenDto) throws HostelNotFoundException {
+	public Map<String, String> addWarden(WardenDto wardenDto) throws HostelNotFoundException, EmailAlreadyExistException {
 		Warden warden = new Warden();
+		List<Student> studentEmail = checkStudentEmail(wardenDto.getEmail());
+		List<Warden> wardenEmail = checkWardenEmail(wardenDto.getEmail());
+		List<Admin> adminEmail = checkAdminEmail(wardenDto.getEmail());
+		if (studentEmail.size() > 0 || wardenEmail.size() > 0 || adminEmail.size() > 0)
+			throw new EmailAlreadyExistException("This Email is already registered");
 		warden.setName(wardenDto.getName());
 		warden.setEmail(wardenDto.getEmail());
 		warden.setId(wardenDto.getId());
@@ -48,6 +62,7 @@ public class WardenServiceImpl implements IWardenService {
 		login.setEmail(warden.getEmail());
 		login.setPassword(encryptedPassword);
 		login.setRole("warden");
+		login.setWarden(savedWarden);
 		loginDao.save(login);
 		output.put("wardenId", String.valueOf(savedWarden.getId()));
 		output.put("password", password);
@@ -79,6 +94,24 @@ public class WardenServiceImpl implements IWardenService {
 
 		if (wardens.isEmpty())
 			throw new WardenNotFoundException("No warden found for Hostel Id: " + hostel.getId());
+		return wardens;
+	}
+
+	private List<Admin> checkAdminEmail(String email) {
+		List<Admin> admins = adminDao.findByEmail(email);
+
+		return admins;
+	}
+
+	private List<Student> checkStudentEmail(String email) {
+		List<Student> students = studentDao.findByEmail(email);
+
+		return students;
+	}
+
+	private List<Warden> checkWardenEmail(String email) {
+		List<Warden> wardens = wardenDao.findByEmail(email);
+
 		return wardens;
 	}
 

@@ -27,6 +27,7 @@ import com.cg.exceptions.StudentNotFoundException;
 import com.cg.exceptions.ValidateAllotmentException;
 import com.cg.exceptions.ValidateFeeStructureException;
 import com.cg.exceptions.ValidateHostelException;
+import com.cg.exceptions.ValidateLoginException;
 import com.cg.exceptions.ValidateRoomException;
 import com.cg.exceptions.ValidateStudentException;
 import com.cg.exceptions.ValidateVisitorException;
@@ -145,6 +146,14 @@ public class ControllerAdvice {
 	@ExceptionHandler(ValidateWardenException.class)
 	@ResponseStatus(code = HttpStatus.BAD_REQUEST)
 	public ErrorMessage handleException(ValidateWardenException ex) {
+		List<String> errors = ex.getErrors().stream().map(err -> err.getDefaultMessage()).collect(Collectors.toList());
+		return new ErrorMessage(HttpStatus.BAD_REQUEST.toString(), errors);
+	}
+
+	// gives validation messages for Login
+	@ExceptionHandler(ValidateLoginException.class)
+	@ResponseStatus(code = HttpStatus.BAD_REQUEST)
+	public ErrorMessage handleValidateLoginException(ValidateLoginException ex) {
 		List<String> errors = ex.getErrors().stream().map(err -> err.getDefaultMessage()).collect(Collectors.toList());
 		return new ErrorMessage(HttpStatus.BAD_REQUEST.toString(), errors);
 	}

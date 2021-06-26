@@ -31,6 +31,16 @@ public class Login {
 
 	@Column(name = "role", length = 25)
 	private String role;
+	
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "student_id", referencedColumnName = "student_id")
+	private Student student;
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "warden_id", referencedColumnName = "warden_id")
+	private Warden warden;
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "admin_id", referencedColumnName = "admin_id")
+	private Admin admin;
 
 	public Integer getId() {
 		return id;
@@ -63,5 +73,38 @@ public class Login {
 	public void setRole(String role) {
 		this.role = role;
 	}
+
+	public Student getStudent() {
+		return student;
+	}
+
+	public void setStudent(Student student) {
+		this.student = student;
+	}
+
+	public Warden getWarden() {
+		return warden;
+	}
+
+	public void setWarden(Warden warden) {
+		this.warden = warden;
+	}
+
+	public Admin getAdmin() {
+		return admin;
+	}
+
+	public void setAdmin(Admin admin) {
+		this.admin = admin;
+	}
+
+	@Override
+	public String toString() {
+		return "Login [id=" + id + ", email=" + email + ", password=" + password + ", role=" + role + ", student="
+				+ student + ", warden=" + warden + ", admin=" + admin + "]";
+	}
+	
+	
+	
 
 }

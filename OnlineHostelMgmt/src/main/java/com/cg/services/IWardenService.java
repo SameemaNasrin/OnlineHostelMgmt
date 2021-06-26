@@ -5,12 +5,13 @@ import java.util.Map;
 
 import com.cg.dto.WardenDto;
 import com.cg.entities.Warden;
+import com.cg.exceptions.EmailAlreadyExistException;
 import com.cg.exceptions.HostelNotFoundException;
 import com.cg.exceptions.WardenNotFoundException;
 
 public interface IWardenService {
 
-	public Map<String, String> addWarden(WardenDto wardendto) throws HostelNotFoundException;
+	public Map<String, String> addWarden(WardenDto wardendto) throws HostelNotFoundException,EmailAlreadyExistException;
 
 	public List<Warden> viewAllWarden() throws WardenNotFoundException;
 

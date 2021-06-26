@@ -20,6 +20,7 @@ import com.cg.dao.IWardenDao;
 import com.cg.dto.WardenDto;
 import com.cg.entities.Hostel;
 import com.cg.entities.Warden;
+import com.cg.exceptions.EmailAlreadyExistException;
 import com.cg.exceptions.HostelNotFoundException;
 import com.cg.services.IWardenService;
 import com.cg.services.WardenServiceImpl;
@@ -53,7 +54,7 @@ public class TestAddWarden {
 	}
 	@Test
 	@DisplayName("test 1")
-	public void addWardenTest()throws HostelNotFoundException{
+	public void addWardenTest()throws HostelNotFoundException, EmailAlreadyExistException{
 		WardenDto wardenDto=new WardenDto();
 		wardenDto.setHostel(5001);
 		assertNotNull(service.addWarden(wardenDto));
