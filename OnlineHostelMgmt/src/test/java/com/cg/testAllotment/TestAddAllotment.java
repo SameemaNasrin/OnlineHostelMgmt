@@ -30,6 +30,7 @@ import com.cg.exceptions.GenderTypeMismatchException;
 import com.cg.exceptions.HostelNotFoundException;
 import com.cg.exceptions.HostelRoomMismatchException;
 import com.cg.exceptions.RoomNotFoundException;
+import com.cg.exceptions.StudentAlreadyAllottedException;
 import com.cg.exceptions.StudentNotFoundException;
 import com.cg.helper.Helper;
 import com.cg.services.AllotmentServiceImpl;
@@ -91,7 +92,7 @@ import com.cg.services.IAllotmentService;
 	}
 	@Test
 	@DisplayName("Test for add allotment1")
-	void addAllotmentTest() throws RoomNotFoundException, StudentNotFoundException, GenderTypeMismatchException, HostelNotFoundException, HostelRoomMismatchException{
+	void addAllotmentTest() throws RoomNotFoundException, StudentNotFoundException, GenderTypeMismatchException, HostelNotFoundException, HostelRoomMismatchException, StudentAlreadyAllottedException{
 		AllotmentDto allotmentdto=new AllotmentDto();
 		allotmentdto.setStudentId(101);
 		allotmentdto.setHostelId(5001);

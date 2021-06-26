@@ -25,6 +25,7 @@ import com.cg.entities.Hostel;
 import com.cg.entities.Student;
 import com.cg.entities.Visitor;
 import com.cg.exceptions.HostelNotFoundException;
+import com.cg.exceptions.StudentNotAllottedException;
 import com.cg.exceptions.StudentNotFoundException;
 import com.cg.exceptions.VisitorNotFoundException;
 import com.cg.services.IVisitorService;
@@ -55,7 +56,7 @@ public class VisitorTest {
 		visitor = new Visitor();
 		visitorDto = new VisitorDTO();
 		visitorDto.setStudentId(1);
-		visitorDto.setHostelId(1001);
+//		visitorDto.setHostelId(1001);
 		visitorDto.setDateOfVisiting(LocalDate.of(2021, 02, 23));
 		visitorDto.setName("Visitor test 1");
 		visitorDto.setNumber("9051020414");
@@ -91,7 +92,7 @@ public class VisitorTest {
 
 	@Test
 	@DisplayName("Test for add visitor")
-	void addStudentTestCase() throws StudentNotFoundException, HostelNotFoundException {
+	void addStudentTestCase() throws StudentNotFoundException, HostelNotFoundException, StudentNotAllottedException {
 		assertEquals(visitor, service.addVisitor(visitorDto));
 	}
 
@@ -105,7 +106,7 @@ public class VisitorTest {
 	@Test
 	@DisplayName("Negative test for add visitor-hostel not found")
 	void addStudentNegativeTestCaseHostel() throws StudentNotFoundException, HostelNotFoundException {
-		visitorDto.setHostelId(1002);
+//		visitorDto.setHostelId(1002);
 		assertThrows(HostelNotFoundException.class, () -> service.addVisitor(visitorDto));
 	}
 

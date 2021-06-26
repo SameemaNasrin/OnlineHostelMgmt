@@ -144,4 +144,20 @@ public class StudentServiceImpl implements IStudentService {
 		return students;
 	}
 
+	@Override
+	public List<Student> getUnallottedStudents() throws StudentNotFoundException {
+		List<Student> students = studentDao.findUnallottedStudents();
+		if(students.isEmpty())
+			throw new StudentNotFoundException("No unallocated students");
+		return students;
+	}
+
+	@Override
+	public List<Student> getAllottedStudents() throws StudentNotFoundException {
+		List<Student> students = studentDao.findAllottedStudents();
+		if(students.isEmpty())
+			throw new StudentNotFoundException("No Allocated students");
+		return students;
+	}
+
 }

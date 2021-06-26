@@ -74,4 +74,15 @@ public class StudentRestController {
 		Integer removedStudentId = studentService.removeStudentById(id);
 		return new SuccessMessage("Student with id " + removedStudentId + " has been removed successfully");
 	}
+	
+	@GetMapping("/get/unallotted")
+	public ResponseEntity<List<Student>> viewUnallottedStudents() throws StudentNotFoundException {
+		return new ResponseEntity<List<Student>>(studentService.getUnallottedStudents(),HttpStatus.OK);
+	}
+	
+	@GetMapping("/get/allotted")
+	public ResponseEntity<List<Student>> viewAllottedStudents() throws StudentNotFoundException {
+		return new ResponseEntity<List<Student>>(studentService.getAllottedStudents(),HttpStatus.OK);
+	}
+	
 }

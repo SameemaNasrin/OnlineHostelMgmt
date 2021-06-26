@@ -17,6 +17,7 @@ import com.cg.entities.Hostel;
 import com.cg.entities.Student;
 import com.cg.entities.Visitor;
 import com.cg.exceptions.HostelNotFoundException;
+import com.cg.exceptions.StudentNotAllottedException;
 import com.cg.exceptions.StudentNotFoundException;
 import com.cg.exceptions.VisitorNotFoundException;
 import com.cg.helper.Helper;
@@ -31,11 +32,13 @@ public class VisitorServiceImpl implements IVisitorService {
 	IHostelDao hostelDao;
 
 	@Override
-	public Visitor addVisitor(VisitorDTO visitorDto) throws StudentNotFoundException, HostelNotFoundException {
+	public Visitor addVisitor(VisitorDTO visitorDto) throws StudentNotFoundException, HostelNotFoundException, StudentNotAllottedException {
 		Student student = studentDao.findById(visitorDto.getStudentId()).orElseThrow(
 				() -> new StudentNotFoundException(Helper.NO_STUDENT_FOUND_WITH_ID + visitorDto.getStudentId()));
-		Hostel hostel = hostelDao.findById(visitorDto.getHostelId()).orElseThrow(
-				() -> new HostelNotFoundException(Helper.NO_HOSTEL_FOUND_WITH_ID + visitorDto.getHostelId()));
+		if(student.getAllotment() == null) {
+			throw new StudentNotAllottedException("Student not allotted");
+		}
+		Hostel hostel = student.getAllotment().getHostel();
 		Visitor visitor = new Visitor();
 		visitor.setVisitorName(visitorDto.getName());
 		visitor.setContactNumber(visitorDto.getNumber());

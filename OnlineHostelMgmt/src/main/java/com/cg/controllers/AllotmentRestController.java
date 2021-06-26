@@ -23,6 +23,7 @@ import com.cg.exceptions.GenderTypeMismatchException;
 import com.cg.exceptions.HostelNotFoundException;
 import com.cg.exceptions.HostelRoomMismatchException;
 import com.cg.exceptions.RoomNotFoundException;
+import com.cg.exceptions.StudentAlreadyAllottedException;
 import com.cg.exceptions.StudentNotFoundException;
 import com.cg.exceptions.ValidateAllotmentException;
 import com.cg.services.IAllotmentService;
@@ -39,7 +40,7 @@ public class AllotmentRestController {
 	@PostMapping("/add")
 	public SuccessMessage addAllotment(@Valid @RequestBody AllotmentDto allotmentDto, BindingResult br)
 			throws ValidateAllotmentException, HostelNotFoundException, RoomNotFoundException,
-			StudentNotFoundException, GenderTypeMismatchException, HostelRoomMismatchException {
+			StudentNotFoundException, GenderTypeMismatchException, HostelRoomMismatchException, StudentAlreadyAllottedException {
 
 		if (br.hasErrors()) {
 			throw new ValidateAllotmentException(br.getFieldErrors());

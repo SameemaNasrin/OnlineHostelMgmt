@@ -25,26 +25,6 @@ public class VisitorDTO {
 	@NotNull(message = "Date of visiting should not be empty")
 	@FutureOrPresent(message = "Must be a present or future date")
 	private LocalDate dateOfVisiting;
-	@NotNull(message = "hostel_id name cannot be empty")
-	private Integer hostelId;
-
-	public VisitorDTO() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	public VisitorDTO(String name, String number, Integer studentId, String studentRelation, String visitorAddress,
-			String reason, LocalDate dateOfVisiting, Integer hostelId) {
-		super();
-		this.name = name;
-		this.number = number;
-		this.studentId = studentId;
-		this.studentRelation = studentRelation;
-		this.visitorAddress = visitorAddress;
-		this.reason = reason;
-		this.dateOfVisiting = dateOfVisiting;
-		this.hostelId = hostelId;
-	}
 
 	public String getName() {
 		return name;
@@ -100,14 +80,6 @@ public class VisitorDTO {
 
 	public void setDateOfVisiting(LocalDate dateOfVisiting) {
 		this.dateOfVisiting = dateOfVisiting;
-	}
-
-	public Integer getHostelId() {
-		return hostelId;
-	}
-
-	public void setHostelId(Integer hostelId) {
-		this.hostelId = hostelId;
 	}
 
 }

@@ -9,11 +9,13 @@ import com.cg.exceptions.GenderTypeMismatchException;
 import com.cg.exceptions.HostelNotFoundException;
 import com.cg.exceptions.HostelRoomMismatchException;
 import com.cg.exceptions.RoomNotFoundException;
+import com.cg.exceptions.StudentAlreadyAllottedException;
 import com.cg.exceptions.StudentNotFoundException;
 
 public interface IAllotmentService {
 
-	public Integer addAllotment(AllotmentDto allotmentDto) throws RoomNotFoundException, StudentNotFoundException, GenderTypeMismatchException, HostelNotFoundException, HostelRoomMismatchException;
+	public Integer addAllotment(AllotmentDto allotmentDto) throws RoomNotFoundException, StudentNotFoundException,
+			GenderTypeMismatchException, HostelNotFoundException, HostelRoomMismatchException,StudentAlreadyAllottedException;
 
 	public Integer removeAllotment(Integer allotmentId) throws AllotmentNotFoundException, RoomNotFoundException;
 

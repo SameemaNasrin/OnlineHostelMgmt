@@ -7,40 +7,42 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "allotments")
 public class Allotment {
 
-	// primary key
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "allotment_id")
 	private Integer id;
 
-	// relationship with room entity table
 	@ManyToOne
 	@JoinColumn(name = "room_id", referencedColumnName = "room_id")
 	private Room room;
-	// relationship with student entity table
-	@ManyToOne
+
+	@OneToOne
 	@JoinColumn(name = "student_id", referencedColumnName = "student_id")
 	private Student student;
+
 	@ManyToOne
-	@JoinColumn(name="hostel_id",referencedColumnName = "hostel_id")
+	@JoinColumn(name = "hostel_id", referencedColumnName = "hostel_id")
 	private Hostel hostel;
 
-
-	
 	// constructors
-	public Allotment(Integer id, Room room, Student student,Hostel hostel) {
+	public Allotment(Integer id, Room room, Student student, Hostel hostel) {
 		super();
 		this.id = id;
 		this.room = room;
 		this.student = student;
-		this.hostel=hostel;
+		this.hostel = hostel;
 	}
+
 	public Allotment() {
 		super();
 	}

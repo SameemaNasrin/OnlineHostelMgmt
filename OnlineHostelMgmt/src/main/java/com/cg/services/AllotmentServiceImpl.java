@@ -26,6 +26,7 @@ import com.cg.exceptions.GenderTypeMismatchException;
 import com.cg.exceptions.HostelNotFoundException;
 import com.cg.exceptions.HostelRoomMismatchException;
 import com.cg.exceptions.RoomNotFoundException;
+import com.cg.exceptions.StudentAlreadyAllottedException;
 import com.cg.exceptions.StudentNotFoundException;
 import com.cg.helper.Helper;
 
@@ -52,7 +53,7 @@ public class AllotmentServiceImpl implements IAllotmentService {
 	@Override
 	@Transactional
 	public Integer addAllotment(AllotmentDto allotmentDto) throws RoomNotFoundException, StudentNotFoundException,
-			GenderTypeMismatchException, HostelNotFoundException, HostelRoomMismatchException {
+			GenderTypeMismatchException, HostelNotFoundException, HostelRoomMismatchException,StudentAlreadyAllottedException {
 		Allotment allotment = new Allotment();
 		/*
 		 * finding room id and checking for availability of beds if unavailable then
@@ -73,7 +74,9 @@ public class AllotmentServiceImpl implements IAllotmentService {
 		// check whether the hostel type and gender matches
 		String studentGender = student.getGender();
 		String hostelType = room.getHostel().getType();
-
+		if(student.getAllotment() != null) {
+			throw new StudentAlreadyAllottedException("Student Already Allotted");
+		}
 		if ((studentGender.equalsIgnoreCase(Helper.FEMALE) && hostelType.equalsIgnoreCase(Helper.GIRLS))
 				|| (studentGender.equalsIgnoreCase(Helper.MALE) && hostelType.equalsIgnoreCase(Helper.BOYS))
 				|| (studentGender.equalsIgnoreCase(Helper.OTHER) && hostelType.equalsIgnoreCase(Helper.OTHERS))) {
@@ -91,6 +94,9 @@ public class AllotmentServiceImpl implements IAllotmentService {
 			allotment.setStudent(student);
 			allotment.setHostel(hostel);
 			Allotment savedAllotment = allotmentDao.save(allotment);
+			Student allottedStudent = savedAllotment.getStudent();
+			allottedStudent.setAllotment(savedAllotment);
+			studentDao.save(allottedStudent);
 			FeeStructure feeStructure = new FeeStructure();
 			feeStructure.setAllotment(allotment);
 			feeStructure.setPaymentStatus(Helper.NOT_PAID);

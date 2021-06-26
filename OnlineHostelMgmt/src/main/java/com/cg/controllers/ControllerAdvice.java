@@ -23,6 +23,8 @@ import com.cg.exceptions.IncorrectAmountException;
 import com.cg.exceptions.LoginException;
 import com.cg.exceptions.MobileNumberAlreadyExistsException;
 import com.cg.exceptions.RoomNotFoundException;
+import com.cg.exceptions.StudentAlreadyAllottedException;
+import com.cg.exceptions.StudentNotAllottedException;
 import com.cg.exceptions.StudentNotFoundException;
 import com.cg.exceptions.ValidateAllotmentException;
 import com.cg.exceptions.ValidateFeeStructureException;
@@ -46,6 +48,23 @@ public class ControllerAdvice {
 		List<String> list = new ArrayList<>();
 		list.add(ex.getMessage());
 		return new ErrorMessage(HttpStatus.NOT_FOUND.toString(), list);
+	}
+
+	// HostelNotFoundException
+	@ExceptionHandler(StudentNotAllottedException.class)
+	@ResponseStatus(code = HttpStatus.NOT_FOUND)
+	public ErrorMessage handleStudentNotAllottedException(StudentNotAllottedException ex) {
+		List<String> list = new ArrayList<>();
+		list.add(ex.getMessage());
+		return new ErrorMessage(HttpStatus.NOT_FOUND.toString(), list);
+	}
+
+	@ExceptionHandler(StudentAlreadyAllottedException.class)
+	@ResponseStatus(code = HttpStatus.UNPROCESSABLE_ENTITY)
+	public ErrorMessage handleStudentAlreadyAllottedException(StudentAlreadyAllottedException ex) {
+		List<String> list = new ArrayList<>();
+		list.add(ex.getMessage());
+		return new ErrorMessage(HttpStatus.UNPROCESSABLE_ENTITY.toString(), list);
 	}
 
 	// LoginException

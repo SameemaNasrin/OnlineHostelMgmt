@@ -21,6 +21,7 @@ import com.cg.dto.SuccessMessage;
 import com.cg.dto.VisitorDTO;
 import com.cg.entities.Visitor;
 import com.cg.exceptions.HostelNotFoundException;
+import com.cg.exceptions.StudentNotAllottedException;
 import com.cg.exceptions.StudentNotFoundException;
 import com.cg.exceptions.ValidateVisitorException;
 import com.cg.exceptions.VisitorNotFoundException;
@@ -36,17 +37,18 @@ public class VisitorRestController {
 
 	@PostMapping("/add")
 	public SuccessMessage addVisitor(@Valid @RequestBody VisitorDTO visitorDto, BindingResult br)
-			throws StudentNotFoundException, HostelNotFoundException, ValidateVisitorException {
-		if(br.hasErrors()) {
+			throws StudentNotFoundException, HostelNotFoundException, ValidateVisitorException,
+			StudentNotAllottedException {
+		if (br.hasErrors()) {
 			throw new ValidateVisitorException(br.getFieldErrors());
 		}
 		Integer visitorId = visitorService.addVisitor(visitorDto).getId();
 		return new SuccessMessage("Visitor created with id: " + visitorId);
 	}
-	
+
 	@GetMapping("/get")
 	public ResponseEntity<List<Visitor>> viewAllVisitors() throws VisitorNotFoundException {
-		return new ResponseEntity<List<Visitor>>(visitorService.getAllVisitors(),HttpStatus.OK);
+		return new ResponseEntity<List<Visitor>>(visitorService.getAllVisitors(), HttpStatus.OK);
 	}
 
 	@GetMapping("/get/{date}")

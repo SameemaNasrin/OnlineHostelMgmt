@@ -7,7 +7,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "students")
@@ -37,6 +43,11 @@ public class Student {
 
 	@Column(name = "guardian_name")
 	private String guardianName;
+	
+	@OneToOne
+	@JoinColumn(name = "allotment_id", referencedColumnName = "allotment_id")
+	@JsonIgnore
+	private Allotment allotment;
 
 	public Student() {
 		super();
@@ -106,10 +117,14 @@ public class Student {
 		this.guardianName = guardianName;
 	}
 
-	@Override
-	public String toString() {
-		return id + " " + name + " " + email + " " + gender + " " + dob + " " + mobile + " " + address + " "
-				+ guardianName;
+	public Allotment getAllotment() {
+		return allotment;
 	}
+
+	public void setAllotment(Allotment allotment) {
+		this.allotment = allotment;
+	}
+
+	
 
 }

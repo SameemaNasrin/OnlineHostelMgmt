@@ -16,4 +16,6 @@ public interface IStudentService {
 	public Student getStudentById(Integer studentId) throws StudentNotFoundException;
 	public List<Student> getStudentByName(String name) throws StudentNotFoundException;
 	public Student getStudentByMobileNumber(String mobileNumber) throws StudentNotFoundException;
+	public List<Student> getUnallottedStudents() throws StudentNotFoundException;
+	public List<Student> getAllottedStudents() throws StudentNotFoundException;
 }
