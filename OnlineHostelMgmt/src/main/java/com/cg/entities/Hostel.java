@@ -36,6 +36,9 @@ public class Hostel {
 	
 	@Column(name="total_floors")
 	private final Integer totalFloors= Helper.FIVE;
+	
+	@Column(name="img_url")
+	private String imgUrl;
 
 	public Hostel() {
 		super();
@@ -112,4 +115,13 @@ public class Hostel {
 		return totalFloors;
 	}
 
+	public String getImgUrl() {
+		return imgUrl;
+	}
+
+	public void setImgUrl(String imgUrl) {
+		this.imgUrl = imgUrl;
+	}
+
+	
 }

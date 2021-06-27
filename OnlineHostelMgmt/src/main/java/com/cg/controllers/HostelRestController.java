@@ -39,7 +39,7 @@ public class HostelRestController {
 	}
 	
 	@GetMapping("/get/{hid}")
-	public Hostel viewEmployeebyId(@PathVariable("hid") Integer hostelId) throws HostelNotFoundException {
+	public Hostel viewHostelById(@PathVariable("hid") Integer hostelId) throws HostelNotFoundException {
 		return hostelService.viewHostelById(hostelId);
 	}
 

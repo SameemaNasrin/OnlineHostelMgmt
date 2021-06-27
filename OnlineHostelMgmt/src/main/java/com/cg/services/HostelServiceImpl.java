@@ -40,6 +40,7 @@ public class HostelServiceImpl implements IHostelService{
 		hostel.setType(hostelDto.getType());
 		hostel.setAddress(hostelDto.getAddress());
 		hostel.setFee(hostelDto.getFee());
+		hostel.setImgUrl(hostelDto.getImgUrl());
 		
 		return hostelDao.save(hostel).getId();
 	}

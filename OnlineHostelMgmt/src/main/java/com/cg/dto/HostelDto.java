@@ -27,6 +27,9 @@ public class HostelDto {
 	
 	@Max(value=5,message="Total floors cannot be more than 5")
 	private final Integer totalFloors= Helper.FIVE;
+	
+	
+	private String imgUrl;
 
 	public HostelDto() {
 
@@ -93,6 +96,15 @@ public class HostelDto {
 	public Integer getTotalFloors() {
 		return totalFloors;
 	}
+
+	public String getImgUrl() {
+		return imgUrl;
+	}
+
+	public void setImgUrl(String imgUrl) {
+		this.imgUrl = imgUrl;
+	}
+	
 	
 
 }
