@@ -1,5 +1,6 @@
 package com.cg.entities;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -26,8 +27,8 @@ public class Allotment {
 	@JoinColumn(name = "room_id", referencedColumnName = "room_id")
 	private Room room;
 
-	@OneToOne
-	@JoinColumn(name = "student_id", referencedColumnName = "student_id")
+	@OneToOne(mappedBy = "allotment")
+//	@JoinColumn(name = "student_id", referencedColumnName = "student_id")
 	private Student student;
 
 	@ManyToOne

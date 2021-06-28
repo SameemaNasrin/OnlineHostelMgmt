@@ -85,4 +85,5 @@ public class StudentRestController {
 		return new ResponseEntity<List<Student>>(studentService.getAllottedStudents(),HttpStatus.OK);
 	}
 	
+	
 }

@@ -33,15 +33,16 @@ public class StudentServiceImpl implements IStudentService {
 
 	@Autowired
 	IWardenDao wardenDao;
-	
+
 	@Autowired
 	ILoginDao loginDao;
-	
+
 	@Autowired
 	IAdminDao adminDao;
 
 	@Override
-	public Map<String, String> addStudent(StudentDTO studentDto) throws EmailAlreadyExistException, MobileNumberAlreadyExistsException {
+	public Map<String, String> addStudent(StudentDTO studentDto)
+			throws EmailAlreadyExistException, MobileNumberAlreadyExistsException {
 		Student student = new Student();
 		student.setName(studentDto.getName());
 		/*
@@ -56,7 +57,7 @@ public class StudentServiceImpl implements IStudentService {
 
 		if (studentEmail.size() > 0 || wardenEmail.size() > 0 || adminEmail.size() > 0)
 			throw new EmailAlreadyExistException("This Email is already registered");
-		if(studentPhone.size() > 0)
+		if (studentPhone.size() > 0)
 			throw new MobileNumberAlreadyExistsException("This mobile number is already registered");
 
 		Map<String, String> output = new HashMap<>();
@@ -67,18 +68,19 @@ public class StudentServiceImpl implements IStudentService {
 		student.setGuardianName(studentDto.getGuardianName());
 		student.setMobile(studentDto.getMobile());
 		Student savedStudent = studentDao.save(student);
-		String password = savedStudent.getName().substring(0,3) + "-" + savedStudent.getId();
+		String password = savedStudent.getName().substring(0, 3) + "-" + savedStudent.getId();
 		String encryptedPassword = LoginServiceImpl.encryptPassword(password);
-		
+
 		Login login = new Login();
 		login.setEmail(student.getEmail());
 		login.setPassword(encryptedPassword);
 		login.setRole("student");
 		login.setStudent(savedStudent);
 		loginDao.save(login);
+
 		output.put("studentId", String.valueOf(savedStudent.getId()));
 		output.put("password", password);
-		
+
 		return output;
 	}
 
@@ -128,6 +130,7 @@ public class StudentServiceImpl implements IStudentService {
 
 		return admins;
 	}
+
 	private List<Student> checkStudentEmail(String email) {
 		List<Student> students = studentDao.findByEmail(email);
 
@@ -139,6 +142,7 @@ public class StudentServiceImpl implements IStudentService {
 
 		return wardens;
 	}
+
 	private List<Student> checkStudentPhone(String phone) {
 		List<Student> students = studentDao.findByMobile(phone);
 		return students;
@@ -147,7 +151,7 @@ public class StudentServiceImpl implements IStudentService {
 	@Override
 	public List<Student> getUnallottedStudents() throws StudentNotFoundException {
 		List<Student> students = studentDao.findUnallottedStudents();
-		if(students.isEmpty())
+		if (students.isEmpty())
 			throw new StudentNotFoundException("No unallocated students");
 		return students;
 	}
@@ -155,7 +159,7 @@ public class StudentServiceImpl implements IStudentService {
 	@Override
 	public List<Student> getAllottedStudents() throws StudentNotFoundException {
 		List<Student> students = studentDao.findAllottedStudents();
-		if(students.isEmpty())
+		if (students.isEmpty())
 			throw new StudentNotFoundException("No Allocated students");
 		return students;
 	}

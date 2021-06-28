@@ -52,13 +52,6 @@ public class LoginServiceImpl implements ILoginService {
 			}
 		}
 
-//		Optional<Login> optLogin = logindao.findById(empId);
-//		if (!optLogin.isPresent())
-//			throw new LoginException(LoginConstants.CHECK_YOUR_CREDENTIALS);
-//		login = optLogin.get();
-//		if (!login.getPassword().contentEquals(encryptPassword(password)))
-//			throw new LoginException(LoginConstants.PASSWORD_WRONG);
-//		return login;
 	}
 
 	@Override
@@ -94,7 +87,6 @@ public class LoginServiceImpl implements ILoginService {
 		}
 		return sb.toString();
 	}
-
 
 	@Override
 	public String encryptLogin(Login loginAcnt) {

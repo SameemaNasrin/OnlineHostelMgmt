@@ -135,9 +135,13 @@ public class AllotmentServiceImpl implements IAllotmentService {
 
 		FeeStructure feeStructure = feeStructureDao.findByAllotment(allotment);
 		if (feeStructure != null) {
-			feeStructure.setAllotment(null);
+			feeStructureDao.deleteById(feeStructure.getId());
+//			feeStructure.setAllotment(null);
 		}
-
+		Student tempStudent = allotment.getStudent();
+		tempStudent.setAllotment(null);
+		studentDao.save(tempStudent);
+//		feeStructureDao.save(feeStructure);
 		allotmentDao.deleteById(allotment.getId());
 		return allotmentId;
 	}

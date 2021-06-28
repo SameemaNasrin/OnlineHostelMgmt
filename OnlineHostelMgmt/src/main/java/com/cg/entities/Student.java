@@ -2,6 +2,7 @@ package com.cg.entities;
 
 import java.time.LocalDate;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -48,6 +49,9 @@ public class Student {
 	@JoinColumn(name = "allotment_id", referencedColumnName = "allotment_id")
 	@JsonIgnore
 	private Allotment allotment;
+	
+	@OneToOne(cascade = CascadeType.ALL, mappedBy = "student")
+	private Login login;
 
 	public Student() {
 		super();
