@@ -9,6 +9,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @Table(name = "warden")
 public class Warden {
@@ -26,6 +30,7 @@ public class Warden {
 	
 	@ManyToOne
 	@JoinColumn(name="hostel_id",referencedColumnName = "hostel_id")
+	@JsonIgnore
 	private Hostel hostel;
 	
 	//constructors

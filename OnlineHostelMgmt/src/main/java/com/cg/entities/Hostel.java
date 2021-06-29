@@ -4,7 +4,9 @@ import java.util.Set;
 import javax.persistence.*;
 
 import com.cg.helper.Helper;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "hostel")
@@ -39,6 +41,9 @@ public class Hostel {
 	
 	@Column(name="img_url")
 	private String imgUrl;
+	
+	@OneToMany(mappedBy = "hostel")
+	private Set<Warden> wardens;
 
 	public Hostel() {
 		super();
@@ -121,6 +126,14 @@ public class Hostel {
 
 	public void setImgUrl(String imgUrl) {
 		this.imgUrl = imgUrl;
+	}
+
+	public Set<Warden> getWardens() {
+		return wardens;
+	}
+
+	public void setWardens(Set<Warden> wardens) {
+		this.wardens = wardens;
 	}
 
 	
