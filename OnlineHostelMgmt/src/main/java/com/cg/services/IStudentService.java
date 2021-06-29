@@ -4,8 +4,12 @@ import java.util.List;
 import java.util.Map;
 
 import com.cg.dto.StudentDTO;
+import com.cg.entities.Allotment;
+import com.cg.entities.FeeStructure;
 import com.cg.entities.Student;
+import com.cg.exceptions.AllotmentNotFoundException;
 import com.cg.exceptions.EmailAlreadyExistException;
+import com.cg.exceptions.FeeStructureNotFoundException;
 import com.cg.exceptions.MobileNumberAlreadyExistsException;
 import com.cg.exceptions.StudentNotFoundException;
 
@@ -18,4 +22,5 @@ public interface IStudentService {
 	public Student getStudentByMobileNumber(String mobileNumber) throws StudentNotFoundException;
 	public List<Student> getUnallottedStudents() throws StudentNotFoundException;
 	public List<Student> getAllottedStudents() throws StudentNotFoundException;
+	public FeeStructure getFeeStructureByStudentId(Integer student_id) throws StudentNotFoundException,AllotmentNotFoundException,FeeStructureNotFoundException;
 }

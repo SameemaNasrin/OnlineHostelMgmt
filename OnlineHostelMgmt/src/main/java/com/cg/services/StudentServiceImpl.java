@@ -13,15 +13,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cg.dao.IAdminDao;
+import com.cg.dao.IFeeStructureDao;
 import com.cg.dao.ILoginDao;
 import com.cg.dao.IStudentDao;
 import com.cg.dao.IWardenDao;
 import com.cg.dto.StudentDTO;
 import com.cg.entities.Admin;
+import com.cg.entities.Allotment;
+import com.cg.entities.FeeStructure;
 import com.cg.entities.Login;
 import com.cg.entities.Student;
 import com.cg.entities.Warden;
+import com.cg.exceptions.AllotmentNotFoundException;
 import com.cg.exceptions.EmailAlreadyExistException;
+import com.cg.exceptions.FeeStructureNotFoundException;
 import com.cg.exceptions.MobileNumberAlreadyExistsException;
 import com.cg.exceptions.StudentNotFoundException;
 import com.cg.helper.Helper;
@@ -39,6 +44,8 @@ public class StudentServiceImpl implements IStudentService {
 
 	@Autowired
 	IAdminDao adminDao;
+	@Autowired
+	IFeeStructureDao feeStructureDao;
 
 	@Override
 	public Map<String, String> addStudent(StudentDTO studentDto)
@@ -163,5 +170,22 @@ public class StudentServiceImpl implements IStudentService {
 			throw new StudentNotFoundException("No Allocated students");
 		return students;
 	}
+
+	@Override
+	public FeeStructure getFeeStructureByStudentId(Integer student_id) throws StudentNotFoundException, AllotmentNotFoundException,FeeStructureNotFoundException {
+		Student student = studentDao.findById(student_id)
+				.orElseThrow(() -> new StudentNotFoundException("Student not found with id " + student_id));
+		Allotment allotment = student.getAllotment();
+		if (allotment == null) {
+			throw new AllotmentNotFoundException("No allotment found for student id " + student_id);
+		}
+		FeeStructure feeStructure = feeStructureDao.getFeeStructure(student_id);
+		if(feeStructure == null) {
+			throw new FeeStructureNotFoundException("No fee structure found for student id " + student.getId());
+		}
+		return feeStructure;
+	}
+
+	
 
 }

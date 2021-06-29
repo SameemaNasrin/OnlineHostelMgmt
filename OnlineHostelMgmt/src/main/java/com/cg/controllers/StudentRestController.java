@@ -20,8 +20,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.cg.dto.StudentDTO;
 import com.cg.dto.SuccessMessage;
+import com.cg.entities.Allotment;
+import com.cg.entities.FeeStructure;
 import com.cg.entities.Student;
+import com.cg.exceptions.AllotmentNotFoundException;
 import com.cg.exceptions.EmailAlreadyExistException;
+import com.cg.exceptions.FeeStructureNotFoundException;
 import com.cg.exceptions.MobileNumberAlreadyExistsException;
 import com.cg.exceptions.StudentNotFoundException;
 import com.cg.exceptions.ValidateStudentException;
@@ -43,7 +47,8 @@ public class StudentRestController {
 		}
 		Map<String, String> outputMap = studentService.addStudent(studentDto);
 
-		return new SuccessMessage("Your generated ID is " + outputMap.get("studentId") + " and Password is: " + outputMap.get("password"));
+		return new SuccessMessage("Your generated ID is " + outputMap.get("studentId") + " and Password is: "
+				+ outputMap.get("password"));
 
 	}
 
@@ -74,16 +79,21 @@ public class StudentRestController {
 		Integer removedStudentId = studentService.removeStudentById(id);
 		return new SuccessMessage("Student with id " + removedStudentId + " has been removed successfully");
 	}
-	
+
 	@GetMapping("/get/unallotted")
 	public ResponseEntity<List<Student>> viewUnallottedStudents() throws StudentNotFoundException {
-		return new ResponseEntity<List<Student>>(studentService.getUnallottedStudents(),HttpStatus.OK);
+		return new ResponseEntity<List<Student>>(studentService.getUnallottedStudents(), HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/get/allotted")
 	public ResponseEntity<List<Student>> viewAllottedStudents() throws StudentNotFoundException {
-		return new ResponseEntity<List<Student>>(studentService.getAllottedStudents(),HttpStatus.OK);
+		return new ResponseEntity<List<Student>>(studentService.getAllottedStudents(), HttpStatus.OK);
 	}
-	
-	
+
+	@GetMapping("/get/allotment-details/{studentId}")
+	public FeeStructure viewAllotmentDetailsWithStudentId(@PathVariable("studentId") Integer studentId)
+			throws StudentNotFoundException, AllotmentNotFoundException, FeeStructureNotFoundException {
+		return studentService.getFeeStructureByStudentId(studentId);
+	}
+
 }
