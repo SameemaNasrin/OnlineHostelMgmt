@@ -39,7 +39,7 @@ public class Hostel {
 	@Column(name="total_floors")
 	private final Integer totalFloors= Helper.FIVE;
 	
-	@Column(name="img_url")
+	@Column(name="img_url", length = 255)
 	private String imgUrl;
 	
 	@OneToMany(mappedBy = "hostel")

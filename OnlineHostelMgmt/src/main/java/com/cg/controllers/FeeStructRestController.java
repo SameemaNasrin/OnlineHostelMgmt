@@ -9,10 +9,12 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cg.dto.PayFeeDto;
 import com.cg.dto.SuccessMessage;
 import com.cg.entities.FeeStructure;
 import com.cg.exceptions.AllotmentNotFoundException;
@@ -31,10 +33,10 @@ public class FeeStructRestController {
 	Logger logger = LoggerFactory.getLogger(FeeStructRestController.class);
 
 	@PostMapping("/pay/{sid}")
-	public SuccessMessage payFeeByStudentId(@RequestParam Double amount, @PathVariable("sid") Integer studentId)
+	public SuccessMessage payFeeByStudentId(@RequestBody PayFeeDto payFeeDto, @PathVariable("sid") Integer studentId)
 			throws StudentNotFoundException, AllotmentNotFoundException, IncorrectAmountException {
 
-		Integer id = feeStructureService.payFeeByStudentId(studentId,amount);
+		Integer id = feeStructureService.payFeeByStudentId(studentId,payFeeDto.getAmount());
 		return new SuccessMessage("Your generated ID is " + id);
 	}
 

@@ -79,6 +79,7 @@ public class LoginRestController {
 			map.put("email", login.getAdmin().getEmail());
 			map.put("username", "admin");
 			map.put("role", "admin");
+			map.put("id", login.getAdmin().getId());
 		} else if (login.getStudent() != null) {
 			map.put("email", login.getStudent().getEmail());
 			map.put("username", login.getStudent().getName());
@@ -88,13 +89,14 @@ public class LoginRestController {
 			map.put("address", login.getStudent().getAddress());
 			map.put("guardian", login.getStudent().getGuardianName());
 			map.put("role", "student");
-
+			map.put("id", login.getStudent().getId());
 		} else if (login.getWarden() != null) {
 			map.put("email", login.getWarden().getEmail());
 			map.put("username", login.getWarden().getName());
 
 			map.put("hostel", login.getWarden().getHostel());
 			map.put("role", "warden");
+			map.put("id", login.getWarden().getId());
 		}
 		map.put("token", service.generateToken(login));
 		logger.info(service.getAuthMap().toString());
