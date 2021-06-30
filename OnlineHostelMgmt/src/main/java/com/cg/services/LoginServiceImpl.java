@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cg.dao.ILoginDao;
+import com.cg.dto.ChangePassDto;
 import com.cg.dto.LoginDto;
 import com.cg.entities.Login;
 import com.cg.exceptions.LoginException;
@@ -105,6 +106,27 @@ public class LoginServiceImpl implements ILoginService {
 			throw new LoginException(LoginConstants.INVALID_LOGIN_TOKEN);
 		}
 		return true;
+	}
+
+	@Override
+	public Login changePassword(ChangePassDto changePassDto) throws LoginException {
+		if(!changePassDto.getNewPass().equals(changePassDto.getCnf_newPass())) {
+			throw new LoginException("New password and confirm password didn't match");
+		}
+		Login login = null;
+
+		List<Login> loginList = logindao.findByEmail(changePassDto.getEmail());
+		if (loginList.isEmpty()) {
+			throw new LoginException("No user found with email " + changePassDto.getEmail());
+		} else {
+			login = loginList.get(0);
+			if (!login.getPassword().contentEquals(encryptPassword(changePassDto.getOldPass()))) {
+				throw new LoginException(LoginConstants.PASSWORD_WRONG);
+			}
+			//all set to go
+			login.setPassword(encryptPassword(changePassDto.getNewPass()));
+			return logindao.save(login);
+		}
 	}
 
 }

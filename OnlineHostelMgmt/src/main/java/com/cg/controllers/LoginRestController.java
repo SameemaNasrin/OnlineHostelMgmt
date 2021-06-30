@@ -20,11 +20,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cg.dto.ChangePassDto;
 import com.cg.dto.LoginDto;
 import com.cg.dto.LoginResponse;
 import com.cg.dto.SuccessMessage;
 import com.cg.entities.Login;
-import com.cg.exceptions.LoginException;
 import com.cg.exceptions.*;
 import com.cg.services.ILoginService;
 import com.cg.services.IStudentService;
@@ -57,7 +57,7 @@ public class LoginRestController {
 	@PostMapping("login")
 	public Map<String, Object> doLoginController(@Valid @RequestBody LoginDto logindto, BindingResult br)
 			throws LoginException, ValidateLoginException {
-		
+
 //		
 		if (!service.getAuthMap().isEmpty())
 			throw new LoginException(LoginConstants.ALREADY_LOGGED_IN);
@@ -164,6 +164,19 @@ public class LoginRestController {
 		}
 		return map;
 
+	}
+
+	@PostMapping("/change/password")
+	public SuccessMessage changePassword(@Valid @RequestBody ChangePassDto changePassDto,
+			@RequestHeader("token-id") String token, HttpServletRequest req, BindingResult br)
+			throws ValidateLoginException, LoginException {
+		if (br.hasErrors())
+			throw new ValidateLoginException(br.getFieldErrors());
+		if (!service.getAuthMap().containsKey(token)) {
+			throw new LoginException("Invalid token");
+		}
+		Login login = service.changePassword(changePassDto);
+		return new SuccessMessage("Password changed successfully!");
 	}
 
 }

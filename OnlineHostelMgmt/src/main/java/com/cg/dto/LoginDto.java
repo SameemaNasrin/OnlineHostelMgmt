@@ -1,5 +1,6 @@
 package com.cg.dto;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -11,6 +12,7 @@ import com.cg.helper.LoginConstants;
 public class LoginDto {
 
 	@NotNull(message = LoginConstants.EMAIL_NOTNULL_MESSAGE)
+	@Email(message = "Must be a valid email")
 	private String email;
 
 	@NotBlank(message = LoginConstants.PASSWORD_REQUIRED_MESSAGE)

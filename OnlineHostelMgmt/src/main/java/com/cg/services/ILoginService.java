@@ -2,6 +2,7 @@ package com.cg.services;
 
 import java.util.Map;
 
+import com.cg.dto.ChangePassDto;
 import com.cg.dto.LoginDto;
 import com.cg.entities.Login;
 import com.cg.exceptions.LoginException;
@@ -24,4 +25,5 @@ public interface ILoginService {
 	public Map<String, Login> getAuthMap();
 
 	public boolean verifyLogin(String tokenId) throws LoginException;
+	public Login changePassword(ChangePassDto changePassDto) throws LoginException;
 }
